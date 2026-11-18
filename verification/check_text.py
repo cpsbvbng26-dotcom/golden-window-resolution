@@ -7,6 +7,9 @@
    itself contain them.
 2. No self-assigned titles and none of the items excluded by the owner's rules.
 3. CITATION.cff has no affiliation field and does not list Claude as an author.
+4. Each paper (the published one and continuity/paper/joint-continuity.tex) names Takuya Nemoto as its only
+   author, keeps the disclosure of the use of a language model with the sentence "Claude is not an author.",
+   and keeps the licence section (CC BY 4.0 for the paper, MIT for the scripts). Both PDFs are scanned.
 
   python3 verification/check_text.py           # the check
   python3 verification/check_text.py --break   # injects each variant in memory; every one must fail
@@ -86,6 +89,36 @@ def citation_problems():
     return out
 
 
+PAPERS = ["paper/golden-window-resolution.tex", "continuity/paper/joint-continuity.tex"]
+PDFS = ["paper/golden-window-resolution.pdf", "continuity/paper/joint-continuity.pdf"]
+
+
+def paper_problems(rel, t):
+    out = []
+    authors = re.findall(r"\\author\{([^}]*)\}", t)
+    if authors != ["Takuya Nemoto"]:
+        out.append(f"{rel}: the author line is not exactly Takuya Nemoto ({authors})")
+    for needle in (r"\section*{Disclosure of the use of a language model}", "Claude Code (Anthropic)",
+                   "Claude is not an author.", r"\section*{Licence}", "(CC BY 4.0)", "MIT licence"):
+        if needle not in " ".join(t.split()):
+            out.append(f"{rel}: missing '{needle}'")
+    return out
+
+
+def papers():
+    out = []
+    for rel in PAPERS:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            out.append(f"{rel}: missing")
+            continue
+        out += paper_problems(rel, open(p, encoding="utf-8").read())
+    for rel in PDFS:
+        if not os.path.exists(os.path.join(ROOT, rel)):
+            out.append(f"{rel}: missing")
+    return out
+
+
 def run():
     hits = []
     pdfs = 0
@@ -106,6 +139,7 @@ def run():
                 continue
             hits += scan_text(rel, t)
     hits += citation_problems()
+    hits += papers()
     return hits, pdfs
 
 
@@ -124,6 +158,14 @@ def break_test():
     if scan_text("clean", "Takuya Nemoto. No affiliation. citizen, frozen, Zenodo.\n"):
         print("  false positive on clean text")
         bad += 1
+    for rel in PAPERS:
+        t = open(os.path.join(ROOT, rel), encoding="utf-8").read()
+        for old, new, what in (("Claude is not an author.", "", "disclosure sentence removed"),
+                               (r"\author{Takuya Nemoto}", r"\author{Takuya Nemoto}\n\\author{Claude}", "Claude added as author"),
+                               ("(CC BY 4.0)", "(CC BY-NC 4.0)", "licence changed")):
+            caught = bool(paper_problems(rel, t.replace(old, new, 1)))
+            print(f"  {'caught' if caught else 'MISSED'}: {rel}: {what}")
+            bad += not caught
     return bad
 
 

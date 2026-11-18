@@ -9,6 +9,35 @@ The number was received from the owner on 2026-11-18.
 The content of the Figshare record it points to has not been checked.
 It is a separate item, not a new version of the Figshare preprint of 2026-10-13 (`10.6084/m9.figshare.34419198`).
 
+## The second paper: joint continuity for the hole at 0 (β > 1)
+
+`continuity/` holds the source, PDF, scripts and outputs of a second paper, "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1".
+It is to be deposited on Figshare as a separate item.
+Its DOI has not been received.
+It is not a new version of the paper above (`10.6084/m9.figshare.35050300`).
+The source and PDF of the paper above are unchanged.
+
+Theorem E of the paper above proved joint continuity for β ≤ 2, assuming Theorem 1.4 of Lu, Steiner and Zou.
+The second paper proves an inner approximation (Theorem IA) for lexicographic shifts on any finite alphabet, by symbolic means only.
+Its main step is a support lemma.
+From it follow the continuity of the entropy h(Σ_{a,b}) in (a, b) (Corollary C) and the joint continuity of (β, t) ↦ dim_H K_β(t) on (1, ∞) × [0, 1) (Corollary E).
+Corollary E is conditional on three inputs.
+The first is Lemma 6.2 of Allaart and Kong, which they deduce from Raith (Raith's paper was not read).
+The second is Lemmas 4.1 and 4.2 of the same paper.
+The third is Theorem 7.1 of the paper above, which has had no outside referee.
+It no longer depends on Theorem 1.4 of Lu, Steiner and Zou.
+
+| Result | Status |
+| --- | --- |
+| Corollary C, M = 1 | known (Labarca–Moreira, as quoted by Lu–Steiner–Zou) |
+| Corollary C, M ≥ 2 | probably known (plausibly follows from Bandtlow–Rugh Thm. 1.2; Raith not read) |
+| Continuity in t for fixed β | known for β ∈ (1, 2) (Kalle–Kong–Langeveld–Li Prop. 2.5) |
+| Theorem IA (proof by the support lemma) | not found in the texts read |
+| Corollary E (joint continuity, β > 1) | conditional; not found in the texts read; Allaart–Kong Remark 1.2 calls it unknown |
+
+The three checks each result passed are in `continuity/REFEREE.md`.
+The paper has 12 pages.
+
 ## About the paper
 
 In a three-player repeated game with discount factor 1/φ < δ < 2/3, the pure-strategy equilibrium payoffs on one edge form a fractal.
@@ -48,14 +77,19 @@ This is the status table of the paper (Status of each result).
 | `scripts/trinity/` | the part on the Trinity-Infinity papers and the Series II game |
 | `expected/` | the output of each script; the checks compare byte for byte |
 | `verification/` | the checks |
+| `continuity/paper/` | LaTeX source and built PDF of the second paper |
+| `continuity/scripts/`, `continuity/expected/` | the scripts behind the numbers of the second paper, and their outputs |
+| `continuity/REFEREE.md` | the referee record of the second paper |
 
 Every number printed in the paper is in the output of one of the scripts.
 `verification/check_numbers.py` compares them, and it fails on any decimal with three or more places that has no entry.
+`verification/check_numbers_continuity.py` does the same for the second paper, and also fails on any number of the form m·10^{e} that has no entry.
 
 ```
 python3 -m pip install -r requirements.txt
 python3 verification/run_scripts.py
 python3 verification/check_numbers.py
+python3 verification/check_numbers_continuity.py
 python3 verification/check_text.py
 python3 verification/check_copies.py
 ```
@@ -92,6 +126,10 @@ The second and third are the scripts below.
 The literature check was made on 2026-11-18.
 The literature section of the paper separates what was read in full, what was read as an abstract only, and what is recalled.
 The full texts of Berg–Kitti and of Mailath–Obara–Sekiguchi were not read.
+For the second paper, its own literature section says how each source was read.
+The proof of Corollary 7.2 in the paper above names Raith's 1989 paper as the source of Lemma 6.2 of Allaart and Kong.
+Allaart and Kong cite Raith's 1994 paper.
+The second paper's literature section and `continuity/REFEREE.md` record this discrepancy.
 
 ## Use of a language model
 

@@ -1,0 +1,8 @@
+all random pairs: 400 pairs, 390 not normalized, 81 with h > 0
+   worst gap at k = 10, 20, 30, 40, pairs with h > 0: 1.9e-02, 6.4e-04, 2.5e-05, 1.0e-06
+   worst gap at k = 10, 20, 30, 40, pairs with h = 0: <1e-11, <1e-11, <1e-11, <1e-11
+random pairs with h > 0 and spread >= 2: 200 pairs, 167 not normalized, 200 with h > 0
+   worst gap at k = 10, 20, 30, 40, pairs with h > 0: 5.6e-02, 1.8e-03, 1.2e-04, 8.1e-06
+
+entropy 0: (A, B) = (1(2)^inf, (2)^inf), M = 2, h = 0; outer_k at k = 40, 80, 160: 0.0680, 0.0404, 0.0235
+normalization jumps: (A, B) = ((0)^inf, 2(0)^inf), M = 2; H(0^k 1 0^inf, B) at k = 2, 4, 8, 12: 0.6094, 0.6760, 0.6922, 0.6931; H(A, B) = 0.6931

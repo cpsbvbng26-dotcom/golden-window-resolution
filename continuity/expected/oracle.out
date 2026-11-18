@@ -1,0 +1,13 @@
+M=1: 60 normalized pairs (47 with h > 0); word counts N_n, n <= 30: 0 mismatches; max |h(Theorem A) - h(automaton)| < 1e-12: True
+M=2: 60 normalized pairs (56 with h > 0); word counts N_n, n <= 30: 0 mismatches; max |h(Theorem A) - h(automaton)| < 1e-12: True
+M=3: 60 normalized pairs (60 with h > 0); word counts N_n, n <= 30: 0 mismatches; max |h(Theorem A) - h(automaton)| < 1e-12: True
+M=4: 60 normalized pairs (60 with h > 0); word counts N_n, n <= 30: 0 mismatches; max |h(Theorem A) - h(automaton)| < 1e-12: True
+all: 240 pairs, 0 word-count mismatches, entropies agree to 1e-12: True
+Lemma P: 3041 edges of the automata checked, 0 where the four-case rule and the product rule differ
+
+hand cases
+double root: a = 0(2)^inf, b = 3(1)^inf, normalized True; K(z) - 1 = -(2z - 1)^2/(1 - z), root 0.5; h(Theorem A) = 0.693147181, h(automaton) = 0.693147181
+spread 3: a = (01)^inf, b = (30)^inf, normalized True; root 0.3333333333; h(Theorem A) = 1.098612289, h(automaton) = 1.098612289
+not normalized: a = (011111)^inf, b = (200000)^inf, normalized False
+   series of Theorem A, n <= 12: [1, 3, 6, 9, 9, 0, -27, -78, -147, -198, -144, 162, 891]
+   word counts,         n <= 12: [1, 2, 3, 4, 5, 6, 7, 9, 12, 16, 21, 27, 34]
