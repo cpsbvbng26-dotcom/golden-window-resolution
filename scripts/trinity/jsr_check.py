@@ -43,4 +43,5 @@ for _ in range(200):
     x=np.random.default_rng(_).normal(size=2)
     for k in range(200):
         y=g*((S if rng.randrange(2)==0 else T)@x); mx=max(mx,np.linalg.norm(y)/np.linalg.norm(x)); x=y
-print("   max one-step ratio over 40000 random steps:",mx)
+assert mx <= 1 + 1e-12, mx  # the claim: no step increases the norm
+print("   max one-step ratio over 40000 random steps: %.12f" % mx)

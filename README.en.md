@@ -4,6 +4,11 @@ Source, PDF and verification scripts of the paper "Resolution of the Golden-Wind
 
 [日本語](README.md)
 
+The paper is on Figshare. Its DOI is [`10.6084/m9.figshare.35050300`](https://doi.org/10.6084/m9.figshare.35050300).
+The number was received from the owner on 2026-11-18.
+The content of the Figshare record it points to has not been checked.
+It is a separate item, not a new version of the Figshare preprint of 2026-10-13 (`10.6084/m9.figshare.34419198`).
+
 ## About the paper
 
 In a three-player repeated game with discount factor 1/φ < δ < 2/3, the pure-strategy equilibrium payoffs on one edge form a fractal.

@@ -1,11 +1,11 @@
 # golden-window-resolution
 
-Figshare に出す稿 "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game" の原稿・PDF・台本。
+Figshare に置いた稿（`10.6084/m9.figshare.35050300`）"Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game" の原稿・PDF・台本。
 黄金比の窓の予想（Figshare `10.6084/m9.figshare.34419198`）の続き。10 リポジトリの外に置く（sophaxis・deposit-check と同じ扱い）。
 
 ## 決めごと
 
-1. **DOI を推測で埋めない**。利用者から受け取った番号だけを書く。この稿の Figshare の番号は、受け取るまで書かない。
+1. **DOI を推測で埋めない**。利用者から受け取った番号だけを書く。この稿の Figshare の番号 `10.6084/m9.figshare.35050300` は、2026-11-18 に受け取った。
 2. **公開した PDF を改変しない・再生成しない**。Figshare に載った版は凍結する。誤りは正誤表と `self-correction` に記録する。
 3. **所属を書かない**。特定の大学名は、どの綴りでも書かない。`verification/check_text.py` が止める（語は符号で組んであり、ここには書き写さない）。
 4. **知られている結果を自分の結果として書かない**。紙面の状態の表（known / not found in the texts read / conditional）と本文を食い違わせない。条件付きの定理（Theorem E）は条件を外さない。

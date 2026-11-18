@@ -4,6 +4,11 @@ Resolution of the Golden-Window Conjecture and Related Results on β-Transformat
 
 [English](README.en.md)
 
+稿は Figshare にあります。DOI は [`10.6084/m9.figshare.35050300`](https://doi.org/10.6084/m9.figshare.35050300) です。
+番号は 2026-11-18 に利用者から受け取りました。
+番号が指す Figshare の記録の中身は、確かめていません。
+2026-10-13 の Figshare の稿（`10.6084/m9.figshare.34419198`）の新しい版ではなく、別の項目です。
+
 ## この稿について
 
 三人の繰り返しゲームで、割引因子が 1/φ < δ < 2/3 の窓にあるとき、純戦略の均衡利得の集合がフラクタルになります。

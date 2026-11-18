@@ -2,7 +2,8 @@ cff-version: 1.2.0
 title: "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game"
 message: >-
   このリポジトリは、上の題の稿の LaTeX の原稿、組んだ PDF、紙面の数を出す台本を置いています。
-  稿の DOI はまだありません。番号を受け取ったら、ここに書き足します。
+  稿は Figshare にあり、DOI は 10.6084/m9.figshare.35050300 です（2026-11-18 に利用者から受け取りました）。
+  2026-10-13 の Figshare の稿（10.6084/m9.figshare.34419198）の新しい版ではなく、別の項目です。
   稿は CC BY 4.0、台本は MIT です。
   言語モデル Claude Code（Anthropic）を使いました。責任は著者が負います。Claude は著者ではありません。
 type: software
@@ -22,6 +23,16 @@ keywords:
   - Hausdorff dimension
   - repeated game
   - golden ratio
+preferred-citation:
+  type: article
+  title: "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game"
+  authors:
+    - family-names: Nemoto
+      given-names: Takuya
+      orcid: https://orcid.org/0009-0000-1406-0547
+  doi: 10.6084/m9.figshare.35050300
+  year: 2026
+  notes: "Preprint on Figshare. Not peer-reviewed. A separate item from the 2026-10-13 preprint 10.6084/m9.figshare.34419198."
 references:
   - type: article
     title: "Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture"
@@ -31,3 +42,4 @@ references:
         orcid: https://orcid.org/0009-0000-1406-0547
     doi: 10.6084/m9.figshare.34419198
     year: 2026
+    notes: "Preprint on Figshare (2026-10-13) that stated the golden-window conjecture. Frozen. The paper above is a separate item, not a new version of it."
