@@ -1,0 +1,8 @@
+delta 0.5050 APS vertices 23 candidate vertices 23 equal True  vol APS 0.3320078278 cand 0.3320078278
+delta 0.5500 APS vertices 23 candidate vertices 23 equal True  vol APS 0.3648565625 cand 0.3648565625
+delta 0.6200 APS vertices 23 candidate vertices 23 equal True  vol APS 0.4085122032 cand 0.4085122032
+delta 0.6600 APS vertices 23 candidate vertices 23 equal True  vol APS 0.4294141776 cand 0.4294141776
+delta 0.6900 APS vertices 23 candidate vertices 23 equal True  vol APS 0.4431721299 cand 0.4431721299
+delta 0.7100 APS vertices 29 candidate vertices 23 equal False  vol APS 0.4513364096 cand 0.4514373801
+delta 0.7200 APS vertices 29 candidate vertices 23 equal False  vol APS 0.4548792753 cand 0.4553000832
+delta 0.7500 APS vertices 29 candidate vertices 23 equal False  vol APS 0.4647216797 cand 0.4658203125
