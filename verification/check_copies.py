@@ -18,6 +18,7 @@ COPIES = {
     ".github/ISSUE_TEMPLATE/error-report.yml": "1549c3901f58d162eefe6b414e9b09bb5975cab2377c7962fd4e93967f3ec19a",
 }
 TITLE = "Resolution of the Golden-Window Conjecture and Related Results on"
+TITLE_END = "with a Hole and on the Trinity-Infinity Series II Game"
 PDF = "paper/golden-window-resolution.pdf"
 
 
@@ -34,12 +35,13 @@ def main():
         if got != want:
             errs.append(f"{rel}: differs from the canonical copy (sha256 {got})")
     for rel in ["paper/golden-window-resolution.tex", "CITATION.cff", "README.md", "README.en.md"]:
-        if TITLE not in read(rel):
+        text = read(rel).replace("Series~II", "Series II")
+        if TITLE not in text or TITLE_END not in text:
             errs.append(f"{rel}: title missing or changed")
     try:
         import pypdf
         meta = pypdf.PdfReader(os.path.join(ROOT, PDF)).metadata or {}
-        if TITLE not in str(meta.get("/Title", "")):
+        if TITLE not in str(meta.get("/Title", "")) or TITLE_END not in str(meta.get("/Title", "")):
             errs.append(f"{PDF}: metadata title missing or changed")
     except ImportError:
         errs.append("pypdf is not installed")
