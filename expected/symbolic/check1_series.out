@@ -1,0 +1,5 @@
+seed 1 pairs tested 400 by alphabet size-1: {2: 127, 3: 128, 4: 54, 1: 91} mismatches 0
+KLX Ex 4.9 raw pair satisfies hypothesis: False
+  brute : [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+  formula raw (t,u): [1, 2, 3, 5, 7, 9, 12, 14, 15, 15, 11, 3, -9]
+  normalized (a,b) = ((011)^inf,(110)^inf) hyp: True formula: [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]

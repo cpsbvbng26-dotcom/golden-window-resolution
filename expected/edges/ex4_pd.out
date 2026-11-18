@@ -1,0 +1,12 @@
+g=1 l=1: IC nonempty from delta=0.5000; first interval-case grid delta 0.7500; gap-case grid points 1999: {'yes': 0, 'no': 1995, 'undecided': 4}
+   gap-case grid points where the maximum IS a pure SPE payoff: []
+   share of the gap range where the orbit of kappa_B survives n steps: {5: 0.1665, 10: 0.0995, 20: 0.0552, 40: 0.0281}  runs of survivors: {5: 2, 10: 7, 20: 69, 40: 1569}
+g=1/2 l=1: IC nonempty from delta=0.5000; first interval-case grid delta 0.7144; gap-case grid points 1714: {'yes': 0, 'no': 1706, 'undecided': 8}
+   gap-case grid points where the maximum IS a pure SPE payoff: []
+   share of the gap range where the orbit of kappa_B survives n steps: {5: 0.1414, 10: 0.0614, 20: 0.0344, 40: 0.0247}  runs of survivors: {5: 3, 10: 7, 20: 84, 40: 831}
+g=3/2 l=1: IC nonempty from delta=0.6000; first interval-case grid delta 0.7778; gap-case grid points 1777: {'yes': 0, 'no': 1771, 'undecided': 6}
+   gap-case grid points where the maximum IS a pure SPE payoff: []
+   share of the gap range where the orbit of kappa_B survives n steps: {5: 0.2213, 10: 0.1024, 20: 0.0584, 40: 0.033}  runs of survivors: {5: 3, 10: 4, 20: 26, 40: 1358}
+g=1 l=1/2: IC nonempty from delta=0.5000; first interval-case grid delta 0.7144; gap-case grid points 1714: {'yes': 0, 'no': 1707, 'undecided': 7}
+   gap-case grid points where the maximum IS a pure SPE payoff: []
+   share of the gap range where the orbit of kappa_B survives n steps: {5: 0.1285, 10: 0.0846, 20: 0.0571, 40: 0.0321}  runs of survivors: {5: 2, 10: 6, 20: 110, 40: 2016}

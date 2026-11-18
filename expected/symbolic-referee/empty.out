@@ -1,0 +1,4 @@
+beta 2.190327946714867 t 0.8734332577452841 T t 0.9131052740297052 T^2 t 0.0
+alpha self-admissible True
+greedy a in K~: False
+brute N_n of K~(t): [0, 0, 0, 0, 0, 0, 0, 0, 0]

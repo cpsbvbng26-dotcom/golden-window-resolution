@@ -1,0 +1,10 @@
+r=1/4: decreases 0/598; first 0.207595:0.2050  last 0.499512:0.9986
+r=1/2: decreases 0/598; first 0.366249:0.2265  last 0.499777:0.9990
+r=3/4: decreases 0/598; first 0.500139:0.2601  last 0.583194:0.9989
+r=1: decreases 0/598; first 0.618115:0.2848  last 0.666586:0.9991
+r=5/4: decreases 0/598; first 0.724787:0.3063  last 0.749958:0.9992
+r=3/2: decreases 0/598; first 0.822893:0.3367  last 0.833316:0.9993
+r=7/4: decreases 0/598; first 0.914218:0.3819  last 0.916663:0.9995
+r=19/10: decreases 0/598; first 0.966288:0.0000  last 0.966666:0.9995
+G_4 main edge: decreases 0/598; first 0.414357:0.2369  last 0.499857:0.9992
+G_5 main edge: decreases 0/598; first 0.303104:0.2356  last 0.499671:0.9991
