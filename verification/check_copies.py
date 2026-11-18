@@ -7,9 +7,17 @@
    cross-repository comparison itself is made from cpsbvbng26-dotcom.
 2. The title in the LaTeX source, CITATION.cff and both READMEs is the same string.
 3. The PDF exists and its metadata title matches.
+4. The second paper (continuity/paper/joint-continuity.tex): its title is in the LaTeX source, in the PDF metadata
+   and in both READMEs; the page count that both READMEs state is the page count of its PDF.
+5. Both PDFs are the recorded ones (SHA-256). The published PDF is frozen (rule 2), and the second PDF is the
+   one recorded in continuity/REFEREE.md. A rebuilt PDF changes the hash, and the record changes with it.
+
+  python3 verification/check_copies.py           # the check
+  python3 verification/check_copies.py --break   # changes a title, a page count and a hash in memory; each must fail
 """
 import hashlib
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +29,15 @@ COPIES = {
 TITLE = "Resolution of the Golden-Window Conjecture and Related Results on"
 TITLE_END = "with a Hole and on the Trinity-Infinity Series II Game"
 PDF = "paper/golden-window-resolution.pdf"
+CONT_TEX = "continuity/paper/joint-continuity.tex"
+CONT_PDF = "continuity/paper/joint-continuity.pdf"
+CONT_TITLE = ["Joint Continuity in", "of the Hausdorff Dimension of Survivor Sets of",
+              "Transformations with a Hole at", "for All"]
+PDF_SHA256 = {
+    PDF: "2b1023bc348571ee01204e4810e4be9b1f1809049858014c631a260cde760b4c",
+    CONT_PDF: "b10fbd7b0233bd1bf2322407a4a6d87708dea68d92d1dffa432eafdd22a7ec13",
+}
+PAGES = {"README.md": r"紙面は (\d+) 頁です", "README.en.md": r"The paper has (\d+) pages"}
 
 
 def read(rel):
@@ -28,7 +45,67 @@ def read(rel):
         return fh.read()
 
 
+def check(texts, pdf_meta, pdf_pages, pdf_hashes):
+    """texts: rel -> text; pdf_meta: rel -> title; pdf_pages: rel -> page count; pdf_hashes: rel -> sha256."""
+    errs = []
+    for rel in [CONT_TEX, "README.md", "README.en.md"]:
+        if any(part not in texts[rel] for part in CONT_TITLE):
+            errs.append(f"{rel}: title of the second paper missing or changed")
+    if any(part not in pdf_meta.get(CONT_PDF, "") for part in CONT_TITLE):
+        errs.append(f"{CONT_PDF}: metadata title missing or changed")
+    for rel, pat in PAGES.items():
+        m = re.search(pat, texts[rel])
+        if not m or int(m.group(1)) != pdf_pages.get(CONT_PDF):
+            errs.append(f"{rel}: the stated page count of the second paper is not that of {CONT_PDF} ({pdf_pages.get(CONT_PDF)})")
+    for rel, want in PDF_SHA256.items():
+        if pdf_hashes.get(rel) != want:
+            errs.append(f"{rel}: sha256 {pdf_hashes.get(rel)} is not the recorded {want}")
+    return errs
+
+
+def second_paper():
+    texts = {rel: read(rel) for rel in [CONT_TEX, "README.md", "README.en.md"]}
+    meta, pages, hashes = {}, {}, {}
+    for rel in PDF_SHA256:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            continue
+        with open(p, "rb") as fh:
+            hashes[rel] = hashlib.sha256(fh.read()).hexdigest()
+    try:
+        import pypdf
+        r = pypdf.PdfReader(os.path.join(ROOT, CONT_PDF))
+        meta[CONT_PDF] = str((r.metadata or {}).get("/Title", ""))
+        pages[CONT_PDF] = len(r.pages)
+    except (ImportError, FileNotFoundError):
+        pass
+    return texts, meta, pages, hashes
+
+
+def break_test():
+    texts, meta, pages, hashes = second_paper()
+    if check(texts, meta, pages, hashes):
+        print("break test: the unbroken state already fails")
+        return 1
+    bad = 0
+    t2 = dict(texts)
+    t2[CONT_TEX] = t2[CONT_TEX].replace("Joint Continuity in", "Continuity in")
+    m2 = {CONT_PDF: meta[CONT_PDF].replace("Survivor Sets", "Survivor sets")}
+    p2 = {CONT_PDF: pages[CONT_PDF] + 1}
+    h2 = dict(hashes)
+    h2[PDF] = "0" * 64
+    for what, args in (("title in the source", (t2, meta, pages, hashes)), ("title in the PDF", (texts, m2, pages, hashes)),
+                       ("page count", (texts, meta, p2, hashes)), ("hash of the frozen PDF", (texts, meta, pages, h2))):
+        caught = bool(check(*args))
+        print(f"  {'caught' if caught else 'MISSED'}: {what}")
+        bad += not caught
+    print("break test: " + ("every change made the check fail, as it should" if not bad else f"{bad} problems"))
+    return 1 if bad else 0
+
+
 def main():
+    if "--break" in sys.argv[1:]:
+        return break_test()
     errs = []
     for rel, want in COPIES.items():
         with open(os.path.join(ROOT, rel), "rb") as fh:
@@ -48,6 +125,7 @@ def main():
         errs.append("pypdf is not installed")
     except FileNotFoundError:
         errs.append(f"{PDF}: missing")
+    errs += check(*second_paper())
     print(f"copies and metadata: {len(errs)} problems")
     for e in errs:
         print("  " + e)
