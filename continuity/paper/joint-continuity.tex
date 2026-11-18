@@ -1,0 +1,448 @@
+\documentclass[11pt]{amsart}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Joint Continuity in (beta, t) of the Hausdorff Dimension of Survivor Sets of beta-Transformations with a Hole at 0, for All beta > 1},pdfauthor={Takuya Nemoto},pdfsubject={CC BY 4.0}}
+\sloppy
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{thmA}{Theorem A}
+\newtheorem*{thmIA}{Theorem IA}
+\newtheorem*{corC}{Corollary C}
+\newtheorem*{corE}{Corollary E (conditional)}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\dimH}{\dim_{\mathrm H}}
+\newcommand{\lex}{\preccurlyeq}
+\newcommand{\gex}{\succcurlyeq}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\K}{\tilde K}
+\providecommand{\doi}[1]{DOI \href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+\title[Joint continuity for the hole at 0, all $\beta>1$]{Joint Continuity in $(\beta,t)$ of the Hausdorff Dimension of Survivor Sets of $\beta$-Transformations with a Hole at $0$, for All $\beta>1$}
+\author{Takuya Nemoto}
+\urladdr{https://orcid.org/0009-0000-1406-0547}
+\date{19 November 2026}
+\subjclass[2020]{37E05, 37B10, 28A80, 11A63}
+\keywords{beta-transformation, open dynamical system, survivor set, Hausdorff dimension, lexicographic subshift, topological entropy, continuity}
+
+\begin{document}
+
+\begin{abstract}
+Let $K_\beta(t)$ be the survivor set of the $\beta$-transformation $x\mapsto\beta x\bmod1$ with the hole $(0,t)$. Allaart and Kong do not know whether $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous. An earlier preprint of the author answered this for $\beta\in(1,2]$, conditionally on a continuity theorem of Lu, Steiner and Zou for binary lexicographic shifts. Here we prove, for every $M\ge1$, that a normalized pair $(a,b)$ over $\{0,\dots,M\}$ whose lexicographic subshift $\Sigma_{a,b}=\{x:a\lex\sigma^nx\lex b\ \forall n\ge0\}$ has positive entropy can be approximated from strictly inside by normalized pairs with entropy arbitrarily close to $h(\Sigma_{a,b})$. The proof is symbolic. Its main step is a support lemma: if $a$ lies in the support of an ergodic measure of positive entropy, then $a$ is a limit of points whose orbit closures contain neither $a$ nor $b$. With upper semicontinuity, this gives the continuity of $(a,b)\mapsto h(\Sigma_{a,b})$ on $\{0,\dots,M\}^{\N}\times\{0,\dots,M\}^{\N}$ for every $M$. For $M=1$ that continuity is due to Labarca and Moreira, and for $M\ge2$ it plausibly follows from a theorem of Bandtlow and Rugh on interval maps with holes; what we add is a self-contained symbolic proof. A monotone sandwich at the parameters where the expansions jump then shows that $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous on $(1,\infty)\times[0,1)$. This last statement is conditional on three inputs: the dimension formula $\dimH K_\beta(t)=h(\K_\beta(t))/\log\beta$ of Allaart and Kong (Lemma~6.2 of their general-case paper, deduced there from Raith, whose paper we did not read); their Lemmas~4.1 and~4.2 on greedy and quasi-greedy expansions; and the entropy identity of the earlier preprint, which has had no outside referee. It no longer depends on the theorem of Lu, Steiner and Zou. We did not find the joint statement in the texts we read. Scripts with recorded outputs check each step numerically. Tables separate what is known, what was not found in the texts read, and what is conditional.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+For $\beta>1$ let $T_\beta(x)=\beta x\bmod1$ on $[0,1)$, and for $t\in[0,1)$ let
+\[
+K_\beta(t)=\{x\in[0,1):T_\beta^n(x)\notin(0,t)\ \forall n\ge0\}
+\]
+be the survivor set of the hole $(0,t)$. For $\beta\in(1,2]$, Allaart and Kong \cite[Remark~1.10, arXiv v2]{AKcrit} write: ``It is in fact not difficult to show that $\dimH K_\beta(t)$ is continuous in $\beta$ for all fixed $t$. We suspect that the function $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous, but have not been able to prove this.'' For all $\beta>1$ they write \cite[Remark~1.2, arXiv v3]{AKgen}: ``We do not know whether the function $(\beta,t)\to\dimH K_\beta(t)$ is jointly continuous.''
+
+In \cite[Theorem~E]{Nem26}, a preprint that resolved the golden-window conjecture of \cite{v1}, the author proved joint continuity on $(1,2]\times[0,1)$, assuming the continuity theorem of Lu, Steiner and Zou \cite[Theorem~1.4]{LSZ} for binary shifts. For $\beta>2$ the digits run over $\{0,\dots,M\}$ with $M\ge2$, and the same argument needs the continuity of the entropy of lexicographic subshifts over a larger alphabet. The same preprint proved an entropy identity for such subshifts on any finite alphabet \cite[Theorem~7.1]{Nem26}; we call it Theorem~A here and recall it in Section~\ref{sec:setting}.
+
+This note supplies the missing step. Section~\ref{sec:semi} reduces the continuity of $H(A,B)=h(\Sigma_{A,B})$ to an inner approximation (IA) at normalized pairs. Section~\ref{sec:ia} proves IA at every normalized pair with positive entropy (Theorem~IA) and deduces the continuity of $H$ for every $M$ (Corollary~C). Section~\ref{sec:hole} deduces joint continuity of $(\beta,t)\mapsto\dimH K_\beta(t)$ on $(1,\infty)\times[0,1)$ (Corollary~E), with the conditions stated there. Section~\ref{sec:status} says what is known and what is new, with quotations from the texts read. Section~\ref{sec:numerics} reports the numerical checks, and Section~\ref{sec:lit} says how each source was read.
+
+``Not found in the texts read'' is the strongest novelty claim made here. The literature search was limited (Section~\ref{sec:lit}), and parts of these results may exist elsewhere. In particular, Corollary~C is probably known for $M\ge2$, and Corollary~E is a short deduction once Corollary~C is available.
+
+\section{Setting}\label{sec:setting}
+
+\subsection{Lexicographic subshifts}
+Fix $M\ge1$ and $\A=\{0,\dots,M\}$. Sequences are written $x=x_1x_2\cdots\in\A^{\N}$, and $x|k=x_1\cdots x_k$. The lexicographic order is $x\prec y$ if $x_i<y_i$ at the first index $i$ where they differ; $\sigma$ is the left shift; $\A^{\N}$ carries the product topology. The relation $\{(x,y):x\lex y\}$ is closed, and a lexicographically monotone sequence converges in the product topology to its infimum or supremum. For $A,B\in\A^{\N}$ put
+\[
+\Sigma_{A,B}=\{x\in\A^{\N}:A\lex\sigma^nx\lex B\ \forall n\ge0\}.
+\]
+It is closed and $\sigma\Sigma_{A,B}\subset\Sigma_{A,B}$. For a closed set $X$ with $\sigma X\subset X$ (a subshift) let $N_n(X)$ be the number of words of length $n$ that occur in points of $X$, and $h(X)=\lim_n\frac1n\log N_n(X)$, with $h(\emptyset):=0$. Put $H(A,B):=h(\Sigma_{A,B})$. $H$ is non-increasing in $A$ and non-decreasing in $B$. Every digit of a point of $\Sigma_{A,B}$ lies in $[A_1,B_1]$, so $H(A,B)$ does not depend on $M$ as long as $M\ge B_1$.
+
+A pair $(a,b)$ is \emph{normalized} if $a,b\in\Sigma_{a,b}$. Let $W_M$ be the set of normalized pairs over $\A$. $W_M$ is closed, because the defining inequalities $a\lex\sigma^na\lex b$, $a\lex\sigma^nb\lex b$ are closed conditions.
+
+\begin{lemma}[normalization]\label{lem:norm}
+If $\Sigma_{A,B}\ne\emptyset$, let $\ell=\min\Sigma_{A,B}$ and $r=\max\Sigma_{A,B}$. Then $A\lex\ell$, $r\lex B$, $\Sigma_{\ell,r}=\Sigma_{A,B}$, and $(\ell,r)$ is normalized.
+\end{lemma}
+
+\begin{proof}
+$\Sigma_{\ell,r}\subset\Sigma_{A,B}$ by monotonicity. Every tail of a point of $\Sigma_{A,B}$ lies in $\Sigma_{A,B}$, hence in $[\ell,r]$, so $\Sigma_{A,B}\subset\Sigma_{\ell,r}$. Finally $\ell,r\in\Sigma_{A,B}=\Sigma_{\ell,r}$.
+\end{proof}
+
+We call $(\ell,r)$ the \emph{normalization} of $(A,B)$. The map $(A,B)\mapsto(\ell,r)$ is not continuous (Example~\ref{ex:jump}).
+
+\subsection{The entropy identity and its automaton}
+The following is \cite[Theorem~7.1]{Nem26}.
+
+\begin{thmA}
+Let $(a,b)$ be normalized and $N_n=N_n(\Sigma_{a,b})$ ($N_0=1$). Then, as power series,
+\[
+\sum_{n\ge0}N_nz^n=\frac{1}{(1-z)(1-K(z))},\qquad K(z)=K_{a,b}(z)=\sum_{n\ge1}(b_n-a_n)z^n,
+\]
+and $h(\Sigma_{a,b})=-\log\lambda$ with $\lambda$ the smallest root of $K=1$ in $(0,1)$; $h=0$ if there is none.
+\end{thmA}
+
+\emph{Credit.} The same generating function, for increasing interval maps whose cuts all jump from $b$ to $a$, is in Oliveira \cite[Section~10, eq.~(28), and Theorem~4.2]{Oliveira}; the map-level formula is his. Barnsley, Steiner and Vince \cite[Lemma~3]{BSV} give a binary symbolic version and trace the idea to Milnor--Thurston, Glendinning--Hall and Flatto--Lagarias (the last not read). The entropy statement for $M=1$ and the hypothesis of normalization are in Kuang, Li and Xiao \cite[Theorem~4.3]{KLX}. What \cite{Nem26} offers is a direct automaton proof for symbolic pairs over any finite alphabet. That proof has had one internal referee pass and no outside referee.
+
+The proof of Theorem~A rests on an automaton, which we use below on its own.
+
+\begin{proposition}[{the interval automaton, \cite[proof of Theorem~7.1]{Nem26}}]\label{prop:auto}
+Let $(a,b)$ be normalized and $X=\Sigma_{a,b}$. The states are pairs $s=(L,R)$ with $L$ a shift of $a$ and $R$ a shift of $b$; the root is $(a,b)$. From $(L,R)$ the readable letters are the $c$ with $L_1\le c\le R_1$, and the next state $\delta(s,c)$ is $(a,b)$ if $L_1<c<R_1$, $(\sigma L,b)$ if $c=L_1<R_1$, $(a,\sigma R)$ if $L_1<c=R_1$, and $(\sigma L,\sigma R)$ if $L_1=c=R_1$. If a word $u$ is readable from the root and ends in $(L,R)$, then its follower set $F(u)=\{y\in X:uy\in X\}$ equals $X\cap[L,R]$, with $L,R\in X$ and $L\lex R$. The words readable from the root are exactly the words of $X$.
+\end{proposition}
+
+\begin{proof}
+$L,R\in X$ because $a,b\in X$ and $X$ is shift-invariant; normalization is used exactly here. By induction, $F(u)=X\cap[L,R]$ gives $[L,R]\subset[a,b]$, so for $y\in X$ the condition $cy\in X$ reduces to $L\lex cy\lex R$; the four cases give $F(uc)=X\cap[\delta(s,c)]$, and the new left end is again $\lex$ the new right end. Hence every readable word has a non-empty follower set. Conversely, every prefix of a point of $X$ is readable, and every word of $X$ is a prefix of a point of $X$.
+\end{proof}
+
+\subsection{\texorpdfstring{$\beta$-expansions and the symbolic survivor set}{beta-expansions and the symbolic survivor set}}
+For $\beta>1$ let $\A_\beta=\{0,\dots,\lceil\beta\rceil-1\}$ and $\pi_\beta(x)=\sum_{n\ge1}x_n\beta^{-n}$. An \emph{expansion} of $s$ in base $\beta$ is a sequence $x$ of non-negative integers, bounded, with $\pi_\beta(x)=s$. Let $b(t,\beta)$ be the greedy expansion of $t\in[0,1)$ (its digits are $\lfloor\beta T_\beta^{n-1}t\rfloor$), and $\alpha(\beta)$ the quasi-greedy expansion of $1$ (the largest expansion of $1$ not ending in $0^\infty$). Following \cite[(6.1)]{AKgen} put
+\[
+\K_\beta(t)=\{z\in\A_\beta^{\N}:b(t,\beta)\lex\sigma^n(z)\lex\alpha(\beta)\ \forall n\ge0\}=\Sigma_{b(t,\beta),\alpha(\beta)}.
+\]
+We use three inputs from Allaart and Kong \cite{AKgen}, quoted from arXiv v3.
+
+\begin{itemize}
+\item[(I1)] \cite[Lemma~6.2]{AKgen}: ``The following result can be deduced from Raith [26] (see also [20] for the case $\beta\in(1,2]$). Lemma 6.2. Given $\beta>1$ and $t\in[0,1)$, the Hausdorff dimension of $K_\beta(t)$ is given by $\dimH K_\beta(t)=h_{top}(\K_\beta(t))/\log\beta$.'' Their [26] is Raith \cite{Raith94} and their [20] is Kalle, Kong, Langeveld and Li \cite{KKLL}. We did not read \cite{Raith94}.
+\item[(I2)] \cite[Lemma~4.1]{AKgen}, for $k\in\N$: ``(i) The restriction of the map $\beta\mapsto\alpha(\beta)$ to $(k,k+1]$ is an increasing bijection from $\beta\in(k,k+1]$ to the set of sequences $a=a_1a_2\cdots\in\{0,1,\dots,k\}^{\N}$ not ending with $0^\infty$ such that $a_1=k$ and $\sigma^n(a)\lex a$ $\forall n\ge0$. (ii) The map $\beta\mapsto\alpha(\beta)$ is left continuous everywhere on $(k,k+1]$ with respect to the order topology, and it is right continuous at $\beta_0\in(k,k+1)$ if and only if $\alpha(\beta_0)$ is not periodic. Furthermore, if $\alpha(\beta_0)=(a_1\dots a_m)^\infty$ with minimal period $m$, then $\alpha(\beta)\searrow a_1\dots a_m^+0^\infty$ as $\beta\searrow\beta_0$.''
+\item[(I3)] \cite[Lemma~4.2]{AKgen}: ``Let $\beta>1$. The map $t\mapsto b(t,\beta)$ is an increasing bijection from $[0,1)$ to the set $\{z\in\A_\beta^{\N}:\sigma^n(z)\prec\alpha(\beta)\ \forall n\ge0\}$. Furthermore, (i) The map $t\mapsto b(t,\beta)$ is right-continuous everywhere in $[0,1)$ with respect to the order topology in $\A_\beta^{\N}$''; parts (ii) and (iii) describe continuity at $t_0$ and the left limit $b_1\dots b_m^-\alpha(\beta)$ when $b(t_0,\beta)=b_1\dots b_m0^\infty$.
+\end{itemize}
+
+Allaart and Kong use the hole $[0,t)$ (``Recall that the survivor set $K_\beta(t)$ consists of all $x\in[0,1)$ whose orbit $\{T_\beta^n(x):n\ge0\}$ avoids the hole $[0,t)$'', \cite[Section~6]{AKgen}). The two survivor sets differ by points whose orbit hits $0$, a countable set, so they have the same Hausdorff dimension.
+
+\section{Upper semicontinuity, and the reduction to an inner approximation}\label{sec:semi}
+
+\begin{lemma}\label{lem:mono}
+Let $(a,b)$ be normalized and $\lambda'$ its smallest root of $K=1$ in $(0,1)$ ($\lambda':=1$ if there is none). Then $K=K_{a,b}$ is non-decreasing on $[0,\lambda']\cap[0,1)$.
+\end{lemma}
+
+\begin{proof}
+$N_{n+1}\ge N_n$, because every word of a non-empty one-sided subshift extends to the right. So $(1-z)N(z)=\sum_n(N_n-N_{n-1})z^n$ ($N_{-1}:=0$) has non-negative coefficients and is non-decreasing on $[0,\lambda')$, where $N$ converges (its radius is $\lambda'$ by Theorem~A). By Theorem~A, $1-K=1/((1-z)N(z))$ there, which is non-increasing. If $\lambda'<1$, continuity of $K$ at $\lambda'$ extends this to $[0,\lambda']$.
+\end{proof}
+
+For $M=1$ this is the analogue of the monotonicity in the proof of \cite[Lemma~3.6]{LSZ} (their variable $t$ corresponds to $-\log z$). It holds only for normalized pairs: for a pair that is not normalized, the series of Theorem~A can have negative coefficients (Section~\ref{sec:numerics}).
+
+\begin{theorem}[continuity on normalized pairs]\label{thm:M1}
+For every $M\ge1$, the restriction of $H$ to $W_M$ is continuous.
+\end{theorem}
+
+\begin{proof}
+Let $(a,b)\in W_M$, $K=K_{a,b}$, and $\lambda$ its smallest root ($\lambda=1$ if there is none). If $(a',b')$ agrees with $(a,b)$ on the first $k$ digits, then $|K_{a',b'}(z)-K(z)|\le2Mz^{k+1}/(1-z)$ on $[0,1)$, so $K_{a',b'}\to K$ uniformly on each $[0,\rho]$, $\rho<1$. Fix $\varepsilon>0$ with $\lambda+\varepsilon<1$ if $\lambda<1$.
+\begin{itemize}
+\item Lower bound. $K<1$ on the compact set $[0,\lambda-\varepsilon]$ (on $[0,1-\varepsilon]$ if $\lambda=1$). For all nearby pairs, normalized or not, $K_{a',b'}<1$ there, so their smallest root $\lambda'$ exceeds $\lambda-\varepsilon$. If $\lambda=1$ this already gives $H(a',b')\to0=H(a,b)$.
+\item Upper bound, $\lambda<1$. $K-1$ is analytic and not identically $0$ on $|z|<1$, so after shrinking $\varepsilon$ we have $K(\lambda+\varepsilon)\ne1$. If $K(\lambda+\varepsilon)>1$, then $K_{a',b'}(\lambda+\varepsilon)>1$ for nearby pairs and $\lambda'<\lambda+\varepsilon$ by the intermediate value theorem. If $K(\lambda+\varepsilon)<1$, take the neighbourhood so small that $|K_{a',b'}-K|<(1-K(\lambda+\varepsilon))/2$ at $\lambda$ and at $\lambda+\varepsilon$. Then $K_{a',b'}(\lambda+\varepsilon)<(1+K(\lambda+\varepsilon))/2<K_{a',b'}(\lambda)$. If $(a',b')$ is normalized and $\lambda'\ge\lambda+\varepsilon$, Lemma~\ref{lem:mono} gives $K_{a',b'}(\lambda)\le K_{a',b'}(\lambda+\varepsilon)$, a contradiction. So $\lambda'<\lambda+\varepsilon$.
+\end{itemize}
+Hence $|\lambda'-\lambda|<\varepsilon$ for normalized $(a',b')$ near $(a,b)$, and $h=-\log\lambda$ is continuous.
+\end{proof}
+
+\begin{example}\label{ex:jump}
+For $M=2$, $H(0^\infty,20^\infty)=\log2$, with normalization $(0^\infty,20^\infty)$. For $A'=0^k10^\infty$ the point $20^\infty$ is cut and the normalization jumps. The entropy still moves continuously: $H(0^k10^\infty,20^\infty)=0.6094$, $0.6760$, $0.6922$, $0.6931$ at $k=2,4,8,12$ (Section~\ref{sec:numerics}). So Theorem~\ref{thm:M1} alone does not give continuity of $H$.
+\end{example}
+
+\begin{lemma}\label{lem:intersect}
+If $X_1\supset X_2\supset\cdots$ are subshifts, then $h(\bigcap_kX_k)=\lim_kh(X_k)$.
+\end{lemma}
+
+\begin{proof}
+A word of every $X_k$ is the prefix of some $x^k\in X_k$; a limit point of $(x^k)$ lies in every $X_k$ and has the same prefix. So the sets of length-$n$ words decrease to those of $\bigcap_kX_k$, and stabilise. By Fekete's lemma $h(X)=\inf_n\frac1n\log N_n(X)$, and the two infima can be exchanged. If $\bigcap_kX_k=\emptyset$, then $X_k=\emptyset$ for large $k$ by compactness.
+\end{proof}
+
+\begin{proposition}[upper semicontinuity]\label{prop:usc}
+$H$ is upper semicontinuous on $\A^{\N}\times\A^{\N}$.
+\end{proposition}
+
+\begin{proof}
+If $(A',B')$ agrees with $(A,B)$ on $k$ digits, then $A'\gex A|k\,0^\infty$ and $B'\lex B|k\,M^\infty$, so $H(A',B')\le H(A|k\,0^\infty,B|k\,M^\infty)$. These sets decrease in $k$, and their intersection is $\Sigma_{A,B}$: if $y\prec A$ with first difference at $j$, then $y\prec A|k\,0^\infty$ for $k\ge j$. Apply Lemma~\ref{lem:intersect}.
+\end{proof}
+
+\begin{definition}
+A normalized pair $(a,b)$ has \emph{property IA} (inner approximation) if for every $\varepsilon>0$ there is a normalized pair $(p,q)$ with $a\prec p$, $q\prec b$ and $H(p,q)\ge H(a,b)-\varepsilon$.
+\end{definition}
+
+\begin{proposition}\label{prop:lsc}
+Let $\Sigma_{A,B}\ne\emptyset$ have normalization $(a,b)$ with $H(a,b)>0$. If $(a,b)$ has IA, then $H$ is continuous at $(A,B)$.
+\end{proposition}
+
+\begin{proof}
+Take $(p,q)$ from IA. Since $A\lex a\prec p$, the strict inequality $A\prec p$ is decided at a finite index $j$, so every $A'$ that agrees with $A$ on $j$ digits satisfies $A'\prec p$. Likewise $B'\succ q$ for $B'$ near $B$. Then $\Sigma_{p,q}\subset\Sigma_{A',B'}$ and $H(A',B')\ge H(p,q)\ge H(A,B)-\varepsilon$. Proposition~\ref{prop:usc} gives the other side.
+\end{proof}
+
+\begin{remark}[converse]\label{rem:converse}
+If $H$ is continuous at a normalized $(a,b)$ with $h>0$, then IA holds there. Put $a_k=a|k\,M^\infty$ and $b_k=b|k\,0^\infty$. If $a$ does not end in $M^\infty$ and $b$ does not end in $0^\infty$, then $a\prec a_k$ and $b_k\prec b$, the normalization of $(a_k,b_k)$ lies strictly inside, and its entropy tends to $h$. If $a=u\,c\,M^\infty$ with $c<M$, replace $a$ by its successor $u(c+1)0^\infty$: nothing lies strictly between the two, so $\Sigma$ changes only by the countably many points with a tail equal to $a$, and $H$ does not change (Lemma~\ref{lem:countable}). The same works for $b$. So, given Proposition~\ref{prop:usc}, continuity of $H$ everywhere is equivalent to IA at every normalized pair with positive entropy.
+\end{remark}
+
+\begin{lemma}\label{lem:countable}
+If $X\subset Y$ are subshifts and $Y\setminus X$ is countable, then $h(X)=h(Y)$.
+\end{lemma}
+
+\begin{proof}
+By the variational principle, $h(Y)$ is the supremum of $h_\mu$ over ergodic $\sigma$-invariant measures $\mu$ on $Y$. If $\mu(Y\setminus X)>0$, then $\mu$ has an atom; invariance makes the masses along its forward orbit non-decreasing, so the orbit is eventually periodic, and by ergodicity $\mu$ sits on a periodic orbit and $h_\mu=0$. Otherwise $\mu(X)=1$ and $h_\mu\le h(X)$.
+\end{proof}
+
+\section{Inner approximation at every pair with positive entropy}\label{sec:ia}
+
+Throughout this section $(a,b)$ is normalized and $X=\Sigma_{a,b}$.
+
+\begin{lemma}[product rule]\label{lem:P}
+In the automaton of Proposition~\ref{prop:auto}, reading a readable letter $c$ from $(L,R)$ gives $(L',R')$ with $L'=\sigma L$ if $c=L_1$ and $L'=a$ if $c>L_1$, and $R'=\sigma R$ if $c=R_1$ and $R'=b$ if $c<R_1$. Index the left component by the number $i$ of letters read since its last reset, so that it equals $\sigma^ia$. Reading $a|k$ from any state raises $i$ by $k$ without a reset. Hence a point of $X$ has the factor $a|D$ exactly when $i$ reaches $D$ along its path. The same holds for $b$ and the right component.
+\end{lemma}
+
+\begin{proof}
+The first statement is the four-case rule rewritten: a middle letter $L_1<c<R_1$ gives $(a,b)$; $c=L_1<R_1$ gives $(\sigma L,b)$; $L_1<c=R_1$ gives $(a,\sigma R)$; $c=L_1=R_1$ gives $(\sigma L,\sigma R)$. For the second, the left component $L$ is a shift of $a$, hence in $X$, hence $L\gex a$, so $L_1\ge a_1$. The first letter $a_1$ is readable, so $a_1\ge L_1$; hence $a_1=L_1$, and the left component becomes $\sigma L$, with $\sigma L\gex\sigma a$ because $L\gex a$ and $L_1=a_1$. Inductively, each letter $a_j$ equals the first digit of the current left component, so there is no reset and $i$ grows by one at each letter. Conversely, if $i$ reaches $D$, the last $D$ letters were the first digits of $a,\sigma a,\dots,\sigma^{D-1}a$, that is, $a|D$.
+\end{proof}
+
+So the left and right components evolve separately, each by a rule that sees only its own state and the letter. The main proof uses only the first statement of Lemma~\ref{lem:P}; the second identifies the sets $Y_D$ below with paths of bounded depth, which is how they are computed in Section~\ref{sec:numerics}.
+
+\subsection{Truncations}
+For $D\ge1$ let $Y_D=\{x\in X:\text{neither }a|D\text{ nor }b|D\text{ is a factor of }x\}$, a subshift, and $Z=\{x\in X:a\notin\overline{O(x)},\ b\notin\overline{O(x)}\}$ with $O(x)=\{\sigma^nx:n\ge0\}$.
+
+\begin{lemma}\label{lem:Y1}
+$Y_D\subset Y_{D+1}$ and $Z=\bigcup_DY_D$.
+\end{lemma}
+
+\begin{proof}
+If $a\notin\overline{O(x)}$, some cylinder $[a|D]$ misses $\overline{O(x)}$, so no tail of $x$ begins with $a|D$. Conversely, if no tail begins with $a|D$, the open set $[a|D]$ misses $O(x)$, so $a\notin\overline{O(x)}$. The same holds for $b$.
+\end{proof}
+
+\begin{lemma}\label{lem:Y2}
+Let $Y_D\ne\emptyset$, $p_D=\min Y_D$ and $q_D=\max Y_D$. Then $(p_D,q_D)$ is normalized, $a\prec p_D$, $q_D\prec b$, and $\Sigma_{p_D,q_D}=Y_D$.
+\end{lemma}
+
+\begin{proof}
+Every tail of a point of $Y_D$ lies in $Y_D\subset[p_D,q_D]$, so $Y_D\subset\Sigma_{p_D,q_D}$ and $p_D,q_D\in\Sigma_{p_D,q_D}$. Next, $p_D\in X$ gives $p_D\gex a$, and $p_D$ does not begin with $a|D$, so $p_D$ and $a$ differ at some index $e\le D$ with $p_D$ larger there: $a\prec p_D$. Dually $q_D\prec b$. Finally $\Sigma_{p_D,q_D}\subset X$, and a tail that begins with $a|D$ is smaller than $p_D$ at index $e$, while a tail that begins with $b|D$ is larger than $q_D$. So $\Sigma_{p_D,q_D}\subset Y_D$.
+\end{proof}
+
+\begin{proposition}\label{prop:Y3}
+Suppose $Z\ne\emptyset$. Then $p_D\searrow p_\infty:=\inf Z$ and $q_D\nearrow q_\infty:=\sup Z$, the pair $(p_\infty,q_\infty)$ is normalized, and $\lim_Dh(Y_D)=H(p_\infty,q_\infty)$. Moreover $(a,b)$ has IA if and only if $\lim_Dh(Y_D)=h(X)$.
+\end{proposition}
+
+\begin{proof}
+Monotonicity follows from Lemma~\ref{lem:Y1}, and the limits are the infimum and supremum of the union. The sequences converge in the product topology, and $W_M$ is closed, so $(p_\infty,q_\infty)$ is normalized. By Lemma~\ref{lem:Y2}, $h(Y_D)=H(p_D,q_D)$, and Theorem~\ref{thm:M1} gives $H(p_D,q_D)\to H(p_\infty,q_\infty)$. If $\lim h(Y_D)=h(X)$, the pairs $(p_D,q_D)$ are IA witnesses by Lemma~\ref{lem:Y2}. Conversely, let $(p,q)$ be any IA witness, and let $p$ and $a$ first differ at index $e$, $q$ and $b$ at $e'$. No point of $\Sigma_{p,q}$ has a tail beginning with $a|e$ (it would be smaller than $p$) or with $b|e'$. So $\Sigma_{p,q}\subset Y_D$ for $D\ge\max(e,e')$, and $H(p,q)\le\lim h(Y_D)$.
+\end{proof}
+
+So IA is a statement about two points: whether $Z$ reaches down to $a$ and up to $b$. The support lemma below says when $Z$ reaches $a$.
+
+\subsection{The support lemma}
+Let $\mu$ be an ergodic $\sigma$-invariant probability measure on $X$, and $\hat\mu$ its natural extension on the two-sided sequences $\hat x=(x_n)_{n\in\Z}$ all of whose finite windows are words of $X$; $\hat\mu$ is ergodic. Every window $x_m\cdots x_{n-1}$ is then readable from the root (Proposition~\ref{prop:auto}). Write $S^m_n=(L^m_n,R^m_n)$ for the state reached from the root after reading $x_m\cdots x_{n-1}$ ($m\le n$; $S^n_n$ is the root).
+
+\begin{lemma}[true states]\label{lem:S1}
+If $h_\mu>0$, then for $\hat\mu$-almost every $\hat x$ and every $n\in\Z$ there is $m_0(n)\le n$ such that $S^m_n$ is the same state for all $m\le m_0(n)$. Call it $S_n$. Then $S_{n+1}=\delta(S_n,x_n)$.
+\end{lemma}
+
+\begin{proof}
+\emph{Monotonicity.} For $m\le m'\le n$, $F(x_m\cdots x_{n-1})\subset F(x_{m'}\cdots x_{n-1})$. By Proposition~\ref{prop:auto} both are of the form $X\cap[L,R]$ with $L,R\in X$ and $L\lex R$; the left end of the first lies in the second, so $L^m_n\gex L^{m'}_n$, and likewise $R^m_n\lex R^{m'}_n$. As $m$ decreases, the first digit of $L^m_n$ is non-decreasing and bounded by $M$, hence eventually constant; call that digit $\ell_n$. It is a measurable function of $(x_s)_{s<n}$, and $\ell_n(\hat x)=\ell_0(\hat\sigma^n\hat x)$.
+
+\emph{Synchronisation.} The letter $x_t$ is readable from $S^m_t$ for every $m\le t$, so $x_t$ is at least the first digit of every $L^m_t$, and $x_t\ge\ell_t$. Suppose $x_t\ne\ell_t$, hence $x_t>\ell_t$, for some $t<n$. For all $m$ below some $m(t)$ the first digit of $L^m_t$ is $\ell_t<x_t$, so by Lemma~\ref{lem:P} all those left components become $a$ at time $t+1$. From then on they are driven by the same letters by the same rule (Lemma~\ref{lem:P}), so they agree at time $n$.
+
+\emph{Resets happen.} Let $E_n=\{\hat x:x_t=\ell_t(\hat x)\text{ for all }t<n\}$. Then $E_{n+1}=\hat\sigma^{-1}E_n\subset E_n$, and the two have equal measure, so $E=\bigcap_nE_n$ is invariant modulo null sets with $\hat\mu(E)=\hat\mu(E_0)\in\{0,1\}$. If $\hat\mu(E)=1$, then $x_0=\ell_0(\hat x)$ is a function of $(x_s)_{s<0}$ almost surely, and $h_\mu=h_{\hat\mu}(\hat\sigma^{-1})=H_{\hat\mu}(x_0\mid x_{-1},x_{-2},\dots)=0$ (the natural extension has the same entropy, and an invertible map and its inverse have the same entropy). So $\hat\mu(E_n)=0$ for every $n$: almost every $\hat x$ has a time $t<n$ with $x_t>\ell_t$.
+
+The same argument with $\lex$, the digit $r_t$ (the eventual first digit of $R^m_t$), $x_t<r_t$ and resets to $b$ applies to the right components. Take $m_0(n)$ below both synchronisation times. For the last claim, take $m\le\min(m_0(n),m_0(n+1))$; the states are automaton states, of which there are countably many.
+\end{proof}
+
+\begin{lemma}[fillers]\label{lem:S2}
+Let $c_1\ne c_2$ be two cycles at a state $s$ that are first-return words, so that $\{c_1,c_2\}$ is a prefix code, and put $P_r=(c_1c_2^r)^\infty$. Each shift orbit of periodic points contains $P_r$ for only finitely many $r$.
+\end{lemma}
+
+\begin{proof}
+Suppose an orbit $O$ of minimal period $\pi$ contains $P_r$ for infinitely many $r$, and take such an $r$ with $r|c_2|\ge\pi+|c_2|$. The factor $c_2^r$ of $P_r$ has the periods $\pi$ and $|c_2|$ over a length at least $\pi+|c_2|$, so by the Fine--Wilf lemma it has the period $g=\gcd(\pi,|c_2|)$. A $\pi$-periodic sequence is determined by any window of length $\pi$, so $P_r$ is $g$-periodic, hence $|c_2|$-periodic. It is also $(|c_1|+r|c_2|)$-periodic, hence $|c_1|$-periodic, so $P_r=c_1^\infty$. Comparing $c_1c_2^rc_1\cdots$ with $c_1c_1\cdots$ shows that one of $c_1,c_2$ is a prefix of the other, which contradicts the prefix code.
+\end{proof}
+
+\begin{proposition}[support lemma]\label{prop:S3}
+Let $\mu$ be ergodic on $X$ with $h_\mu>0$ and $a\in\operatorname{supp}\mu$. Then $Z\ne\emptyset$ and $\inf Z=a$. Dually, $b\in\operatorname{supp}\mu$ implies $\sup Z=b$.
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+\item By Lemma~\ref{lem:S1}, some state $s$ has $\hat\mu(S_0=s)>0$. Since $S_t=S_0\circ\hat\sigma^t$, ergodicity gives that almost every $\hat x$ has $S_t=s$ for infinitely many $t\ge0$.
+\item On $\{S_0=s\}$ consider the first-return word $x_0\cdots x_{\tau-1}$, $\tau=\min\{t\ge1:S_t=s\}$; it is a cycle at $s$, because true states follow $\delta$. If its induced distribution on $\{S_0=s\}$ were concentrated on one word $c$, then almost every point of $\{S_0=s\}$ would have the future $c^\infty$, so $\mu$ would sit on the periodic orbit of $c^\infty$ and $h_\mu=0$. So two distinct first-return words $c_1,c_2$ occur with positive probability. First-return words form a prefix code, and Lemma~\ref{lem:S2} applies.
+\item Fix $k$. Since $a\in\operatorname{supp}\mu$, $\mu([a|k])>0$, so almost every $\hat x$ has $x_p\cdots x_{p+k-1}=a|k$ for infinitely many $p\ge0$. Fix such an $\hat x$ that is also typical for step 1 and for Lemma~\ref{lem:S1}, such a $p$, and a time $t_2\ge p+k$ with $S_{t_2}=s$. Put $v=x_{p+k}\cdots x_{t_2-1}$.
+\item By Lemma~\ref{lem:S2}, choose $r$ such that $P_r$ is not tail-equivalent to $a$ or to $b$. This excludes at most two orbits, each of which contains $P_r$ for finitely many $r$.
+\item Put $z=a|k\,v\,P_r$. Reading $a|k\,v$ from $S_p$ ends at $S_{t_2}=s$, and $c_1,c_2$ are cycles at $s$, so every prefix of $z$ is readable from $S_p$. Since $S_p=\delta(\text{root},x_m\cdots x_{p-1})$ for $m\le m_0(p)$, every prefix of $z$ is a factor of a word readable from the root, hence a word of $X$ (Proposition~\ref{prop:auto}). $X$ is closed, so $z\in X$.
+\item $\overline{O(z)}=\{\sigma^iz:i<k+|v|\}\cup O(P_r)$ is finite. If $a$ were in it, $a$ would be tail-equivalent to $P_r$, which step 4 excludes; likewise for $b$. So $z\in Z$.
+\item $z$ begins with $a|k$, so $\inf Z\lex a|k\,M^\infty$ for every $k$, hence $\inf Z\lex a$. Also $Z\subset X$ gives $\inf Z\gex a$.
+\end{enumerate}
+\end{proof}
+
+The hypothesis on $a$ cannot be dropped. For $(a,b)=(02^\infty,2^\infty)$ over $\{0,1,2\}$ the point $a$ is isolated in $X$ and lies in the support of no invariant measure (an invariant $\mu$ has $\mu(\{2^\infty\})=\mu(\sigma^{-1}\{2^\infty\})\ge\mu(\{2^\infty\})+\mu(\{a\})$). Here $\inf Z=1^\infty\succ a$, so $p_D$ stays away from $a$, while IA still holds (Section~\ref{sec:numerics}).
+
+\subsection{The theorem}
+
+\begin{thmIA}
+Let $M\ge1$ and let $(a,b)$ be a normalized pair over $\{0,\dots,M\}$ with $h(\Sigma_{a,b})>0$. Then $(a,b)$ has property IA. No condition on $b_1-a_1$ is needed.
+\end{thmIA}
+
+\begin{proof}
+\begin{enumerate}
+\item By Proposition~\ref{prop:Y3} and the variational principle it suffices to show $Z\ne\emptyset$ and $\lim_Dh(Y_D)\ge h_\mu$ for every ergodic $\mu$ on $X$ with $h_\mu>0$; then $\lim_Dh(Y_D)\ge h(X)$, and $Y_D\subset X$ gives equality.
+\item Fix such a $\mu$. Put $a_\mu=\min\operatorname{supp}\mu$, $b_\mu=\max\operatorname{supp}\mu$ and $X_\mu=\Sigma_{a_\mu,b_\mu}$. The support is closed and $\sigma(\operatorname{supp}\mu)\subset\operatorname{supp}\mu$, so every tail of a point of the support lies in $[a_\mu,b_\mu]$, and $\operatorname{supp}\mu\subset X_\mu$. In particular $a_\mu,b_\mu\in X_\mu$, so $(a_\mu,b_\mu)$ is normalized. Since $a\lex a_\mu$ and $b_\mu\lex b$, $X_\mu\subset X$; and $h(X_\mu)\ge h_\mu$.
+\item Apply Proposition~\ref{prop:S3} to the pair $(a_\mu,b_\mu)$, the space $X_\mu$ and the measure $\mu$: here $a_\mu,b_\mu\in\operatorname{supp}\mu$ and $h_\mu>0$. With $Z_\mu$ and $Y^\mu_D$ defined for $(a_\mu,b_\mu)$, we get $\inf Z_\mu=a_\mu$ and $\sup Z_\mu=b_\mu$. In particular $Z_\mu\ne\emptyset$, so $Y^\mu_D\ne\emptyset$ for large $D$ (Lemma~\ref{lem:Y1}). By Proposition~\ref{prop:Y3} for $(a_\mu,b_\mu)$, $h(Y^\mu_D)\to H(a_\mu,b_\mu)=h(X_\mu)\ge h_\mu$.
+\item $Y^\mu_D\subset Y_{D'}$ for some $D'$. If $a_\mu=a$, avoiding $a_\mu|D$ is avoiding $a|D$. If $a_\mu\succ a$ with first difference at $e$, no point of $X_\mu$ has a tail beginning with $a|e$. The same holds for $b$ with an index $e'$. Take $D'=\max(D,e,e')$. In particular $Z\supset Y_{D'}\ne\emptyset$.
+\item So $\lim_Dh(Y_D)\ge\lim_Dh(Y^\mu_D)\ge h_\mu$.
+\end{enumerate}
+\end{proof}
+
+Theorem~A enters twice: through Proposition~\ref{prop:auto} (in Lemmas~\ref{lem:P} and~\ref{lem:S1} and in step 5 of Proposition~\ref{prop:S3}) and through Theorem~\ref{thm:M1} (in Proposition~\ref{prop:Y3}). Nothing else beyond standard facts is used: Fekete's lemma, the variational principle, natural extensions, Poincar\'e recurrence and the ergodic theorem, and the Fine--Wilf lemma.
+
+\begin{corC}
+For every $M\ge1$, $(A,B)\mapsto H(A,B)=h(\Sigma_{A,B})$ is continuous on $\{0,\dots,M\}^{\N}\times\{0,\dots,M\}^{\N}$.
+\end{corC}
+
+\begin{proof}
+If $H(A,B)=0$ (in particular if $\Sigma_{A,B}=\emptyset$), Proposition~\ref{prop:usc} and $H\ge0$ give continuity. Otherwise the normalization $(a,b)$ of $(A,B)$ has $H(a,b)=H(A,B)>0$, Theorem~IA gives IA at $(a,b)$, and Proposition~\ref{prop:lsc} gives continuity.
+\end{proof}
+
+\begin{remark}
+For $M=1$, Corollary~C is the continuity of the binary entropy that Lu, Steiner and Zou attribute to Labarca and Moreira (Section~\ref{sec:status}); in \cite{Nem26} it was deduced from \cite[Theorem~1.4]{LSZ} through \cite[Theorem~2.6]{KSZ}. The proof above does not use either. So \cite[Theorem~E]{Nem26} ($\beta\le2$) now has a derivation that does not depend on \cite[Theorem~1.4]{LSZ}, but it still depends on Theorem~A.
+\end{remark}
+
+\section{Joint continuity for the hole at 0}\label{sec:hole}
+
+Put $G(\beta,t)=H(b(t,\beta),\alpha(\beta))=h(\K_\beta(t))$. By (I1), $\dimH K_\beta(t)=G(\beta,t)/\log\beta$.
+
+\begin{lemma}\label{lem:tails}
+Let $\beta>1$, $\pi_\beta(g)=1$, and let $x$ be a bounded sequence of non-negative integers with $\sigma^nx\lex g$ for all $n\ge0$. Then $\pi_\beta(\sigma^nx)\le1$ for all $n$.
+\end{lemma}
+
+\begin{proof}
+If $y\prec g$ with first difference at $i$, then $\pi_\beta(y)-1\le\beta^{-i}(\pi_\beta(\sigma^iy)-1)$, because $y_i\le g_i-1$ and $\pi_\beta(\sigma^ig)\ge0$. Let $S=\sup_n\pi_\beta(\sigma^nx)<\infty$. Applying this to every tail gives $S-1\le\beta^{-1}\max(S-1,0)$, hence $S\le1$.
+\end{proof}
+
+\begin{lemma}\label{lem:ties}
+Let $\beta>1$, $s\in[0,1]$, and let $x$ be an expansion of $s$ in base $\beta$ with $R_k:=\pi_\beta(\sigma^kx)\le1$ for all $k$. Then $x_k=\lfloor\beta R_{k-1}\rfloor$ unless $\beta R_{k-1}=j$ is an integer $\ge1$ (a tie); at a tie, either $x_k=j$, $R_k=0$ and $x_{k+1}x_{k+2}\cdots=0^\infty$, or $x_k=j-1$ and $R_k=1$. Consequently:
+\begin{enumerate}
+\item every expansion $y$ of $1$ with all tail values $\le1$ satisfies $\alpha(\beta)\lex y\lex g(\beta)$, where $g(\beta)$, the greedy expansion of $1$, takes the larger digit at the first tie, and $\alpha(\beta)$ takes the smaller digit at every tie;
+\item if $s=t\in[0,1)$, then $x=b(t,\beta)$, or $b(t,\beta)=w0^\infty$ with $w$ ending in a non-zero digit, and $x=w^-y$ with $y$ as in (1). Here $w^-$ is $w$ with its last digit lowered by one.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+$x_k=\beta R_{k-1}-R_k$ is an integer in $[\beta R_{k-1}-1,\beta R_{k-1}]$, which gives the first statement. For (1): the path that always takes the smaller digit never reaches remainder $0$, so it does not end in $0^\infty$; and every expansion of $1$ with tail values $\le1$ that does not end in $0^\infty$ takes the smaller digit at every tie, so there is only one. The quasi-greedy expansion $\alpha(\beta)$ satisfies $\sigma^n\alpha(\beta)\lex\alpha(\beta)$ and does not end in $0^\infty$ (I2, part (i)); by Lemma~\ref{lem:tails} with $g=\alpha(\beta)$ its tail values are $\le1$, so it is that path. Any other $y$ agrees with $\alpha(\beta)$ up to the first tie where it takes the larger digit, and is larger there; it agrees with $g(\beta)$ up to the first tie, and is not larger. For (2): the greedy expansion takes the larger digit at the first tie, after which it is $0^\infty$; if there is no tie, $x$ is forced.
+\end{proof}
+
+\begin{lemma}[sandwich]\label{lem:sandwich}
+Fix $\beta_0>1$, $t_0\in[0,1)$, and put $b_0=b(t_0,\beta_0)$, $\alpha_0=\alpha(\beta_0)$, $g_0=g(\beta_0)$, and $q=w^-\alpha_0$ if $b_0=w0^\infty$ as in Lemma~\ref{lem:ties}(2), $q=b_0$ otherwise. Let $(\beta_n,t_n)\to(\beta_0,t_0)$ with $b(t_n,\beta_n)\to x$ and $\alpha(\beta_n)\to y$. Then $q\lex x\lex b_0$ and $\alpha_0\lex y\lex g_0$. Moreover $H(q,g_0)=H(b_0,\alpha_0)=G(\beta_0,t_0)$.
+\end{lemma}
+
+\begin{proof}
+All digits lie in $\{0,\dots,M\}$ with $M=\lceil\beta_0\rceil$. Since $\pi_\beta(z)$ is jointly continuous in $(\beta,z)$ for $\beta$ near $\beta_0$, $x$ is an expansion of $t_0$ and $y$ an expansion of $1$ in base $\beta_0$. A greedy expansion is the lexicographically largest expansion of its number: at the first index where an expansion differs from it, both have the same remainder $R$, the expansion's digit is at most $\beta R$, and the greedy digit is $\lfloor\beta R\rfloor$. So $y\lex g_0$. By (I3), $\sigma^kb(t_n,\beta_n)\prec\alpha(\beta_n)$, and by (I2), $\sigma^k\alpha(\beta_n)\lex\alpha(\beta_n)$; in the limit, $\sigma^kx\lex y\lex g_0$ and $\sigma^ky\lex y\lex g_0$ for all $k$. Lemma~\ref{lem:tails} with $g=g_0$ gives tail values $\le1$ for $x$ and $y$, and Lemma~\ref{lem:ties} gives the two inequalities.
+
+For the last claim, $\Sigma_{b_0,\alpha_0}\subset\Sigma_{q,g_0}$, and by Lemma~\ref{lem:countable} it suffices to show that the difference is countable. A point of the difference has a tail $z$ in $(\alpha_0,g_0]$ or in $[q,b_0)$, all of whose own tails are $\lex g_0$.
+\begin{itemize}
+\item $z\in(\alpha_0,g_0]$. Then $g_0\ne\alpha_0$, so $g_0=A0^\infty$ with $A=g_0|m$ ending in a non-zero digit, and $\alpha_0=(A^-)^\infty$ (Lemma~\ref{lem:ties}(1): the smaller digit at every tie repeats the block). Write $z=(A^-)^ku$ with $u$ not beginning with $A^-$. Since $z\succ(A^-)^\infty$, $u|m\succ A^-$; since $u\lex g_0$, $u|m\lex A$. The only word of length $m$ in $(A^-,A]$ is $A$, so $u=Au'$ with $u'\lex0^\infty$. So $z$ ends in $0^\infty$.
+\item $z\in[q,b_0)$. Then $b_0=w0^\infty$ is finite and $q=w^-\alpha_0$. The prefix of length $|w|$ of $z$ lies between $w^-$ and $w$ and is not $w$ (otherwise $z\gex b_0$), so $z=w^-y'$ with $y'\gex\alpha_0$. Also $y'\lex g_0$, so by the first case $y'=\alpha_0$ or $y'$ ends in $0^\infty$.
+\end{itemize}
+So every point of the difference has a tail equal to $q$ or ending in $0^\infty$; these points form a countable set.
+\end{proof}
+
+\begin{corE}
+Assume \textup{(I1)} \cite[Lemma~6.2]{AKgen}, whose source is Raith \cite{Raith94} (not read), and \textup{(I2)}, \textup{(I3)} \cite[Lemmas~4.1 and~4.2]{AKgen}. Then, using also Theorem~A of \cite{Nem26}, the map $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous on $(1,\infty)\times[0,1)$.
+\end{corE}
+
+\begin{proof}
+Since $\log\beta$ is continuous and positive, it suffices to show that $G$ is continuous at $(\beta_0,t_0)$. Let $(\beta_n,t_n)\to(\beta_0,t_0)$, and work with digits in $\{0,\dots,M\}$, $M=\lceil\beta_0\rceil$. It suffices to show that every subsequence has a further subsequence along which $G(\beta_n,t_n)\to G(\beta_0,t_0)$. By compactness we may assume $x_n:=b(t_n,\beta_n)\to x$ and $y_n:=\alpha(\beta_n)\to y$.
+
+\emph{Upper bound.} By Proposition~\ref{prop:usc} and Lemma~\ref{lem:sandwich}, $\limsup G(\beta_n,t_n)\le H(x,y)\le H(q,g_0)=G(\beta_0,t_0)$, since $H$ is non-increasing in the first argument and non-decreasing in the second.
+
+\emph{Lower bound.} If $G(\beta_0,t_0)=0$ there is nothing to prove. Otherwise $\K_{\beta_0}(t_0)=\Sigma_{b_0,\alpha_0}\ne\emptyset$; let $(\ell_0,r_0)$ be its normalization (Lemma~\ref{lem:norm}), so $b_0\lex\ell_0$, $r_0\lex\alpha_0$ and $H(\ell_0,r_0)=G(\beta_0,t_0)>0$. By Theorem~IA there is a normalized $(p,q')$ with $\ell_0\prec p$, $q'\prec r_0$ and $H(p,q')\ge G(\beta_0,t_0)-\varepsilon$. By Lemma~\ref{lem:sandwich}, $x\lex b_0\lex\ell_0\prec p$ and $y\gex\alpha_0\gex r_0\succ q'$. If $x_n\gex p$ for infinitely many $n$, a limit would satisfy $x\gex p$; so $x_n\prec p$ eventually, and likewise $y_n\succ q'$. Then $\Sigma_{p,q'}\subset\Sigma_{x_n,y_n}=\K_{\beta_n}(t_n)$ and $G(\beta_n,t_n)\ge G(\beta_0,t_0)-\varepsilon$ eventually.
+\end{proof}
+
+\begin{remark}
+(a) The proof uses part (i) of (I2) and the main statement of (I3). Parts (ii) of (I2) and (i)--(iii) of (I3) describe the one-sided limits of $\alpha$ and $b$; they show that both ends of each interval in Lemma~\ref{lem:sandwich} occur as limits (for instance $\alpha(\beta)\to g_0$ as $\beta\searrow\beta_0$ when $\alpha_0$ is periodic, and $b(t,\beta_0)\to q$ as $t\nearrow t_0$ when $b_0$ is finite), so the sandwich cannot be narrowed.
+(b) For $\beta_0\le2$ the corollary is \cite[Theorem~E]{Nem26}, now without \cite[Theorem~1.4]{LSZ}.
+(c) For fixed $\beta$, it gives continuity of $t\mapsto\dimH K_\beta(t)$ on $[0,1)$. For $\beta\in(1,2)$ that is \cite[Proposition~2.5]{KKLL}, from Raith (Section~\ref{sec:status}).
+(d) A function that is non-increasing in $t$ and continuous in each variable separately is jointly continuous \cite[remark after Theorem~E]{Nem26}. So, given continuity in $t$, the question of Allaart and Kong is equivalent to continuity in $\beta$ for fixed $t$. That still needs a two-variable input such as Corollary~C, because $b(t,\beta)$ and $\alpha(\beta)$ both increase with $\beta$.
+\end{remark}
+
+\section{What is known and what is new}\label{sec:status}
+
+\emph{Continuity of $H$ for $M=1$.} Lu, Steiner and Zou \cite[Section~1, arXiv v2]{LSZ} write: ``Labarca and Moreira [35] proved that the entropy of the subshift $\Sigma_{a,b}:=\{i_1i_2\cdots\in\{0,1\}^\infty:i_ni_{n+1}\cdots\in[a,b]$ for all $n\ge1\}$ varies continuously in $(a,b)$''. Their [35] is \cite{LM}, which we did not read. So Corollary~C for $M=1$ is known.
+
+\emph{Continuity of $H$ for $M\ge2$.} Bandtlow and Rugh \cite[Theorem~1.2, arXiv v2]{BR} prove: ``Suppose that $T:\bigcup\mathcal Z\to I$ is a piecewise monotonic $C^1$-map with $0<\Xi(T)<+\infty$. Let $S$ be a neighbourhood of $t\in\mathbb R$ and suppose that $(H_s)_{s\in S}\subset\mathcal H(I)$ is a family of holes which is Lipschitz continuous in $s$ and for which the number of holes is uniformly bounded. Then $s\mapsto h_{top}(T,H_s)$ is continuous at $t$.'' Applied to $T(x)=(M+1)x\bmod1$ with two holes at the ends of the interval, this plausibly gives Corollary~C for $M\ge2$. We did not carry out the translation between lexicographic pairs in the product topology and holes in $\mathcal H(I)$ (one-parameter Lipschitz families, closed holes, sequences with two expansions). Raith \cite{Raith94} is reported to treat the same question: Kalle, Kong, Langeveld and Li \cite[Section~2, arXiv v1]{KKLL} write that ``in [Rai94] he removed a finite number of open intervals from $[0,1]$ and considered piecewise monotone expanding maps restricted to the survivor set. He then studied the dependence on the endpoints of the holes of the Hausdorff dimension of the survivor set and of the topological entropy of the map restricted to the survivor set.'' We did not read \cite{Raith94}. So Corollary~C for $M\ge2$ is probably known as a statement.
+
+\emph{Continuity in $t$ for fixed $\beta$.} Kalle, Kong, Langeveld and Li \cite[Proposition~2.5, arXiv v1]{KKLL}: ``Proposition 2.5 ([Rai94]). Let $\beta\in(1,2)$ be given. The maps $H_\beta:t\mapsto h_{top}(K_\beta(t))$ and $\eta_\beta:t\mapsto\dimH K_\beta(t)$ are continuous on $[0,1)$.'' For $\beta>2$ this is probably known too, from the same source or from \cite{BR} with a sliding hole; we did not check.
+
+\emph{Joint continuity.} Allaart and Kong \cite[Remark~1.2, arXiv v3]{AKgen} write: ``We do not know whether the function $(\beta,t)\to\dimH K_\beta(t)$ is jointly continuous.'' Joint continuity needs the map $T_\beta$ and the hole to move together. Raith \cite{Raith92} studies continuity of the dimension for piecewise monotonic maps under perturbation (title as listed in \cite{KKLL}); whether it covers the present case was not checked.
+
+\emph{What is new here.} A self-contained symbolic proof of IA at every normalized pair with positive entropy, through the support lemma (Proposition~\ref{prop:S3}), for every $M$; and the joint statement Corollary~E for all $\beta>1$, under the conditions stated there. Neither was found in the texts read. Given Corollary~C, which may already follow from \cite{BR} or \cite{Raith94}, Corollary~E is a short deduction, and its weight as a novelty claim is modest.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{p{4.6cm}p{3.6cm}p{6.0cm}}
+\toprule
+Result & Status & Source or comment\\
+\midrule
+Theorem A (recalled) & known at map level & \cite{Oliveira}; symbolic proof in \cite{Nem26}, no outside referee\\
+Thm~\ref{thm:M1} (normalized pairs) & binary analogue known & \cite[Lemma~3.6]{LSZ}; short given Theorem~A\\
+Prop.~\ref{prop:usc} (upper semicontinuity) & standard & decreasing intersections\\
+Prop.~\ref{prop:lsc}, Remark~\ref{rem:converse} & elementary & \\
+Lemmas~\ref{lem:P}--\ref{lem:Y2}, Prop.~\ref{prop:Y3} & not found in texts read & elementary\\
+Support lemma, Theorem~IA & not found in texts read & Lemmas~\ref{lem:S1}--\ref{lem:S2}, Prop.~\ref{prop:S3}\\
+Corollary C, $M=1$ & known & Labarca--Moreira, as quoted in \cite{LSZ}\\
+Corollary C, $M\ge2$ & probably known & plausibly \cite[Thm.~1.2]{BR}; Raith (not read)\\
+Continuity in $t$, fixed $\beta$ & known for $\beta\in(1,2)$ & \cite[Prop.~2.5]{KKLL}, from Raith; probably known for $\beta>2$\\
+Corollary E (joint, all $\beta>1$) & conditional; not found in texts read & on (I1)--(I3) and Theorem~A; open in \cite[Remark~1.2]{AKgen}\\
+\bottomrule
+\end{tabular}
+\caption{Known, not found in the texts read, and conditional.}
+\end{table}
+
+\section{Numerics}\label{sec:numerics}
+
+Every number in this section, and in Example~\ref{ex:jump}, is printed by a script in \texttt{continuity/scripts/} of the repository \url{https://github.com/cpsbvbng26-dotcom/golden-window-resolution}; the outputs are kept in \texttt{continuity/expected/} and compared byte for byte by the repository's checks. Random pairs are eventually periodic, with fixed seeds. Entropies come from three codes that share no formula: a ``pending comparison'' automaton for $\Sigma_{A,B}$ that assumes neither normalization nor Theorem~A (the \emph{raw automaton}); Theorem~A, with the root of $K=1$ isolated exactly on an integer polynomial (square-free part, real-root isolation, bisection at $60$ digits); and the automaton of Lemma~\ref{lem:P} restricted to match depths below $D$, which gives $h(Y_D)$ and the exact witnesses $(p_D,q_D)$. Differences below $10^{-11}$ are printed as such, so that last-bit differences between machines do not change the output.
+
+\emph{Theorem A against the raw automaton} (\texttt{oracle.py}). On $240$ random normalized pairs, $60$ for each $M=1,\dots,4$, the exact word counts $N_n$, $n\le30$, equal the coefficients of $1/((1-z)(1-K))$ in every case, and the two entropies agree to $10^{-12}$. On the $3041$ edges of these automata, the four-case rule of Proposition~\ref{prop:auto} and the product rule of Lemma~\ref{lem:P} give the same state. For $(02^\infty,31^\infty)$, $K(z)-1=-(2z-1)^2/(1-z)$ has a double root at $1/2$, and both codes give $\log2$. For the pair $((01)^\infty,(30)^\infty)$ of the next paragraph the root is $1/3$. Negative control: for $((01^5)^\infty,(20^5)^\infty)$, which is not normalized, the series of Theorem~A starts $1,3,6,9,9,0,-27$, while the word counts start $1,2,3,4,5,6,7$.
+
+\emph{Theorem IA} (\texttt{ia\_witness.py}). On $200$ normalized pairs with $h>0$ ($50$ for each $M$; half random, half delicate: the orbit of $b$ passes close to $a$ or the orbit of $a$ close to $b$, or $b$ ends in $a$ or $a$ in $b$), $h-h(Y_D)$ decreases to $0$ in every case. $h(Y_D)$ from the depth-bounded automaton agrees with the raw automaton of $(a|D\,M^\infty,b|D\,0^\infty)$ to $10^{-12}$. For pairs whose first digits differ by at least $2$, the largest gap at $D=40$ is $5.3\cdot10^{-9}$ ($M=2$), $2.0\cdot10^{-9}$ ($M=3$) and $1.4\cdot10^{-11}$ ($M=4$), and every gap at $D=60$ is below $10^{-11}$. The slowest pairs have small entropy and a long period, for example $a=0^\infty$, $b=(10^{16})^\infty$: gaps $1.3\cdot10^{-1}$, $6.8\cdot10^{-2}$, $1.5\cdot10^{-2}$, $2.7\cdot10^{-3}$, $2.2\cdot10^{-4}$ at $D=10,20,30,40,60$. For $a=(02)^\infty$, $b=(210)^\infty$ the gaps are $5.6\cdot10^{-2}$, $1.8\cdot10^{-3}$, $1.2\cdot10^{-4}$, $8.1\cdot10^{-6}$, $2.6\cdot10^{-8}$, and for $a=(01)^\infty$, $b=(2(01)^7)^\infty$, where $\sigma b$ agrees with $a$ on $14$ digits, they are $4.6\cdot10^{-3}$, $7.6\cdot10^{-5}$, $1.2\cdot10^{-6}$, $5.3\cdot10^{-9}$ and below $10^{-11}$.
+
+\emph{The witnesses $(p_D,q_D)$} (\texttt{witnesses.py}). For $31$ pairs (eleven chosen by hand, including the isolated end $(02^\infty,2^\infty)$, the double root and the pair of the next paragraph, and $20$ random pairs with first digits differing by at least $2$) and $D=10,20,40$, in all $93$ cases: $a\prec p_D$ and $q_D\prec b$ with the first difference at an index $\le D$ (checked exactly); $(p_D,q_D)$ is normalized (exactly); and Theorem~A at $(p_D,q_D)$ and the raw automaton of $(p_D,q_D)$ both give $h(Y_D)$ to $10^{-11}$, as Lemma~\ref{lem:Y2} says. For the support lemma, each end was tested for being the label of an infinite path inside a strongly connected component of spectral radius $>1$, whose measure of maximal entropy is ergodic with positive entropy and has the end in its support. That holds for $28$ of the $31$ ends $a$ and $27$ of the ends $b$, and in each of these cases $p_{40}$ (resp.\ $q_{40}$) agrees with the end on at least $30$ digits, as Proposition~\ref{prop:S3} predicts. In the remaining $3$ and $4$ cases the witness stays away from the end; that converse is observed, not claimed.
+
+\emph{Continuity hunt} (\texttt{hunt.py}). For eventually periodic $(A,B)$, every pair agreeing with it on $k$ digits has entropy in $[H(A|k\,M^\infty,B|k\,0^\infty),H(A|k\,0^\infty,B|k\,M^\infty)]$, so continuity at $(A,B)$ is the convergence of this bracket. All entropies here come from the raw automaton. Over $400$ random pairs ($M=2,3,4$; $390$ not normalized; $81$ with $h>0$) the largest bracket gap at $k=10,20,30,40$ is $1.9\cdot10^{-2}$, $6.4\cdot10^{-4}$, $2.5\cdot10^{-5}$, $1.0\cdot10^{-6}$. Over $200$ further random pairs with $h>0$ and first digits differing by at least $2$ it is $5.6\cdot10^{-2}$, $1.8\cdot10^{-3}$, $1.2\cdot10^{-4}$, $8.1\cdot10^{-6}$. At points of entropy $0$ convergence can be slow: for $(12^\infty,2^\infty)$ the upper end of the bracket is $0.0680$, $0.0404$, $0.0235$ at $k=40,80,160$. The values of Example~\ref{ex:jump} come from the same script.
+
+\emph{A point with $\beta>2$ and spread $3$} (\texttt{realmap.py}). Let $\beta_0=(3+\sqrt{13})/2\approx3.30277563773$, so $\beta_0^2=3\beta_0+1$, the greedy expansion of $1$ is $310^\infty$ and $\alpha(\beta_0)=(30)^\infty$; let $t_0=1/\beta_0^2\approx0.091673086804$, so $b(t_0,\beta_0)=010^\infty$ is finite. Both expansions jump at this point. The raw automaton gives $\min\K=(01)^\infty$ and $\max\K=(30)^\infty$, whose first digits differ by $3$, so neither the binary theorem nor the partial extension of \cite{Nem26} applies. Theorem~A gives $\dimH K_{\beta_0}(t_0)=\log3/\log\beta_0=0.9195230258$. An estimate from the real map alone (counting the $n$-cylinders of $T_\beta$ that meet the survivor set, $n=150$, at $80$ digits) gives $0.9195230258$ at the point. At $(\beta_0+d_1e,t_0+d_2e)$ with $(d_1,d_2)$ in the eight directions of the square, the estimates lie in $[0.91517,0.92949]$ at $e=10^{-2}$, in $[0.91948,0.91966]$ at $e=10^{-4}$, in $[0.91952,0.91953]$ at $e=10^{-6}$, and all equal $0.91952$ at $e=10^{-8}$. The entropy at the point is $\log3$, so this point tests the jumps of the expansions, not a steep slope.
+
+Numerics are consistent with the theorems. They cannot prove them.
+
+\section{Literature, and how each item was read}\label{sec:lit}
+
+No new search was run for this note. The texts are those fetched for \cite{Nem26} on 18 November 2026, together with \cite{BR} and \cite{KKLL}, fetched as arXiv full texts on 18--19 November 2026. Quotations were compared with the extracted text files; mathematical symbols were transcribed.
+\begin{itemize}
+\item Read in the sections used: Allaart--Kong \cite{AKgen} (arXiv v3: Remark~1.2, Lemmas~4.1--4.3, Section~6 to Lemma~6.2); Allaart--Kong \cite{AKcrit} (arXiv v2: Remark~1.10); Lu--Steiner--Zou \cite{LSZ} (arXiv v2: Section~1 including Theorem~1.4 and the sentence on Labarca--Moreira, Lemma~3.6 and its proof; the proofs of Section~3 were not re-verified line by line); Kalle--Kong--Langeveld--Li \cite{KKLL} (arXiv v1: Section~2, the paragraph on Raith and Proposition~2.5); Bandtlow--Rugh \cite{BR} (arXiv v2: abstract, Section~1 and Theorem~1.2; the proofs were not read); Komornik--Steiner--Zou \cite{KSZ} (arXiv v4: Theorem~2.6); Kuang--Li--Xiao \cite{KLX} (arXiv v1: Theorem~4.3); Oliveira \cite{Oliveira} (arXiv v1: Sections~4 and~10); Barnsley--Steiner--Vince \cite{BSV} (arXiv v3: Lemma~3 and its attribution).
+\item Not read, cited as listed by others: Raith \cite{Raith94} (as [Rai94] in \cite{KKLL} and [26] in \cite{AKgen}); Raith \cite{Raith92} (as [Rai92] in \cite{KKLL}); Labarca--Moreira \cite{LM} (as [35] in \cite{LSZ}). Flatto--Lagarias, Milnor--Thurston and Glendinning--Hall are mentioned only as attributed in \cite{BSV}.
+\item Standard facts recalled, not cited: Fekete's lemma, the variational principle, natural extensions and their entropy, Poincar\'e recurrence, the ergodic theorem, the Fine--Wilf lemma.
+\end{itemize}
+In \cite[proof of Corollary~7.2]{Nem26} the source of \cite[Lemma~6.2]{AKgen} is given as Raith's 1989 paper. The reference in \cite{AKgen} is Raith's 1994 paper \cite{Raith94}. The statement used is the same.
+
+\section*{Disclosure of the use of a language model}
+Claude Code (Anthropic) was used for this work: to read the literature, to draft and check the proofs, to write and run the verification scripts, and to draft the text. A separate referee pass, also carried out with Claude Code, checked the proofs line by line and ran its own numerics; it found the proofs correct with presentational gaps, which are fixed above. It is not a substitute for a specialist's check. The author is responsible for the content. Claude is not an author.
+
+\section*{Licence}
+This paper is distributed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0). The scripts are under the MIT licence.
+
+\begin{thebibliography}{99}
+\bibitem{Nem26} T.~Nemoto, \emph{Resolution of the Golden-Window Conjecture and Related Results on $\beta$-Transformations with a Hole and on the Trinity-Infinity Series~II Game}, preprint, Figshare, 2026. \doi{10.6084/m9.figshare.35050300}.
+\bibitem{v1} T.~Nemoto, \emph{Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture}, preprint, Figshare, 2026. \doi{10.6084/m9.figshare.34419198}.
+\bibitem{AKcrit} P.~Allaart, D.~Kong, Critical values for the $\beta$-transformation with a hole at $0$, \emph{Ergodic Theory Dynam.\ Systems} (2023). \doi{10.1017/etds.2022.24}. arXiv:2109.10012 (v2 read).
+\bibitem{AKgen} P.~Allaart, D.~Kong, The $\beta$-transformation with a hole at $0$: the general case, \emph{Ergodic Theory Dynam.\ Systems} (2025). \doi{10.1017/etds.2025.10257}. arXiv:2411.03516 (v3 read).
+\bibitem{BR} O.~F.~Bandtlow, H.~H.~Rugh, Entropy-continuity for interval maps with holes, arXiv:1510.06043 (v2 read).
+\bibitem{BSV} M.~Barnsley, W.~Steiner, A.~Vince, Critical itineraries of maps with constant slope and one discontinuity, arXiv:1205.5902 (v3 read).
+\bibitem{KKLL} C.~Kalle, D.~Kong, N.~Langeveld, W.~Li, The $\beta$-transformation with a hole at $0$, \emph{Ergodic Theory Dynam.\ Systems} (2020). \doi{10.1017/etds.2019.12}. arXiv:1803.07338 (v1 read).
+\bibitem{KSZ} V.~Komornik, W.~Steiner, Y.~Zou, Unique double base expansions, arXiv:2209.02373 (v4 read).
+\bibitem{KLX} R.~Kuang, B.~Li, Y.~Xiao, The Hausdorff dimension of the survivor set, arXiv preprint, \doi{10.48550/arxiv.2604.23737} (v1 read).
+\bibitem{LM} R.~Labarca, C.~G.~Moreira, Essential dynamics for Lorenz maps on the real line and the lexicographical world, \emph{Ann.\ Inst.\ H.\ Poincar\'e Anal.\ Non Lin\'eaire} 23 (2006), 683--694. Not read; cited as listed in \cite{LSZ}.
+\bibitem{LSZ} J.~Lu, W.~Steiner, Y.~Zou, Hausdorff dimension of double-base expansions and binary shifts with a hole, \emph{Bull.\ London Math.\ Soc.} (2026). \doi{10.1112/blms.70344}. arXiv:2509.04227 (v2 read).
+\bibitem{Oliveira} H.~M.~Oliveira, Homological reduction and entropy of discontinuous interval maps, arXiv:2611.03287 (v1 read).
+\bibitem{Raith92} P.~Raith, Continuity of the Hausdorff dimension for piecewise monotonic maps, \emph{Israel J.\ Math.} 80 (1992), 97--133. \doi{10.1007/bf02808156}. Not read.
+\bibitem{Raith94} P.~Raith, Continuity of the Hausdorff dimension for invariant subsets of interval maps, \emph{Acta Math.\ Univ.\ Comenian.\ (N.S.)} 63 (1994), 39--53. Not read; cited as listed in \cite{KKLL,AKgen}.
+\end{thebibliography}
+
+\end{document}
