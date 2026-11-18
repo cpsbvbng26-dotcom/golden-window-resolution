@@ -21,7 +21,7 @@ Figshare に出す稿 "Resolution of the Golden-Window Conjecture and Related Re
 14. **公開の前に、紙面全体に対して敵対的な査読を一度通す**（決めごと 18）。主な主張を導き直し、数を台本と突き合わせ、引用を文献の確認と突き合わせる。各部分がどの三つの検査を通ったかを記録に書く。
 
 ```
-python3 verification/run_scripts.py [curve|edges|symbolic|symbolic-referee]   # 台本を回して expected/ と比べる（合わせて二十分ほど）
+python3 verification/run_scripts.py [curve|edges|symbolic|symbolic-referee|trinity]   # 台本を回して expected/ と比べる（合わせて二十分ほど）
 python3 verification/check_numbers.py      # 紙面の数と台本の出力（--break で壊して確かめる）
 python3 verification/check_text.py         # 所属・使わない語・CITATION.cff（--break）
 python3 verification/check_copies.py       # 正本の写し・題・PDF の題
