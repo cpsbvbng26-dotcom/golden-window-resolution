@@ -43,3 +43,19 @@ jobs:
       - run: python verification/check_numbers.py
       - run: python verification/check_numbers.py --break
       - run: python verification/check_copies.py
+      - run: python verification/check_copies.py --break
+
+  # 二つ目の稿（continuity/）。台本を回して continuity/expected/ と一字一句で比べ、紙面の数と突き合わせる。
+  continuity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements.txt
+      - run: python verification/run_scripts.py continuity
+      - run: python verification/check_numbers_continuity.py
+      - run: python verification/check_numbers_continuity.py --break
