@@ -9,6 +9,36 @@ Resolution of the Golden-Window Conjecture and Related Results on β-Transformat
 番号が指す Figshare の記録の中身は、確かめていません。
 2026-10-13 の Figshare の稿（`10.6084/m9.figshare.34419198`）の新しい版ではなく、別の項目です。
 
+## 二つ目の稿：穴が 0 にあるときの同時連続性（β > 1）
+
+`continuity/` に、二つ目の稿 "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1" の原稿・PDF・台本・出力を置いています。
+Figshare に別の項目として置く予定の稿です。
+DOI はまだ受け取っていません。
+上の稿（`10.6084/m9.figshare.35050300`）の新しい版ではありません。
+上の稿の原稿と PDF には手を入れていません。
+
+上の稿の定理 E は、β ≤ 2 の範囲で、Lu・Steiner・Zou の定理 1.4 を仮定して同時連続性を示しました。
+二つ目の稿は、有限の字母の辞書式シフトについて、内側からの近似（Theorem IA）を記号の側だけで示します。
+証明の要は支えの補題です。
+そこから、エントロピー h(Σ_{a,b}) が (a, b) について連続であること（Corollary C）と、(β, t) ↦ dim_H K_β(t) が (1, ∞) × [0, 1) で同時連続であること（Corollary E）を導きます。
+Corollary E は条件付きです。
+条件は三つあります。
+一つ目は Allaart・Kong の補題 6.2 で、Raith から導けると書かれています（Raith の論文は読んでいません）。
+二つ目は同じ論文の補題 4.1 と 4.2 です。
+三つ目は上の稿の定理 7.1 で、外の査読をまだ通っていません。
+Lu・Steiner・Zou の定理 1.4 には、もう依りません。
+
+| 結果 | 状態 |
+| --- | --- |
+| Corollary C、M = 1 | 知られている（Lu・Steiner・Zou が引く Labarca・Moreira） |
+| Corollary C、M ≥ 2 | おそらく知られている（Bandtlow・Rugh の定理 1.2 からおそらく従う。Raith は読んでいない） |
+| β を固定したときの t についての連続性 | β ∈ (1, 2) では知られている（Kalle・Kong・Langeveld・Li の命題 2.5） |
+| Theorem IA（支えの補題による証明） | 読んだ文献には見つからなかった |
+| Corollary E（β > 1 での同時連続性） | 条件付き。読んだ文献には見つからなかった。Allaart・Kong の注意 1.2 は分からないとしている |
+
+各結果が通った三つの検査は `continuity/REFEREE.md` に書いています。
+紙面は 12 頁です。
+
 ## この稿について
 
 三人の繰り返しゲームで、割引因子が 1/φ < δ < 2/3 の窓にあるとき、純戦略の均衡利得の集合がフラクタルになります。
@@ -48,15 +78,21 @@ Figshare の稿（`10.6084/m9.figshare.34419198`、2026-10-13）は、その集�
 | `scripts/trinity/` | Trinity-Infinity の三篇の点検と Series II のゲームの節 |
 | `expected/` | 各台本の出力。検査はこれと一字一句で比べます |
 | `verification/` | 検査 |
+| `continuity/paper/` | 二つ目の稿の LaTeX の原稿と、組んだ PDF |
+| `continuity/scripts/`、`continuity/expected/` | 二つ目の稿の数を出す台本と、その出力 |
+| `continuity/REFEREE.md` | 二つ目の稿の査読の記録 |
 
 紙面に印字した数は、すべてどれかの台本の出力にあります。
 `verification/check_numbers.py` が、紙面の数と出力を突き合わせます。
 小数点以下三桁以上の数で、突き合わせの行が無いものがあれば落ちます。
+二つ目の稿は `verification/check_numbers_continuity.py` が同じことをします。
+こちらは m·10^{e} の形の数も、行が無ければ落ちます。
 
 ```
 python3 -m pip install -r requirements.txt
 python3 verification/run_scripts.py
 python3 verification/check_numbers.py
+python3 verification/check_numbers_continuity.py
 python3 verification/check_text.py
 python3 verification/check_copies.py
 ```
@@ -93,6 +129,10 @@ python3 verification/check_copies.py
 文献の確認は 2026-11-18 に行いました。
 arXiv で読めたものは本文を読み、読めなかったものは要旨だけ、または記憶によるものとして、紙面の文献の節（Literature, and how each item was read）に区別して書いています。
 Berg・Kitti と Mailath・Obara・Sekiguchi の本文は読めていません。
+二つ目の稿の読み方は、その紙面の文献の節にあります。
+上の稿の系 7.2 の証明は、Allaart・Kong の補題 6.2 の出どころを Raith の 1989 年の論文としています。
+Allaart・Kong が挙げているのは Raith の 1994 年の論文です。
+この食い違いは、二つ目の稿の文献の節と `continuity/REFEREE.md` に書きました。
 
 ## 言語モデルの利用
 
