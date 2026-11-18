@@ -23,6 +23,7 @@ TEX = os.path.join(ROOT, "paper", "golden-window-resolution.tex")
 C = "expected/curve/"
 E = "expected/edges/"
 R = "expected/symbolic-referee/"
+T = "expected/trinity/"
 
 ENTRIES = [
     # Theorem A (lower end)
@@ -61,6 +62,16 @@ ENTRIES = [
     ("598", E + "monotone.out"),
     # Section 7
     ("0.76449", R + "cases.out"), ("0.481212", R + "cases.out"), ("150", R + "theta.out"),
+    # Trinity-Infinity part. Numbers that Series II prints are quoted; s2_claims.py prints them
+    # next to the recomputed values ("printed ...").
+    ("0.754190", T + "s2_claims.out"), ("0.527933", T + "s2_claims.out"), ("0.508380", T + "s2_claims.out"),
+    ("0.699973", T + "s2_claims.out"), ("0.105", T + "s2_claims.out"), ("0.0735", T + "s2_claims.out"),
+    ("0.4718", T + "s2_claims.out"),
+    ("0.591608", T + "jsr_cycle.out"), ("0.92215", T + "jsr_check.out"),
+    ("0.505", T + "run_p23_scan.out"), ("0.7071", T + "run_p23_gen.out"), ("0.7072", T + "run_p23_gen.out"),
+    ("0.70711", "=1/sqrt(2)"),
+    ("23", T + "run_p23_scan.out"), ("24", T + "run_p23_facets.out"), ("29", T + "run_p23_scan.out"),
+    ("47", T + "run_diff_check.out"), ("83", T + "run_diff_check.out"),
 ]
 
 NUM = re.compile(r"(?<![\w.])\d+(?:\.\d+)?")
@@ -101,8 +112,12 @@ def run(tex):
         if printed not in printed_in_paper:
             errors.append(f"{printed}: not printed in the paper")
             continue
-        with open(os.path.join(ROOT, rel), encoding="utf-8") as fh:
-            src = fh.read()
+        if rel.startswith("="):
+            import math
+            src = repr(eval(rel[1:], {"sqrt": math.sqrt}))
+        else:
+            with open(os.path.join(ROOT, rel), encoding="utf-8") as fh:
+                src = fh.read()
         trunc = (printed + r"\ldots") in plain
         if not any(matches(printed, c, trunc) for c in numbers_in(src)):
             errors.append(f"{printed}: no number in {rel} rounds to it")

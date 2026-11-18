@@ -2,7 +2,7 @@
 """Run every script under scripts/<group>/ that has an expected output, and compare.
 
 Usage: python3 verification/run_scripts.py [group ...]
-Groups: curve, edges, symbolic, symbolic-referee (default: all).
+Groups: curve, edges, symbolic, symbolic-referee, trinity (default: all).
 
 The output of each script must equal expected/<group>/<name>.out byte for byte.
 Every script uses exact rationals, fixed precision and fixed random seeds, so the
@@ -15,7 +15,7 @@ import sys
 import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-GROUPS = ["curve", "edges", "symbolic", "symbolic-referee"]
+GROUPS = ["curve", "edges", "symbolic", "symbolic-referee", "trinity"]
 
 
 def main(argv):
