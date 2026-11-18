@@ -30,6 +30,7 @@ Figshare の稿（`10.6084/m9.figshare.34419198`、2026-10-13）は、その集�
 | 露出した辺への一般化、普遍の窓、線形ジレンマの窓 | 読んだ文献には見つからなかった（応用） |
 | 定理 E（穴が 0 にあるときの同時連続性、β ≤ 2） | 条件付き（Lu・Steiner・Zou 定理 1.4 に依る） |
 | 有限の字母の辞書式シフトのエントロピーの式 | 写像の形では Oliveira のもの。記号の側の証明を付けた |
+| Trinity-Infinity の三篇の点検と Series II のゲーム | 紙面のその部分の表に、知られているもの・見つからなかったもの・九つの値でだけ証明したものを分けてある |
 
 ## 中身
 
@@ -39,6 +40,7 @@ Figshare の稿（`10.6084/m9.figshare.34419198`、2026-10-13）は、その集�
 | `scripts/curve/` | 窓の曲線に沿った数（定理 A〜E、命題 9 の表） |
 | `scripts/edges/` | 辺への一般化と窓の表 |
 | `scripts/symbolic/`、`scripts/symbolic-referee/` | 有限の字母の辞書式シフトの節。後者は査読のために別に書いた台本です |
+| `scripts/trinity/` | Trinity-Infinity の三篇の点検と Series II のゲームの節 |
 | `expected/` | 各台本の出力。検査はこれと一字一句で比べます |
 | `verification/` | 検査 |
 
@@ -74,6 +76,12 @@ python3 verification/check_copies.py
 | 定理 E（条件付き） | `curve/t5_hole0.py` | `curve/t5_jump.py` |
 | 辞書式シフトの式 | `symbolic/check1_series.py` | `symbolic-referee/bf.py`（別に書いた総当たり） |
 | 系と β 有理数の修正 | `symbolic-referee/cases.py` | `symbolic-referee/theta.py`、`symbolic-referee/empty.py` |
+| Trinity-Infinity の主張の点検 | `trinity/s2_claims.py` | `trinity/s1_s3_claims.py` |
+| 面の上の均衡集合・利得差の上界 | `trinity/face_check.py` | `trinity/run_diff_check.py`（自己生成の作用素の外側からの近似） |
+| 一度も支えられない点 | `trinity/run_aps_test.py` | `trinity/run_aps_face1.py` |
+| δ ≤ 1/√2 での全体 | `trinity/run_p23_exact.py`・`trinity/run_p23_infeas.py`（厳密な有理数の証明書） | `trinity/run_p23_scan.py`・`trinity/run_p23_gen.py`・`trinity/run_p23_facets.py` |
+| 作用素の切り替え | `trinity/jsr_check.py` | `trinity/jsr_cycle.py` |
+| 多人数の輪番の閾値 | `trinity/rot_asym.py`（200 桁） | `trinity/rot_asym.py`（割引和の直接の和） |
 
 ## 文献の読み方
 

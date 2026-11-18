@@ -30,6 +30,7 @@ This is the status table of the paper (Status of each result).
 | Exposed edges, the universal window, windows of linear dilemmas | not found in the texts read (application) |
 | Theorem E (joint continuity for the hole at 0, β ≤ 2) | conditional on Lu–Steiner–Zou Thm. 1.4 |
 | Entropy identity for lexicographic shifts on finite alphabets | map-level form due to Oliveira; a symbolic proof is given |
+| The Trinity-Infinity papers checked, and the Series II game | the table of that part separates known results, results not found, and a result proved only at nine values |
 
 ## Contents
 
@@ -39,6 +40,7 @@ This is the status table of the paper (Status of each result).
 | `scripts/curve/` | numbers along the golden curve (Theorems A–E, the table of Proposition 9) |
 | `scripts/edges/` | the generalization and the window tables |
 | `scripts/symbolic/`, `scripts/symbolic-referee/` | the section on lexicographic shifts; the latter was written separately for the referee pass |
+| `scripts/trinity/` | the part on the Trinity-Infinity papers and the Series II game |
 | `expected/` | the output of each script; the checks compare byte for byte |
 | `verification/` | the checks |
 
@@ -73,6 +75,12 @@ The second and third are the scripts below.
 | Theorem E (conditional) | `curve/t5_hole0.py` | `curve/t5_jump.py` |
 | Identity for lexicographic shifts | `symbolic/check1_series.py` | `symbolic-referee/bf.py` (separately written brute force) |
 | Corollary and the β-rational fix | `symbolic-referee/cases.py` | `symbolic-referee/theta.py`, `symbolic-referee/empty.py` |
+| Trinity-Infinity claims checked | `trinity/s2_claims.py` | `trinity/s1_s3_claims.py` |
+| Equilibrium set on the face, payoff-gap bound | `trinity/face_check.py` | `trinity/run_diff_check.py` (outer approximation by the self-generation operator) |
+| Never-sustainable payoffs | `trinity/run_aps_test.py` | `trinity/run_aps_face1.py` |
+| The whole set for δ ≤ 1/√2 | `trinity/run_p23_exact.py`, `trinity/run_p23_infeas.py` (exact rational certificate) | `trinity/run_p23_scan.py`, `trinity/run_p23_gen.py`, `trinity/run_p23_facets.py` |
+| Switching of the operator | `trinity/jsr_check.py` | `trinity/jsr_cycle.py` |
+| Rotation thresholds for many players | `trinity/rot_asym.py` (200 digits) | `trinity/rot_asym.py` (direct sums of payoffs) |
 
 ## How the literature was read
 
