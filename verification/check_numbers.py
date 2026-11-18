@@ -110,7 +110,33 @@ def run(tex):
     for n in sorted(printed_in_paper):
         if "." in n and len(n.split(".")[1]) >= 3 and n not in covered:
             errors.append(f"{n}: printed in the paper but has no entry in check_numbers.py")
+    errors += counted_claims(plain)
     return errors
+
+
+def counted_claims(plain):
+    """Counts stated in words, recomputed from the outputs."""
+    errs = []
+    # Theorem A: "(41 values)", every row has A_delta = {1, N}.
+    rows = []
+    with open(os.path.join(ROOT, C + "t1_lower.out"), encoding="utf-8") as fh:
+        for line in fh:
+            m = re.match(r"\s*(\d+)\s+(\d+)\s+\[1, (\d+)\]\s", line)
+            if m:
+                rows.append((int(m.group(1)), int(m.group(2)), int(m.group(3))))
+    ks = sorted({k for k, _, _ in rows})
+    if f"({len(ks)} values)" not in plain:
+        errs.append(f"Theorem A: the paper's count of values differs from the {len(ks)} rows in t1_lower.out")
+    if any(n != a for _, n, a in rows):
+        errs.append("Theorem A: a row of t1_lower.out has A_delta other than {1, N}")
+    # Reduction check: six values of delta, 0 mismatches each.
+    with open(os.path.join(ROOT, C + "membership.out"), encoding="utf-8") as fh:
+        mem = [l for l in fh if l.startswith("delta")]
+    if "at each of six values" not in plain or len(mem) != 6:
+        errs.append("reduction check: the paper's six values of delta do not match membership.out")
+    if any(not l.rstrip().endswith("mismatches 0") for l in mem):
+        errs.append("reduction check: a mismatch in membership.out")
+    return errs
 
 
 def main(argv):
