@@ -78,7 +78,9 @@ for key in sorted(stats):
                                                    fmt(stats[key][2])))
 print('largest gap over all pairs at D = %s: %s' % (', '.join(map(str, DS)),
                                                   ', '.join(fmt(max(r[7][i] for r in rows)) for i in range(len(DS)))))
-rows.sort(key=lambda r: (-r[0], -r[1]))
+# Order by the printed gaps, then by the pair itself: two pairs mirrored into each other have the same gaps up to
+# the last bit, and their order must not depend on that bit (2026-11-19, a CI run swapped them).
+rows.sort(key=lambda r: (-float(fmt(r[0]).replace('<', '')), -float(fmt(r[1]).replace('<', '')), r[2], r[3], show(r[4]), show(r[5])))
 print('slowest four (gaps at D = %s):' % ', '.join(map(str, DS)))
 for g40, g10, M, kind, a, b, h, gaps in rows[:4]:
     print('   M=%d %s: a = %s, b = %s, h = %s: %s' % (M, kind, show(a), show(b), fixed(h, 6), ', '.join(fmt(x) for x in gaps)))
