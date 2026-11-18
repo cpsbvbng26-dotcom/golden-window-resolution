@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Copies and metadata that must stay fixed.
 
-1. SECURITY.md and .github/ISSUE_TEMPLATE/error-report.yml are byte-identical copies of the
-   canonical files in cpsbvbng26-dotcom. Their SHA-256 at the time of copying is recorded here.
+1. SECURITY.md, .github/ISSUE_TEMPLATE/error-report.yml and .github/workflows/empty-issue.yml (2026-11-19)
+   are byte-identical copies of the canonical files in cpsbvbng26-dotcom. Their SHA-256 at the time of copying is recorded here.
    When the canonical files change, the copies and these hashes change together; the
    cross-repository comparison itself is made from cpsbvbng26-dotcom.
 2. The title in the LaTeX source, CITATION.cff and both READMEs is the same string.
@@ -16,6 +16,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COPIES = {
     "SECURITY.md": "973a9630e16e0e5f91efa9ebb870ed3bfb51cd4a2e53693c94e68e321187785d",
     ".github/ISSUE_TEMPLATE/error-report.yml": "1549c3901f58d162eefe6b414e9b09bb5975cab2377c7962fd4e93967f3ec19a",
+    ".github/workflows/empty-issue.yml": "8a5ce275946c4e9258d2775be2cccd0ee39d8c54bf16baf97885a1aef4d3b072",
 }
 TITLE = "Resolution of the Golden-Window Conjecture and Related Results on"
 TITLE_END = "with a Hole and on the Trinity-Infinity Series II Game"
