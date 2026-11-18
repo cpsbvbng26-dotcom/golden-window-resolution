@@ -1,0 +1,17 @@
+rotation slack  V1 - cinc            = (delta + 1)*(b*delta**2 + b*delta - c)/(delta*(delta**2 + delta + 1))
+segment  slack  (CDC, then CCC) - cinc = (b*delta**2 + b*delta - c)/delta
+ratio rot/seg = (delta + 1)/(delta**2 + delta + 1)
+V0 - W*  = -(b*delta**2 + b*delta - c)/(delta**2 + delta + 1)    ; -Q/(1+d+d^2) = -(b*delta**2 + b*delta - c)/(delta**2 + delta + 1)
+check rot = seg + d*(V0-W*): 0
+V2 - (1-d)(a+c) - d*0 = (delta + 1)*(b*delta**2 + b*delta - c)/(delta**2 + delta + 1)
+X_r - 1 numerator: delta**2 + delta - r  ; 1 - d X_r numerator: -3*delta + r + 1
+width condition: (1+r)/3 - delta3(r) > 0 <=> 4(r-2)^2>0 : 4*(r - 2)**2
+
+ r      rotation thr   segment thr    (sqrt(1+4r)-1)/2
+ 0.25  0.207106781   0.207106781   0.207106781
+ 0.50  0.366025404   0.366025404   0.366025404
+ 0.75  0.500000000   0.500000000   0.500000000
+ 1.00  0.618033989   0.618033989   0.618033989
+ 1.25  0.724744871   0.724744871   0.724744871
+ 1.50  0.822875656   0.822875656   0.822875656
+ 1.90  0.966287830   0.966287830   0.966287830

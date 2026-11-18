@@ -1,0 +1,865 @@
+\documentclass[11pt]{amsart}
+\input{glyphtounicode}
+\pdfgentounicode=1
+
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Resolution of the Golden-Window Conjecture and Related Results on beta-Transformations with a Hole and on the Trinity-Infinity Series II Game},pdfauthor={Takuya Nemoto},pdfsubject={CC BY 4.0}}
+\sloppy
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{thmA}{Theorem A}
+\newtheorem*{thmB}{Theorem B}
+\newtheorem*{thmC}{Theorem C}
+\newtheorem*{thmD}{Theorem D}
+\newtheorem*{thmE}{Theorem E (conditional)}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dimH}{\dim_{\mathrm H}}
+\newcommand{\dimB}{\dim_{\mathrm B}}
+\newcommand{\lex}{\preccurlyeq}
+\providecommand{\doi}[1]{DOI \href{https://doi.org/#1}{\nolinkurl{#1}}}
+
+\title[Resolution of the golden-window conjecture]{Resolution of the Golden-Window Conjecture and Related Results on $\beta$-Transformations with a Hole and on the Trinity-Infinity Series~II Game}
+\author{Takuya Nemoto}
+\urladdr{https://orcid.org/0009-0000-1406-0547}
+\date{18 November 2026}
+\subjclass[2020]{37E05, 28A80, 11A63, 91A20}
+\keywords{beta-transformation, open dynamical system, survivor set, Hausdorff dimension, repeated game, subgame-perfect equilibrium, golden ratio}
+
+\begin{document}
+
+\begin{abstract}
+In a three-player repeated game with discount factor $\delta$, the set $T_\delta$ of pure-strategy equilibrium payoffs on one edge of the feasible set was conjectured (Figshare, DOI 10.6084/m9.figshare.34419198) to have Lebesgue measure zero and a dimension in $(0,1)$ that is continuous, non-decreasing, and runs from $0$ to $1$ across the window $1/\varphi<\delta<2/3$. We record that the set is, up to scaling, the survivor set of the greedy $\beta$-transformation, $\beta=1/\delta$, with the hole $(t(\beta),1)$, $t(\beta)=(2-\beta)/(\beta-1)$. Measure zero, the dimension formula $\sum_{n\in A_\delta}\delta^{ns}=1$ and the bound $\dim<1$ are then special cases of a theorem of Lu, Steiner and Zou; we give elementary proofs and credit them. Along this curve, where base and hole move together, we prove that the dimension is continuous and strictly increasing with limits $0$ and $1$; we find its exact rate at both ends, $\dim\sim W(L/\log\varphi)/L$ with $L=\log(1/(\delta-1/\varphi))$ and $1-\dim\sim C\,(2/3-\delta)$ with an explicit $C=11.4760\ldots$; we show that the entropy is a devil's staircase whose plateaus are exactly the parameter intervals with a fixed finite return set; and we explain why the golden ratio appears twice. We extend the reduction to exposed edges of linear dilemmas and obtain closed-form windows. Conditionally on a published continuity theorem of Lu, Steiner and Zou, we show that $(\beta,t)\mapsto\dimH K_\beta(t)$ for the hole at $0$ is jointly continuous for $\beta\in(1,2]$, a question left open by Allaart and Kong. Finally, we give a symbolic proof of an entropy identity for lexicographic shifts on any finite alphabet, a map-level form of which is due to Oliveira, and use it for the entropy of $K_\beta(t)$ for $\beta>2$ when $t$ is not $\beta$-rational. In a separate part, we check the claims of the three Trinity-Infinity papers one by one and treat the Series~II game exhaustively where a proof was found: the exact equilibrium set on the face containing the printed example $(2,4,2)$, the exact set of payoffs that are never sustainable, a payoff-gap bound $|v_i-v_j|\le2\delta$, and the whole equilibrium set for $\frac12\le\delta\le1/\sqrt2$ (proved for all $\delta$ in that range in one direction, and by an exact computer-assisted certificate at nine values in the other); we also give the sharp convergence rates of the operator and decide its golden switching example. Tables separate what is known, what was not found in the texts read, and what is conditional.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The preprint \cite{v1} (Figshare, 13 October 2026) studied a three-player repeated game and found a window of discount factors, $1/\varphi<\delta<2/3$ with $\varphi$ the golden ratio, in which the pure-strategy equilibrium payoffs on one edge form a fractal. It stated the \emph{golden-window conjecture}: (a) in the window the set has Lebesgue measure zero; (b) its Hausdorff dimension is below $1$, continuous and non-decreasing in $\delta$, and runs from $0$ to $1$ across the window. That preprint is frozen and keeps the statements as conjectures. The present paper is a separate record. It resolves the conjecture and adds results on the underlying open dynamical system.
+
+The key observation is not new mathematics. After a change of variables, the game's set is the survivor set of the greedy $\beta$-transformation $y\mapsto\beta y \bmod 1$, $\beta=1/\delta$, with the hole $(t(\beta),1)$, $t(\beta)=(2-\beta)/(\beta-1)$ (Section~\ref{sec:setting}). For a fixed hole, survivor sets of this kind are well studied. Part (a) and the dimension formula of part (b) are special cases of Lu, Steiner and Zou \cite[Theorem~1.2, Proposition~2.5]{LSZ}. We give elementary proofs in Section~\ref{sec:resolution}, but the credit for these statements is theirs.
+
+What we did not find in the texts read is the behaviour along the curve $t=t(\beta)$, where base and hole move together. Theorem~\ref{thm:p9}(3) proves strict monotonicity, continuity and the two end limits. Section~\ref{sec:new} proves the exact end rates (Theorems A and B), the devil's-staircase structure of the entropy (Theorem C), and a structural identity behind the two appearances of $1/\varphi$ (Theorem D). Section~\ref{sec:general} extends the reduction to exposed edges of repeated games and gives closed-form windows for linear dilemmas. Section~\ref{sec:E} treats a question of Allaart and Kong on the hole at $0$; the answer there is conditional on a published theorem whose proof we did not verify line by line. Section~\ref{sec:symbolic} gives a symbolic entropy identity for lexicographic shifts on any finite alphabet. Section~\ref{sec:trinity} is a separate part on the Trinity-Infinity papers \cite{SeriesI,SeriesII,SeriesIII}: it checks their printed claims and treats the Series~II game, whose stage game is the $G_3$ of Section~\ref{sec:setting}. Section~\ref{sec:status} lists, result by result, what is known, what was not found, and what is conditional. Section~\ref{sec:lit} says how each source was read.
+
+``Not found in the texts read'' is the strongest novelty claim made here. The literature search was limited (Section~\ref{sec:lit}), and parts of these results may exist elsewhere.
+
+\section{Setting and the reduction}\label{sec:setting}
+
+\subsection{The game}
+The stage game $G_3$ has three players who choose C or D. A player whose co-players include $k$ cooperators gets $k+1$ by playing C and $k+2$ by playing D. All-D is the unique stage equilibrium; it gives every player $2$, which is also every player's minmax payoff. The game is repeated with discount factor $\delta$, perfect monitoring, pure strategies and no public randomization; payoffs are normalised as $(1-\delta)\sum_t\delta^t u_t$. Reversion to all-D is then the harshest punishment, and a path is a subgame-perfect equilibrium path exactly when at every period every player's continuation value is at least $(1-\delta)(\text{best one-period deviation payoff})+2\delta$ (\cite{v1}; see \cite{MS06} for the textbook argument, not read here).
+
+Let $T_\delta$ be the set of $t\in(0,1]$ such that $(2+t,4-t,2+t)$ is a pure-strategy equilibrium payoff. Such a path uses only $(C,C,C)$ and $(C,D,C)$. In the variable $x=(3-w)/(1-\delta)$, where $w$ is player~1's continuation value, the recursion is $x=a+\delta x'$ with $a\in\{0,1\}$ on $[0,X]$,
+\[
+X=\frac{2\delta-1}{\delta(1-\delta)}=\frac{1}{1-\delta}-\frac1\delta .
+\]
+Put $\beta=1/\delta$, $L=[0,\delta X]$, $R=[1,X]$ and $H=(\delta X,1)$. In the window $1/\varphi<\delta<2/3$ we have $\delta X<1<X$, and $\beta\in(3/2,\varphi)$. Define $T(x)=\beta x$ on $L$ and $T(x)=\beta(x-1)$ on $R$. Then $T(L)=[0,X]$ and $T(R)=[0,\beta(X-1)]\subset[0,X]$. Because $\delta X<1$, each point of $[0,X]$ has at most one admissible branch, and the survivor set is
+\[
+S=\{x\in[0,X]: T^n x\in L\cup R \text{ for all } n\ge 0\}.
+\]
+$T_\delta$ is contained in two affine images of $S$ and contains one of them \cite{note}, so $T_\delta$ and $S$ have the same Lebesgue-null status and the same Hausdorff and box dimensions.
+
+\subsection{\texorpdfstring{The reduction to a $\beta$-transformation with a hole}{The reduction to a beta-transformation with a hole}}
+Write $y=\delta x$ and $t(\beta)=\delta X=(2-\beta)/(\beta-1)$; in the window $t(\beta)<1$. Then
+\[
+S=\delta^{-1}K,\qquad K=\{y\in[0,1): T_\beta^n(y)\le t(\beta)\ \text{for all } n\ge0\},
+\]
+where $T_\beta(y)=\beta y-\lfloor\beta y\rfloor$. So $S$ is the survivor set of $T_\beta$ with the hole $(t(\beta),1)$ at the right end, equivalently with the hole $(t/\beta,1/\beta)$ whose right end is the discontinuity. In the digit coding the itinerary set is, up to a countable set, $\{u:\sigma^n u\lex w\ \forall n\}$, where $w$ is the quasi-greedy expansion of $t(\beta)$. A numerical check on $50{,}000$ random points at each of six values of $\delta$ found no disagreement between the game recursion and this criterion (Section~\ref{sec:numerics}).
+
+\subsection{The forced path}
+Every cylinder of $T$ has an image of the form $[0,b]$ (proof of Theorem~\ref{thm:p8}). From the full state $[0,X]$ define $s_0=X$ and
+\[
+s_{k+1}=\begin{cases}\beta(s_k-1)& s_k\ge1 \ (\text{digit } d_k=1),\\ \beta s_k & s_k<\delta X\ (\text{digit } d_k=0),\end{cases}
+\]
+stopping when $s_k\in[\delta X,1)$. Put $A_\delta=\{k+1:s_k\ge\delta X\}$, $G_\delta(z)=\sum_{n\in A_\delta}z^n$, let $z^*(\delta)$ be the root of $G_\delta=1$ in $(0,1)$, $h(\delta)=-\log z^*$, and $n^*=\max A_\delta$ ($n^*=\infty$ if the path never stops). Two facts are used throughout: (F1) $d_0=1$, $d_1=0$; (F2) $s_k<X$ for $k\ge1$.
+
+\section{Resolution of the conjecture (known results, elementary proofs)}\label{sec:resolution}
+
+The two statements in this section answer the golden-window conjecture. Their core is not new: Theorem~\ref{thm:p8} and the formula and bound in Theorem~\ref{thm:p9} are special cases of Lu, Steiner and Zou \cite[Theorem~1.2 with Lemma~2.7, and Proposition~2.5]{LSZ}, applied with $q_0=q_1=\beta$, $a=\ell(0w,10^\infty)$ and $b=10^\infty$, where $w$ is the quasi-greedy expansion of $t(\beta)$ and $\ell$ is the normalisation of \cite[Lemma~2.7]{LSZ}. Measure zero also follows from the ergodicity of $T_\beta$ for an absolutely continuous invariant measure (R\'enyi \cite{Renyi}, Parry \cite{Parry}; recalled, not read). The entropy form of the formula is also Kuang, Li and Xiao \cite[Theorem~4.3]{KLX} with lower bound $0^\infty$. The proofs below are elementary and self-contained; the credit for the statements belongs to these authors.
+
+\begin{theorem}[Proposition~8 of \cite{note}]\label{thm:p8}
+For $1/\varphi<\delta<2/3$, $S$ has Lebesgue measure zero, and so does $T_\delta$.
+\end{theorem}
+
+\begin{proof}
+Fix $x\in S$. Define intervals $I_n\ni x$ and $J_n=[0,b_n]\ni T^nx$ with $T^n\colon I_n\to J_n$ an increasing affine bijection of slope $\beta^n$: $I_0=J_0=[0,X]$; if $P\in\{L,R\}$ contains $T^nx$, put $I_{n+1}=(T^n|_{I_n})^{-1}(J_n\cap P)$ and $J_{n+1}=T(J_n\cap P)$. If $P=L$ then $J_{n+1}=[0,\beta\min(b_n,\delta X)]$; if $P=R$ then $J_n\cap R=[1,b_n]$ and $J_{n+1}=[0,\beta(b_n-1)]$. So every $J_n$ starts at $0$, and $|I_n|\le X\beta^{-n}$. Since $T^n$ maps $S\cap I_n$ into $S\cap J_n$ and multiplies Lebesgue measure by $\beta^n$, $m(I_n\setminus S)/|I_n|\ge m(J_n\setminus S)/|J_n|$.
+If $T^nx\in L$ for all $n\ge N$ then $T^Nx=0$; such points form a countable set. For every other $x\in S$, $b_n\ge T^nx\ge1$ for infinitely many $n$, and then $J_n\supset H$ and $m(J_n\setminus S)\ge|H|=1-\delta X>0$, while $|J_n|\le X$. If $m(S)>0$, a density point $x$ of $S$ that does not reach $0$ gives $m(I_n\setminus S)/|I_n|\to0$, a contradiction. $T_\delta$ lies in two affine images of $S$.
+\end{proof}
+
+\begin{theorem}[Proposition~9 of \cite{note}]\label{thm:p9}
+For $1/\varphi<\delta<2/3$:
+\begin{enumerate}
+\item $\dimH S=\dimB S=h(\delta)/\log\beta$, which is the unique $s\in(0,1)$ with $\sum_{n\in A_\delta}\delta^{ns}=1$;
+\item $\dimH S<1$;
+\item $\delta\mapsto\dimH S$ is strictly increasing and continuous on the window, with limit $0$ at $1/\varphi$ and $1$ at $2/3$.
+\end{enumerate}
+The same holds for $T_\delta$.
+\end{theorem}
+
+The formula in (1) and the bound (2) are known \cite{LSZ}. The equality $\dimB=\dimH$ is not stated in the texts read. Item (3) was not found in the texts read: Lu, Steiner and Zou prove continuity in the symbolic hole for a fixed base \cite[Theorem~1.4]{LSZ} and in the base for a fixed symbolic hole \cite[Lemma~3.16]{LSZ}, and they combine the two only for the univoque curve \cite[Theorem~1.5]{LSZ}.
+
+\begin{proof}
+\emph{First returns.} From state $[0,b]$ the $L$-step leads to $[0,\beta\min(b,\delta X)]$, which is the full state exactly when $b\ge\delta X$; the $R$-step is possible when $b\ge1$ and leads to $[0,\beta(b-1)]$. A word from the full state returns to it for the first time after $n$ steps exactly when it follows the forced path for $n-1$ steps and then takes $L$ at a state $\ge\delta X$. So there is one first-return word of each length $n\in A_\delta$ and none of other lengths. Every word splits uniquely into first-return words and a prefix of the forced path, so $\sum N_nz^n=Q(z)\sum_j G_\delta(z)^j$ with $Q$ having $0$--$1$ coefficients and $q_0=1$, and $\limsup\frac1n\log N_n=h(\delta)$. Every cylinder contains the survivor $0$, so $N_n$ counts the words of the itinerary subshift.
+
+\emph{Dimension.} The $N_n$ cylinders have length $\le X\delta^n$, so $\overline{\dim}_{\mathrm B}S\le h/\log\beta$. For $s<h/\log\beta$, $G_\delta(\delta^s)>1$, so a finite $F\subset A_\delta$ has $\sum_{n\in F}\delta^{ns}>1$. The inverse first-return branches of lengths $n\in F$ are similarities of ratio $\delta^n$ onto pairwise disjoint intervals: for $m>n$ in $A_\delta$ the forced path takes $R$ at step $n-1$ where the length-$n$ word takes $L$, and $L$, $R$ are separated by $H$. Their attractor lies in $S$ and, under the strong separation condition, has dimension $>s$ (the standard self-similar formula). Hence $\dimH S\ge h/\log\beta$.
+
+\emph{Below $1$.} $X\,G_\delta(\delta)$ is the total length of the disjoint first-return cylinders, none of which meets $H$; so $G_\delta(\delta)\le1-|H|/X<1$, $z^*>\delta$, and $h<\log\beta$.
+
+\emph{Strictly increasing.} In the coding $e=1-a$ the itinerary set is $\Omega_\delta=\{e:\sum_{i\ge0}e_{k+i}\delta^{i+1}\ge1\ \forall k\}$. The left side is non-decreasing in $\delta$, so $\Omega_\delta\subset\Omega_{\delta'}$ for $\delta<\delta'$ and $h$ is non-decreasing. With $h>0$ \cite{v1} and $\log(1/\delta)$ strictly decreasing, $\dim(\delta)\le h(\delta')/\log(1/\delta)<h(\delta')/\log(1/\delta')=\dim(\delta')$.
+
+\emph{Continuous.} It suffices that $h$ is. Right continuity: $\Omega_\delta=\bigcap_{\delta'>\delta}\Omega_{\delta'}$ (closed constraints, continuous in $\delta$), and word counts of a decreasing intersection of subshifts are limits of word counts. Left continuity: fix $z\in(z^*(\delta),1)$; it suffices that $G_{\delta'}(z)>1$ for $\delta'<\delta$ close to $\delta$. If no $s_k(\delta)$ equals $\delta X$, every finite initial segment of $A_\delta$ is preserved for $\delta'$ near $\delta$ (all comparisons before it are strict; $s_k=1$ can only occur after the last element of $A_\delta$), and a finite segment already has $\sum z^n>1$. If $s_{n^*-1}(\delta)=\delta X$, then for $\delta'$ near $\delta$ the path repeats the block of length $n^*$ a number of times that grows as $\delta'\to\delta$; with $P(z)=G_\delta(z)-z^{n^*}$, after $j$ blocks either $G_{\delta'}(z)\ge P(z)\sum_{i<r}z^{in^*}$ or $G_{\delta'}(z)\ge P(z)\sum_{i\le j}z^{in^*}+z^{(j+1)n^*}$; the latter exceeds $1$ for all $j$ because $G_\delta(z)>1$, and the former exceeds $1$ for large $r$ because $P(z)+z^{n^*}>1$.
+
+\emph{Limits.} At $\delta=1/\varphi$, $X=1$. After an $R$-step the state is at most $\beta(X-1)\to0$, so returns are separated by $m(\delta)\to\infty$ steps; if $\dim\ge s_0>0$ along a sequence then, with $z_0=(2/3)^{s_0}$, $1=G_\delta(z)\le z+z_0^m/(1-z_0^m)$, which forces $z\to1$, impossible. At $\delta=2/3$, $\delta X\to1$ and $X\to3/2$; the points that fall into $H$ before returning have measure at most $(1-\delta X)/(1-\delta)\to0$, so $G_\delta(\delta)\to1$, and for $\eta>0$ one gets $G_\delta(\delta^{1-\eta})>1$ near $2/3$, i.e.\ $\dim>1-\eta$.
+\end{proof}
+
+\section{New results along the golden curve}\label{sec:new}
+
+None of Theorems A--D was found in the texts read (Section~\ref{sec:lit}). Their scale is that of extensions of known theory to the coupled curve, not of new theorems in dynamics.
+
+We use one more identity. Summing the digit expansion of $X$ along the forced path,
+\[
+\text{(F3)}\qquad G_\delta(\delta)=\delta X+\delta^{n^*}(1-s_{n^*-1})\qquad(=\delta X\ \text{if the path never stops}).
+\]
+
+\subsection{The lower end}
+Put $\varepsilon=\delta-1/\varphi$, $N=N(\delta)=\lceil\log(X/(X-1))/\log\beta\rceil$, let $\zeta_N$ be the root in $(0,1)$ of $z+z^N=1$ and $\eta_N$ that of $z+z^N/(1-z^{N-1})=1$. $W$ is Lambert's function, $We^W=x$.
+
+\begin{thmA}
+\begin{enumerate}
+\item If $N\ge3$, then $\min(A_\delta\setminus\{1\})=N$ and consecutive elements of $A_\delta\setminus\{1\}$ differ by at least $N-1$. Hence $\log(1/\zeta_N)/\log\beta\le\dim(\delta)\le\log(1/\eta_N)/\log\beta$, with equality on the left exactly when $A_\delta=\{1,N\}$.
+\item $W(N)<N\log(1/\zeta_N)<W(N)/(1-W(N)/N)$ and $N\log(1/\eta_N)=W(N)(1+O(\log N/N))$.
+\item As $\varepsilon\downarrow0$, with $L=\log(1/\varepsilon)$, $\dim(\delta)=W(L/\log\varphi)/L+O((\log L)^2/L^2)$. In particular $\dim(\delta)\sim\log\log(1/\varepsilon)/\log(1/\varepsilon)$.
+\end{enumerate}
+\end{thmA}
+
+\begin{proof}
+(1) $N-1$ is the least $k\ge1$ with $s_k=\beta^k(X-1)\ge\delta X$, and $s_1,\dots,s_{N-2}<\delta X$ are $L$-steps by (F1). If $n\in A_\delta$ is followed by an $R$-step, then $s_n\le\beta(X-1)=s_1$ by (F2), and the following $L$-steps satisfy $s_{n+j}\le s_{1+j}<\delta X$ for $j<N-2$. So $z+z^N\le G_\delta(z)\le z+z^N/(1-z^{N-1})$, and $G_\delta$ is increasing.
+(2) With $u=1-\zeta_N=\zeta_N^N$ and $v=Nu$: $\ell:=N\log(1/\zeta_N)=\log N-\log v$ and $\ell=-N\log(1-u)\ge v$, so $v\le W(N)$ and $\ell\ge W(N)$; the upper bound follows from $-\log(1-u)\le u/(1-u)$. The same two inequalities treat $\eta_N$.
+(3) $X-1=(\delta^2+\delta-1)/(\delta(1-\delta))=\sqrt5\,\varphi^3\varepsilon(1+O(\varepsilon))$, so $N\log\beta=L+O(1)$ and $N=L/\log\varphi+O(1)$. Combine with (1)--(2) and $W(N)-W(L/\log\varphi)=O(1/N)$.
+\end{proof}
+
+At $\delta=1/\varphi+10^{-k}$ for $k=2,\dots,40,60,80$ (41 values), $A_\delta=\{1,N\}$, so the dimension equals the lower bound; for example $\dim=0.1317585615$ at $k=10$ ($N=44$) and $0.0244019292$ at $k=80$ ($N=379$).
+
+\subsection{The upper end}
+Let $A^*=\{n\ge1:d_{n-1}=1\}$ for the greedy digits of $X=3/2$ in base $3/2$ at $\delta=2/3$; equivalently $1=\sum_{n\in A^*}(2/3)^n$ is the greedy $(3/2)$-expansion of $1$, and $A^*=\{1,3,9,12,15,17,27,\dots\}$.
+
+\begin{thmB}
+\[
+\lim_{\delta\uparrow2/3}\frac{1-\dim(\delta)}{2/3-\delta}=C:=\frac{9}{M\log(3/2)},\qquad M:=\sum_{n\in A^*}n\left(\tfrac23\right)^n=\sum_{j\ge0}\left(\tfrac23\right)^jT^j(1),
+\]
+where $T(y)=\frac32y\bmod1$. Numerically $M=1.9341796243876\ldots$ and $C=11.4760443557125\ldots$. The leading order is linear, with no logarithmic factor.
+\end{thmB}
+
+\begin{proof}
+Put $\varepsilon=2/3-\delta$; then $|H|=1-\delta X=9\varepsilon/(1+3\varepsilon)$. At $\delta=2/3$ the states are $s_k=p_k/2^{k+1}$ with $p_0=3$ and $p_{k+1}=3(p_k-d_k2^{k+1})$, so every $p_k$ is odd and $s_k\notin\{0,1\}$. Hence for each $M_0$ the first $M_0$ states at $\delta$ follow those at $2/3$ once $\delta$ is close, $n^*(\delta)\to\infty$, and $A_\delta\cap[1,M_0]=A^*\cap[1,M_0]$. By (F3), $\kappa:=1-G_\delta(\delta)$ satisfies $0\le|H|-\kappa\le\delta^{n^*}|H|$, so $\kappa=9\varepsilon(1+o(1))$. With $s=\dim(\delta)\to1$, the mean value theorem gives $\kappa=G'_\delta(\xi)(\delta^s-\delta)$ with $\xi\to2/3$, $G'_\delta(\xi)\to\frac32M$ by a uniform geometric tail bound, and $\delta^s-\delta=\frac23(1-s)\log\frac32(1+o(1))$. The second expression for $M$ is the summation identity $\sum_nnd_n\beta^{-n}=\sum_j\beta^{-j}T^j(1)$.
+\end{proof}
+
+At $\delta=2/3-10^{-k}$ the ratio $(1-\dim)/(\varepsilon C)$ is $1.00359$ ($k=4$), $1.0000695$ ($k=6$) and $1.000000015$ ($k=10$). The mechanism, escape rate proportional to the invariant density at a small hole, is classical for small holes away from periodic points (recalled, not read); here the hole shrinks to the point $1$, whose orbit $1\mapsto0$ is preperiodic.
+
+\subsection{Plateaus of the entropy}
+Let $U$ be the set of $\delta$ in the window whose forced path stops at some $k$ with $s_k\in(\delta X,1)$, all earlier comparisons being strict. Let $E$ be the set where the path never stops and $D$ the set where some $s_j$ equals $1$ or $\delta X$.
+
+\begin{thmC}
+\begin{enumerate}
+\item $U$ is open, and $A_\delta$ is a fixed finite set on each component of $U$.
+\item $D$ is countable and $E$ is Lebesgue-null; so $U$ is open, dense and of full measure.
+\item $h$ is continuous and non-decreasing, $h(1/\varphi+)=0$, $h(2/3-)=\log(3/2)$, and $h'=0$ almost everywhere: $h$ is a devil's staircase.
+\item For $\delta\in U$, $u=1_{A_\delta}$ satisfies $\sigma^ku\prec u$ for all $k\ge1$; $u$ is the greedy expansion of $1$ in base $e^{h(\delta)}$, a simple Parry number. Distinct components have distinct $h$, and the non-degenerate plateaus of $h$ are exactly the closures of the components of $U$.
+\item $\dim=h/\log\beta$ is strictly increasing, $\dim'=h/(\delta\log^2\beta)>0$ almost everywhere, and $\dim$ is not absolutely continuous.
+\end{enumerate}
+\end{thmC}
+
+\begin{proof}[Proof sketch]
+On an interval of $\delta$ with fixed digits $d_0,\dots,d_{k-1}$, $s_k=\beta^k(X-\sum_{j<k}d_j\delta^j)$ and $s_k'=\beta^kB_k-k\beta s_k$ with $B_k=X'-\sum_{j<k}jd_j\delta^{j-1}\ge1+\beta^2$ by (F1). So $s_k'>0$ for $k\ge1$, $s_k'\ge\frac12\beta^k(1+\beta^2)$ and $(s_k-\delta X)'>0$ for $k\ge5$ (Lemma T). (1) is a finite set of strict inequalities. (2) For fixed words, $s_j-1$ is strictly increasing and $s_j-\delta X$ is a non-zero rational function, so $D$ is countable. For $\delta_0\in E\setminus D$, let $J_k$ be the parameter interval of $\delta$ sharing the first $k$ digits with strict comparisons; $|J_k|\to0$ by Lemma T. For the infinitely many $k$ with $d_k(\delta_0)=1$, $s_k(J_k)=(0,B)$ with $B>1$, and the subinterval $Z_k$ where $\delta X<s_k<1$ stops at step $k$; bounded distortion gives $\liminf|Z_k|/|J_k|\ge|H(\delta_0)|/X(\delta_0)>0$, which contradicts the density theorem if $m(E)>0$. (3) follows from Theorem~\ref{thm:p9} and (1)--(2). (4) Greedy expansions preserve strict order and $s_j<X$ for $j\ge1$, which gives $\sigma^ku\prec u$; the link to Parry's criterion uses \cite[Lemma~2.1]{AKplat}; injectivity of $u\mapsto e^{h}$ and the null complement of $U$ identify the plateaus. (5) On $U$, $h$ is locally constant; the singular part of $d\,\dim$ is $(1/\log\beta)\,dh\ne0$.
+\end{proof}
+
+The plateau with $A_\delta=\{1,4\}$ is $[0.638413352921706,\,0.645200388386225]$, on which $h=0.32228461597103$ ($z+z^4=1$) while $\dim$ rises from $0.718152$ to $0.735483$. A scan of $20{,}000$ parameters found $1{,}133$ distinct finite sets $A_\delta$, each satisfying $\sigma^ku\prec u$, with $h$ strictly increasing from one to the next. For a fixed base and a moving hole end, devil's staircases are known \cite[Theorem~1.4, Corollary~1.5]{SLD}; for the hole at $0$ and fixed $\beta$ the plateaus are identified in \cite[Theorem~1.4]{AKplat}. The mechanism along a moving base resembles that for univoque sets \cite{KKL17}.
+
+\subsection{\texorpdfstring{Why $1/\varphi$ appears twice}{Why 1/phi appears twice}}
+In \cite{v1}, $1/\varphi$ is both the threshold for the three-player rotation (Proposition~1 there) and the lower end of the window. Consider the linear dilemma with three players in which a cooperator pays $c$ and gives $b$ to each co-player, with minmax $0$; $a=b-c$, the deviation bound is $c_{\mathrm{inc}}=(1-\delta)c/\delta$, and all-C is worth $W^*=2b-c$.
+
+\begin{thmD}
+Let $Q(\delta)=b\delta+b\delta^2-c$, and let $V_j$ be the value of a player in the rotation whose own defection is $j$ periods away. The rotation is an equilibrium iff $\Sigma_{\mathrm{rot}}:=V_1-c_{\mathrm{inc}}\ge0$, and the $(C,D,C)$ branch of the no-randomization recursion is available iff $\Sigma_{\mathrm{seg}}:=(1-\delta)a+\delta W^*-c_{\mathrm{inc}}\ge0$. For all $b,c>0$ and $\delta\in(0,1)$,
+\[
+\Sigma_{\mathrm{seg}}=\frac{Q}{\delta},\qquad \Sigma_{\mathrm{rot}}=\frac{(1+\delta)Q}{\delta(1+\delta+\delta^2)},\qquad V_0-W^*=-\frac{Q}{1+\delta+\delta^2}.
+\]
+So both thresholds equal $\delta_3(r)=(\sqrt{1+4r}-1)/2$, $r=c/b$, for every $r$.
+\end{thmD}
+
+The identities are polynomial and were verified symbolically. The reason is that both binding constraints read $(1-\delta)a+\delta W\ge c_{\mathrm{inc}}$, with continuation $W=W^*$ on the segment and $W=V_0$ in the rotation, and the two continuations differ by one discounted cycle of stage-payoff differences $(+c,-b,-b)$, i.e.\ by $-Q$. With general $r$, the window is $(\delta_3(r),(1+r)/3)$, non-empty iff $r\ne2$.
+
+\section{Generalization: exposed edges, the universal window, and dilemma windows}\label{sec:general}
+
+Let $g$ be a finite stage game in which a pure stage Nash equilibrium gives every player the pure minmax $m_i$; then grim trigger characterises pure SPE paths through the incentive constraints with $\underline v_i=m_i$ (textbook argument). Let $\lambda$ be a linear functional maximised over pure payoff vectors exactly at two profiles $A\ne B$ with $g(A)\ne g(B)$, and parametrise the edge by $p(x)=g(A)+x(g(B)-g(A))$. For $a\in\{A,B\}$ put $c_i(a)=m_i+\frac{1-\delta}{\delta}(d_i(a)-g_i(a))$ and $I_a=\{y\in[0,1]:p_i(y)\ge c_i(a)\ \forall i\}$, a closed interval.
+
+\begin{proposition}[reduction]\label{prop:red}
+A pure SPE payoff on the edge uses only $A$ and $B$, and $p(x)$ is a pure SPE payoff iff $x$ lies in the survivor set $S$ of the two affine maps $F_A(x)=x/\delta$ on $\delta I_A$ and $F_B(x)=(x-1+\delta)/\delta$ on $(1-\delta)+\delta I_B$.
+\end{proposition}
+
+This is an instance of the framework of Berg and Kitti \cite{BK14} (abstract read only). In the gap case the further statements ($S$ is an interval or a porous null set; $\dimH S=h/\log\beta$; the dimension formula) are, in substance, Lu, Steiner and Zou \cite[Lemma~2.4, Proposition~2.5, Theorem~1.2]{LSZ}, after reducing the four end-and-middle constraints of $S$ to their two; we do not claim them.
+
+\begin{proposition}[universal window]\label{prop:H}
+Suppose $I_A=I_B=[0,\kappa]$ with $0\le\kappa\le1$. Then $S$ depends only on $(\delta,\kappa)$: if $\kappa<1-\delta$, $S=\{0,1-\delta\}$; if $\kappa=1-\delta$, $S$ is countably infinite; if $1-\delta<\kappa<(1-\delta)/\delta$, then $0<\dimH S=\dimB S<1$, $S$ is null, and $\dim S$ is the root $s$ of $\sum_{n\in A}\delta^{ns}=1$ for the first-return set $A$ of the forced path from the full state $[0,\kappa]$; if $\kappa\ge(1-\delta)/\delta$, $S=[0,1-\delta+\delta\kappa]$. For fixed $\delta$, $\dim S$ is non-decreasing in $\kappa$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+$E_A=[0,\delta\kappa]$ and $E_B=[1-\delta,1-\delta+\delta\kappa]$; they overlap iff $\delta\kappa\ge1-\delta$, and then the union is self-generating. Otherwise the system is anchored at $0$ ($F_A(0)=0$, $F_B(1-\delta)=0$), every cylinder image is $[0,s]$, and the argument of Theorem~\ref{thm:p9} applies with $\delta X\to\delta\kappa$, $1\to1-\delta$, $X\to\kappa$. The constraint sets $x_{t+1}\le\kappa$ are nested in $\kappa$.
+\end{proof}
+
+In the game of Section~\ref{sec:setting}, $\kappa=2-1/\delta$, and $1-\delta<\kappa<(1-\delta)/\delta$ is exactly $1/\varphi<\delta<2/3$.
+
+\begin{proposition}[linear dilemmas]\label{prop:G}
+In the $n$-player linear dilemma in which a cooperator pays $r>0$ and gives $1$ to every co-player ($r\ne n-1$), the edges exposed by exactly two pure profiles are the $n2^{n-1}$ pairs differing in one player's action. On the edge where player $i$ switches and $k$ others cooperate: if $k=0$, $S=\{1\}$; if $1\le k\le r$, $S=\emptyset$; if $k>r$, then for $\delta\ge r/k$, $I_A=I_B=[0,\kappa]$ with $\kappa(\delta)=\min(1,k-r/\delta)$. Hence, with
+\[
+\theta_k(r)=\frac{\sqrt{(k-1)^2+4r}-(k-1)}{2},\qquad U_k(r)=\max\!\left(\tfrac12,\tfrac{1+r}{k+1}\right),
+\]
+$S$ is a fractal of dimension in $(0,1)$ and measure zero exactly for $\theta_k<\delta<U_k$, and an interval for $\delta\ge U_k$. For $k=2$, $\theta_2(r)=\delta_3(r)$ for every $r\in(0,2)$; for the main edge of $G_n$ ($k=n-1$, $r=1$) the lower end differs from the $n$-player rotation threshold when $n\ge4$.
+\end{proposition}
+
+\begin{proposition}[monotonicity]\label{prop:M}
+On such an edge with $r\le k-1$, $\dim S$ is strictly increasing in $\delta$ on $(\theta_k,U_k)$.
+\end{proposition}
+
+\begin{proof}
+In $e'=1-e$ the constraint reads $\sum_{i\ge0}\delta^{i+1}e'_{t+1+i}\ge\max(0,(r-(k-1)\delta)/(1-\delta))$; the left side is non-decreasing in $\delta$ and the right side non-increasing when $r\le k-1$. Conclude as in Theorem~\ref{thm:p9}.
+\end{proof}
+
+For $k-1<r<k$ monotonicity was observed numerically (on grids of $599$ points across each window, none of the $598$ consecutive comparisons decreased) but is not proved. Continuity and the end limits along general edges are not proved here. Table~\ref{tab:windows} lists the windows for three players.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\toprule
+$r$ & $k$ & $(\theta_k(r),U_k(r))$ & $\delta_3(r)$ \\
+\midrule
+$1/4$ & 2 & $(0.2071,\,0.5000)$ & $0.2071$\\
+$1/2$ & 2 & $(0.3660,\,0.5000)$ & $0.3660$\\
+$3/4$ & 2 & $(0.5000,\,0.5833)$ & $0.5000$\\
+$1$ & 2 & $(0.6180,\,0.6667)$ & $0.6180$\\
+$5/4$ & 2 & $(0.7247,\,0.7500)$ & $0.7247$\\
+$3/2$ & 2 & $(0.8229,\,0.8333)$ & $0.8229$\\
+$7/4$ & 2 & $(0.9142,\,0.9167)$ & $0.9142$\\
+$1/4$ & 1 & $(0.5000,\,0.6250)$ & --\\
+$1/2$ & 1 & $(0.7071,\,0.7500)$ & --\\
+$3/4$ & 1 & $(0.8660,\,0.8750)$ & --\\
+\bottomrule
+\end{tabular}
+\caption{Windows on the three-player edges CCC--CCD ($k=2$) and CCD--CDD ($k=1$). For $k=1$ and $r\ge1$, $S=\emptyset$.}\label{tab:windows}
+\end{table}
+
+\section{\texorpdfstring{Joint continuity for the hole at $0$ (conditional)}{Joint continuity for the hole at 0 (conditional)}}\label{sec:E}
+
+Let $K_\beta(t)=\{x\in[0,1):T_\beta^n(x)\notin(0,t)\ \forall n\ge0\}$. Allaart and Kong \cite[Remark~1.10, arXiv v2]{AKcrit} withdraw an earlier claim of joint discontinuity and write: ``We suspect that the function $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous, but have not been able to prove this.'' The same question for all $\beta>1$ is in \cite[Remark~1.2, arXiv v3]{AKgen}.
+
+\begin{thmE}
+Assume Lu, Steiner and Zou \cite[Theorem~1.4]{LSZ}: for $q_0,q_1>1$ the map $(a,b)\mapsto d_{q_0,q_1}(a,b)$ is continuous in the product topology. Then $(\beta,t)\mapsto\dimH K_\beta(t)$ is jointly continuous on $(1,2]\times[0,1)$.
+\end{thmE}
+
+The result is conditional: the proof of \cite[Theorem~1.4]{LSZ} was read but not re-verified line by line, and its journal version was not checked. It is restricted to $\beta\le2$, because \cite{LSZ} is binary; for $\beta>2$ a continuity theorem for lexicographic shifts on larger alphabets would be needed, and none was found in the texts read.
+
+\begin{proof}
+\emph{Inputs.} (I1) $\dimH K_\beta(t)=h(\tilde K_\beta(t))/\log\beta$ for $\beta\in(1,2]$, $t\in[0,1)$ \cite[Lemma~2.11]{AKcrit}, where $\tilde K_\beta(t)=\{z:b(t,\beta)\lex\sigma^nz\lex\alpha(\beta)\}$ describes $K_\beta(t)$ up to a countable set (the tails $0^\infty$ and the tails $\alpha(\beta)$); here $b(t,\beta)$ is the greedy and $\alpha(\beta)$ the quasi-greedy expansion of $1$, and $h(\emptyset):=0$ ($\tilde K_\beta(t)=\emptyset$ for $t\in[1/\beta,1)$, $\beta<2$, where $K_\beta(t)$ is countable). (I2) $H(a,b):=h(\Sigma_{a,b})$ is continuous on $\{0,1\}^\N\times\{0,1\}^\N$: with $q_0=q_1=2$, \cite[Theorem~1.2, Lemma~2.7]{LSZ} give $d_{2,2}(a,b)=h(\Omega_{a,b})/\log2$, and Komornik, Steiner and Zou \cite[Theorem~2.6]{KSZ} give $h(\Sigma_{a,b})=h(\Omega_{0b,1a})$ for all $(a,b)$ (read, and its short proof checked). (I3) $\sigma^kb(t,\beta)\prec\alpha(\beta)$, and $\alpha$ is increasing in $\beta$ \cite[Lemmas~2.1--2.2]{AKplat}.
+
+Put $G(\beta,t)=H(b(t,\beta),\alpha(\beta))$ and fix $(\beta_0,t_0)$, $b_0=b(t_0,\beta_0)$, $\alpha_0=\alpha(\beta_0)$, $g_0$ the greedy expansion of $1$ in base $\beta_0$. Let $(\beta_n,t_n)\to(\beta_0,t_0)$ and pass to a subsequence with $b(t_n,\beta_n)\to x$, $\alpha(\beta_n)\to y$. Then $x$ is an expansion of $t_0$ and $y$ of $1$ in base $\beta_0$, so $x\lex b_0$, $y\lex g_0$; limits of (I3) give $\sigma^kx\lex y\lex g_0$ and $\sigma^ky\lex y$, so all tail values of $x,y$ are at most $1$ (Lemma 1: if $\pi(g)=1$ and $\sigma^nx\lex g$ for all $n$ then $\pi_\beta(\sigma^nx)\le1$). Expansions with tail values $\le1$ are forced except at ties $\beta R=1$, which occur exactly where a greedy expansion ends; so $q\lex x\lex b_0$ with $q=w^-\alpha_0$ if $b_0=w0^\infty$ (else $q=b_0$), and $\alpha_0\lex y\lex g_0$ (Lemma 2). Since $H$ decreases in its first and increases in its second argument, $H(b_0,\alpha_0)\le H(x,y)\le H(q,g_0)$. The difference $\Sigma_{q,g_0}\setminus\Sigma_{q,\alpha_0}$ consists of sequences of the form $(A^-)^kg_0$, $g_0=A0^\infty$, hence ending in $0^\infty$; and $\Sigma_{q,\alpha_0}\setminus\Sigma_{b_0,\alpha_0}$ consists of sequences ending in $q$. Countably many added points do not change entropy (variational principle), so $H(q,g_0)=H(b_0,\alpha_0)$. By (I2), $G(\beta_n,t_n)\to G(\beta_0,t_0)$ along the subsequence, hence along the sequence.
+\end{proof}
+
+\begin{remark}
+A second derivation: $f(\beta,t)=\dimH K_\beta(t)$ is non-increasing in $t$, continuous in $t$ for fixed $\beta$ (Kalle, Kong, Langeveld and Li \cite{KKLL}, as reported in \cite{AKcrit,AKplat}), and the argument above with $t$ fixed gives continuity in $\beta$, which \cite[Remark~1.10]{AKcrit} calls ``not difficult'' but does not prove. An elementary lemma then gives joint continuity: a function non-increasing in $t$ and separately continuous in each variable is jointly continuous. So the open question is equivalent to separate continuity in $\beta$, which still needs a two-variable input such as (I2), since $b(t,\beta)$ and $\alpha(\beta)$ both increase with $\beta$. A separate referee pass (also carried out with Claude Code, see the disclosure) found the proof correct with fixable, non-mathematical gaps; these are applied above. It is not a substitute for a specialist's check.
+\end{remark}
+
+Numerically, at Allaart and Kong's point $\beta_r=1.80193773580484$ (where $\alpha(\beta_r)=11(01)^\infty$ and $\tau$ jumps from $0.30797852837$ to $0.445041867913$), with $t_0=0.376510198141$ in the gap, cylinder-count estimates of the dimension at $(\beta_r+e,t_0)$, $(\beta_r+e,t_0\mp e)$ agree in all three directions and decrease slowly: $0.32709354$ at $e=10^{-2}$ and $0.10797978$ at $e=10^{-9}$. Numerics are consistent with continuity but cannot prove it.
+
+\section{An entropy identity for lexicographic shifts on any finite alphabet}\label{sec:symbolic}
+
+Let $\mathcal A=\{0,\dots,M\}$, $M\ge1$, and $\Sigma_{a,b}=\{x\in\mathcal A^\N:a\lex\sigma^nx\lex b\ \forall n\ge0\}$. Call $(a,b)$ \emph{normalized} if $a,b\in\Sigma_{a,b}$.
+
+\begin{theorem}\label{thm:sym}
+Let $(a,b)$ be normalized and $N_n$ the number of words of length $n$ in $\Sigma_{a,b}$ ($N_0=1$). Then, as power series,
+\[
+\sum_{n\ge0}N_nz^n=\frac{1}{(1-z)(1-K(z))},\qquad K(z)=\sum_{n\ge1}(b_n-a_n)z^n,
+\]
+and $h(\Sigma_{a,b})=-\log\lambda$ with $\lambda$ the smallest root of $K=1$ in $(0,1)$; $h=0$ if there is none.
+\end{theorem}
+
+\emph{Credit.} The same generating function, for increasing interval maps whose cuts all jump from $b$ to $a$, is in Oliveira \cite[Section~10, eq.~(28), and Theorem~4.2]{Oliveira}; we credit the map-level formula to him. Barnsley, Steiner and Vince \cite[Lemma~3]{BSV} give a binary symbolic version and trace the idea to Milnor--Thurston, Glendinning--Hall and Flatto--Lagarias (the last not read). The entropy statement for $M=1$ and the hypothesis of normalization are in Kuang, Li and Xiao \cite[Theorem~4.3]{KLX}. What is offered here is a direct automaton proof for symbolic pairs over any finite alphabet, which avoids realizing each pair as the kneading pair of a map.
+
+\begin{proof}
+States are pairs $s=(L,R)$ of a shift of $a$ and a shift of $b$, starting at $(a,b)$. From $(L,R)$ the readable letters are $L_1\le c\le R_1$, $d(s)=R_1-L_1$, and the next state is $(a,b)$ if $L_1<c<R_1$, $(\sigma L,b)$ if $c=L_1<R_1$, $(a,\sigma R)$ if $L_1<c=R_1$, and $(\sigma L,\sigma R)$ if $L_1=c=R_1$. By induction the follower set of a readable word ending in $(L,R)$ is $\Sigma_{a,b}\cap[L,R]$ with $L\in\Sigma_{a,b}$ and $L\lex R$ (normalization is used exactly here), so $N_n$ counts readable words. For $0<z<1/(M+1)$ put $\pi_z(x)=\sum_{n\ge1}x_nz^{n-1}$ and $w(L,R)=\pi_z(R)-\pi_z(L)$. A direct check gives $z\sum_cw(\delta(s,c))=w(s)+d(s)(K(z)-1)$. Summing over words of length $n$ with $\sum d=N_{n+1}-N_n$ and $S_0=w(a,b)=K/z$ gives $(1-z)N(z)=1/(1-K(z))$ for small $z$, hence as power series. Since $N_n\ge0$, Pringsheim's theorem places the radius of convergence at the first root of $K=1$, or at $1$ if there is none.
+\end{proof}
+
+For $\beta>1$, $M=\lceil\beta\rceil-1$, Kuang, Li and Xiao ask \cite[Question~4.10]{KLX}: ``Let $\beta>2$ be a real number. Can we evaluate the topological entropy and the Hausdorff dimension of $K(t)$ with $t\in U$ for $\beta$-transformations?'' Here $U$ is the bifurcation set, and by \cite[Lemma~3.1]{KLX} $t\in U$ iff $t\in K(t)$; the proof there does not use $\beta\le2$. The lemmas of \cite{KLX} on greedy and quasi-greedy expansions used below are stated there for every $\beta>1$. Let $Q(\beta)$ be the $\beta$-rational numbers (finite greedy expansion).
+
+\begin{corollary}\label{cor:B}
+Let $\beta>1$, $t\in U\cap(0,1)$ with $t\notin Q(\beta)$, $a=b(t,\beta)$, and $b=\max\tilde K_\beta(t)$ with $\tilde K_\beta(t)=\{z:a\lex\sigma^nz\lex\alpha(\beta)\}$. Then $h(\tilde K_\beta(t))=-\log\lambda$ and $\dimH K_\beta(t)=-\log\lambda/\log\beta$, where $\lambda$ is the smallest root in $(0,1)$ of $\sum_{n\ge1}(b_n-a_n)z^n=1$ (both $0$ if there is none). Moreover $b=\alpha(\beta)$ exactly when $\sigma^n\alpha(\beta)\succcurlyeq a$ for all $n\ge1$ (using $\sigma^n\alpha\lex\alpha$, \cite[Lemma~4.6]{KLX}); the equation is then explicit in the data.
+\end{corollary}
+
+\begin{proof}
+Since $t\in K(t)$ and $T^nt\ne0$ ($t\notin Q(\beta)$), $T^nt\ge t$ for all $n$, so $\sigma^na\succcurlyeq a$ because greedy expansions are strictly increasing \cite[Lemma~2.3]{KLX}; with $\sigma^na\prec\alpha(\beta)$ \cite[Lemma~2.2]{KLX}, $a\in\tilde K_\beta(t)$ is its minimum. $\tilde K_\beta(t)$ is closed and non-empty, so $b$ exists, $\tilde K_\beta(t)=\Sigma_{a,b}$, and $(a,b)$ is normalized. Theorem~\ref{thm:sym} gives $h$. The dimension formula $\dimH K_\beta(t)=h(\tilde K_\beta(t))/\log\beta$ for all $\beta>1$ is \cite[Lemma~6.2]{AKgen}, stated there as deducible from Raith \cite{Raith89} (not read).
+\end{proof}
+
+For $t\in U\cap Q(\beta)$ the statement fails as written: such $t$ (the $\beta$-rational Lyndon numbers, \cite[Remark~3.5]{KLX}) have $T^mt=0$, so $a=b(t,\beta)=w0^\infty\notin\tilde K_\beta(t)$. For example, with $\alpha(\beta)=(220)^\infty$ and $t=1/\beta$ the equation with $a=b(t,\beta)$ gives $0.76449$, while the true entropy is $\log\varphi=0.481212$. The fix is as follows.
+
+\begin{proposition}\label{prop:rat}
+Let $t\in U\cap Q(\beta)$ with greedy expansion $w0^\infty$. Then $\tilde K_\beta(t)=\{z:w^\infty\lex\sigma^nz\lex\alpha(\beta)\}$. If $\sigma^nw^\infty\lex\alpha(\beta)$ for all $n$, Corollary~\ref{cor:B} holds with $a=w^\infty$. Otherwise $\tilde K_\beta(t)$ may be empty, and the case is not covered here.
+\end{proposition}
+
+\begin{proof}
+If $w0^\infty\lex y\prec w^\infty$ for a tail $y$ of an element of $\tilde K_\beta(t)$, then $y=wy'$ with $y'$ a tail in the same range; iterating, $y=w^\infty$, a contradiction. A Lyndon word gives $\sigma^nw^\infty\succcurlyeq w^\infty$, so under the stated condition $w^\infty=\min\tilde K_\beta(t)$ and the proof of Corollary~\ref{cor:B} applies.
+\end{proof}
+
+In the example above $a=w^\infty$ gives $0.481212$, as it should. The explicit evaluation of $b$ when $b\ne\alpha(\beta)$ by an iteration of Kuang, Li and Xiao's step over larger alphabets agreed with brute force in $150$ of $150$ random cases, but it is not proved.
+
+\section{Results on the Trinity-Infinity framework and the Series II examples}\label{sec:trinity}
+
+This part is separate from the golden-window results above. It checks the three frozen
+Trinity-Infinity papers \cite{SeriesI,SeriesII,SeriesIII}, whose game is the stage game $G_3$ of
+Section~\ref{sec:setting}, and treats the examples of Series~II exhaustively where a proof was found.
+The same status discipline applies: Table~\ref{ti:tab:status} separates known results, results not
+found in the texts consulted, and results that are proved only at listed parameter values.
+Corrections to the frozen papers are kept apart, in the paragraph so named; the papers themselves
+are not changed. The literature search for this part was limited to bibliographic records
+(Section~\ref{sec:lit}).
+
+% Trinity-Infinity contributions, part 1: inventory of the printed claims.
+\subsection{The Trinity-Infinity papers, claim by claim}\label{ti:sec:inventory}
+
+The three Trinity-Infinity papers \cite{SeriesI,SeriesII,SeriesIII} are frozen.
+They are not changed here. This section lists what Series~II prints, together with the key claims
+of Series~I and~III, and records for each claim whether it is correct and what the strongest
+correct statement is. Corrections already recorded in the series' errata \cite{errata} are named by their
+entry (E1--E8, N1--N11). The new statements are proved in
+Sections~\ref{ti:sec:game}--\ref{ti:sec:rotation}.
+
+The operator of the series is $f(x)=DQx+(I-D)p$ on $[0,1]^n$, with $Q$ the cyclic shift
+$(Qx)_i=x_{i-1}$ and $D=\operatorname{diag}(a)$, $a_i\in(0,1)$. It is the Friedkin--Johnsen
+model \cite{FJ90,FJ99} with a cyclic influence matrix. The game of
+Series~I and~II is the three-player dilemma $G_3$ with stage payoffs $\pi_C(k)=k+1$ and
+$\pi_D(k)=k+2$, where $k$ is the number of co-players who cooperate.
+
+\begin{table}[ht]\centering\small
+\begin{tabular}{@{}p{0.07\linewidth}p{0.36\linewidth}p{0.12\linewidth}p{0.34\linewidth}@{}}
+\toprule
+where & printed claim & verdict & strongest correct statement \\
+\midrule
+II \S3.1 & $\|f(x)-f(y)\|\le\max_i a_i\|x-y\|$, ``with the bound tight'' & correct &
+  $\|(DQ)^k\|_2=\max_i\prod_{j<k}a_{i-j}$ for every $k$ (Prop.~\ref{ti:prop:R1}) \\
+II \S3.1 & fixed point reached ``at geometric rate $\max_i(a_i)^n$'' & a bound, not the rate &
+  the rate is $\rho(DQ)=(\prod_i a_i)^{1/n}$, attained exactly in a weighted norm (Prop.~\ref{ti:prop:R1}; N9) \\
+II \S3.1 & $T^*=(0.754190,0.527933,0.508380)$; sampled ratio $0.699973$ & correct & recomputed \\
+II \S3.2 & $V(x_{n+1})\le\max_i(a_i)^2V(x_n)$ & correct & $V_W(f(x))=\rho^2V_W(x)$ exactly (Prop.~\ref{ti:prop:R1}) \\
+II \S3.2 & per-step contraction ``is what stability actually requires'' & incorrect & sufficient, not necessary (N11) \\
+II \S4 & minmax payoff 2; eight extreme points; hull volume $4.00$ & correct &
+  the hull is $\{4\le v_i+v_j\le 6\}$, an affine image of the action cube (\eqref{ti:eq:coords}) \\
+II \S4 & payoffs with all coordinates strictly above 2 are sustainable as $\delta\to1$ & correct &
+  sufficient, not necessary: exactly the points with two coordinates equal to 2 fail (Thm.~\ref{ti:thm:R3}) \\
+II \S4 & $(2,4,2)$ is ``eventually sustainable'' & incorrect &
+  never sustainable; nor is any point of $((2,2,2),(2,4,2)]$ (Thm.~\ref{ti:thm:R3}, E7) \\
+II \S4 & a case-by-case characterization is ``beyond this paper's scope'' & --- &
+  given here on the three 2-faces for all $\delta$ (Thm.~\ref{ti:thm:R2}) and for the whole set when $\tfrac12\le\delta\le1/\sqrt2$ (Thm.~\ref{ti:thm:R8}) \\
+II \S6 & $K_\infty=[[8,-4,-4],\dots]$ & correct & $K_\infty=12(I-J/3)$ exactly \\
+II \S7 & a companion script is distributed & incorrect & no such file exists (E3) \\
+I \S3 & grim trigger sustains $(3,3,3)$ iff $\delta\ge\frac12$ & correct &
+  $(3,3,3)$ is an equilibrium payoff under any strategies iff $\delta\ge\frac12$ (Prop.~\ref{ti:prop:R4}); the source is \cite{Friedman71} (E5) \\
+III \S3.1 & the argument works for every $n\ge2$ & correct & the anisotropic rate is $(\prod a_i)^{1/n}$; the operator is not written down (N7) \\
+\bottomrule
+\end{tabular}
+\caption{Claims of the Trinity-Infinity papers, checked. ``II \S4'' is Series~II, Section~4.}
+\label{ti:tab:inventory}
+\end{table}
+
+Every number in Table~\ref{ti:tab:inventory} was recomputed from its definition. No error was found
+in the frozen papers beyond the entries already in the errata. Two printed sentences are corrected
+in a stronger form than before. The Series~II example $(2,4,2)$ is not an isolated failure: it is
+the far end of a segment of failures (Theorem~\ref{ti:thm:R3}). And the condition ``strictly above
+2'' in the same paragraph is sufficient but not necessary.
+
+% Trinity-Infinity contributions, part 2: the Series II game.
+\subsection{The equilibrium payoffs of the Series~II game}\label{ti:sec:game}
+
+\paragraph{Setting.} The stage game is $G_3$. It is repeated for ever with common discount factor
+$\delta\in(0,1)$ and perfect monitoring; payoffs are normalised as $(1-\delta)\sum_t\delta^tu_t$.
+Defection is dominant, all-D is the unique stage equilibrium, and it gives each player the minmax
+payoff~2. All-D for ever is therefore the harshest punishment \cite{Abreu88}, and a
+cooperator's one-shot incentive constraint is
+\begin{equation}\label{ti:eq:ic}
+  \mathbb E[w_i]\;\ge\;c:=2+\frac{1-\delta}{\delta},
+\end{equation}
+where $w$ is the continuation payoff; a defector's constraint is void. Necessity statements below
+allow mixed actions and a public randomization device. Sufficiency statements use pure actions
+and the device. $E(\delta)$ denotes the set of subgame-perfect equilibrium payoffs with pure
+actions and the device; it is convex and is the largest bounded self-generating set
+\cite{APS90}.
+
+\paragraph{Cooperation coordinates.} Let $x_i\in[0,1]$ be the discounted frequency with which
+player $i$ cooperates. Then
+\begin{equation}\label{ti:eq:coords}
+  v_i \;=\; 2+\varphi_i(x),\qquad \varphi_i(x)=\sum_{j\ne i}x_j-x_i .
+\end{equation}
+So the payoff polytope $F$ is the affine image of the cube $[0,1]^3$; its six facets
+$v_i+v_j\in\{4,6\}$ are the cube faces $x_k\in\{0,1\}$. Individual rationality is
+$\varphi_i(x)\ge0$, and \eqref{ti:eq:ic} reads $\mathbb E[\varphi_i(y)]\ge\varepsilon:=(1-\delta)/\delta$
+for the continuation $y$. For $\delta<\frac12$, $\varepsilon>1\ge\varphi_i$ and nobody can ever
+cooperate, so $E(\delta)=\{(2,2,2)\}$.
+
+\subsubsection{A payoff-gap bound}
+
+\begin{proposition}\label{ti:prop:R9}
+In every Nash or subgame-perfect equilibrium of the repeated $G_3$, with mixed actions and public
+randomization allowed, $|v_i-v_j|\le2\delta$ for all $i,j$; equivalently $|x_i-x_j|\le\delta$.
+For $\delta\ge\frac12$ the bound is attained by $(3+\delta,3-\delta,3-\delta)$.
+\end{proposition}
+
+\begin{proof}
+$v_i-v_j=2(x_j-x_i)$. Condition on player $j$'s action in period~0. If $j$ cooperates,
+\eqref{ti:eq:ic} gives $\mathbb E[y_i+y_k-y_j]\ge\varepsilon$, hence $\mathbb E[y_j-y_i]\le1-\varepsilon$,
+and the contribution to $x_j-x_i$ is at most $(1-\delta)+\delta(1-\varepsilon)=\delta$. If $j$
+defects it is at most $\delta$. The attaining point is generated in Theorem~\ref{ti:thm:R8}.
+\end{proof}
+
+On the segment $(2+t,4-t,2+t)$ the payoff gap is $2-2t$, so Proposition~\ref{ti:prop:R9} gives
+$t\ge1-\delta$: the exact threshold found for that segment with public randomization in the
+\cite[Proposition~4]{v1}. The point $(2,4,2)$ has gap $2>2\delta$ and is never sustainable.
+
+\subsubsection{The face that contains the Series~II example}
+
+The facet $v_2+v_3=6$ of $F$ is the face $x_1=1$: player~1 cooperates in every period. Its
+vertices are $(3,3,3)$, $(2,2,4)$, $(2,4,2)$ and $(1,3,3)$, so it contains the example $(2,4,2)$.
+
+\begin{theorem}\label{ti:thm:R2}
+$E(\delta)\cap\{v_2+v_3=6\}$ is empty for $\delta<\frac12$. For $\delta\ge\frac12$ it is
+\[
+  P(\delta)=\bigl\{(1,x_2,x_3):\ x_2\ge1-\delta,\ x_3\ge1-\delta,\ x_2+x_3\ge1\bigr\},
+\]
+the pentagon with vertices $(x_2,x_3)=(1,1),(1,1-\delta),(\delta,1-\delta),(1-\delta,\delta),(1-\delta,1)$,
+that is, the payoffs $(3,3,3)$, $(3-\delta,3-\delta,3+\delta)$, $(2,4-2\delta,2+2\delta)$,
+$(2,2+2\delta,4-2\delta)$ and $(3-\delta,3+\delta,3-\delta)$. The necessity part holds for all
+equilibria with mixed actions and public randomization.
+\end{theorem}
+
+\begin{proof}
+Necessity. On the face player~1 cooperates with probability one at every on-path history, so all
+continuations stay on the face. Constraint \eqref{ti:eq:ic} for player~1 gives
+$\mathbb E[y_2+y_3]\ge1+\varepsilon$; as $y_2+y_3\le2$, this needs $\delta\ge\frac12$. As $y_3\le1$,
+$\mathbb E[y_2]\ge\varepsilon$, so $x_2\ge\delta\varepsilon=1-\delta$; likewise $x_3$. Finally
+$x_2+x_3\ge1$ is player~1's individual rationality.
+
+Sufficiency. Let $T'=\{y\in[0,1]^2: y_2+y_3\ge1+\varepsilon\}$. Since $\varepsilon\ge1-\delta$,
+$T'\subset P(\delta)$. A continuation in $T'$ satisfies player~1's constraint, and also those of
+players 2 and~3: $\varphi_2(y)=1+y_3-y_2\ge y_3\ge\varepsilon$, and likewise $\varphi_3$. Using
+$\delta\varepsilon=1-\delta$, the vertices of $P(\delta)$ are generated from $T'$:
+\[
+\begin{array}{ll}
+(1,1)=(1-\delta)(1,1)+\delta(1,1) & \text{CCC},\\
+(1,1-\delta)=(1-\delta)(1,0)+\delta(1,\varepsilon) & \text{CCD},\\
+(\delta,1-\delta)=\delta(1,\varepsilon),\quad (1-\delta,\delta)=\delta(\varepsilon,1) & \text{CDD},\\
+(1-\delta,1)=(1-\delta)(0,1)+\delta(\varepsilon,1) & \text{CDC}.
+\end{array}
+\]
+With the device, $P(\delta)$ is self-generating, so $P(\delta)\subset E(\delta)$.
+\end{proof}
+
+So a point of the face is an equilibrium payoff exactly when $\delta\ge\max(\frac12,1-x_2,1-x_3)$
+and $x_2+x_3\ge1$. Only player~1's constraint binds on this face. Propositions~3
+and~4 of \cite{v1} are the corner $(x_2,x_3)=(0,1)$ and the edge $x_3=1$.
+
+\subsubsection{Which payoffs are ever sustainable}
+
+\begin{theorem}\label{ti:thm:R3}
+Let $v\in F$ with $v\ge2$.
+\begin{enumerate}
+\item If two coordinates of $v$ equal~2 and $v$ is an equilibrium payoff (Nash or subgame-perfect,
+  mixed actions and public randomization allowed) for some $\delta<1$, then $v=(2,2,2)$.
+\item Otherwise $v\in E(\delta)$ for all $\delta$ close enough to~1. If $v=(2,2+\alpha,2+\beta)$ with
+  $\alpha,\beta>0$, this holds for every $\delta\ge\max(\alpha,\beta)/(\alpha+\beta)$.
+\end{enumerate}
+The feasible individually rational payoffs that are never sustainable are exactly the points of
+the three half-open segments $((2,2,2),(2,4,2)]$, $((2,2,2),(4,2,2)]$ and
+$((2,2,2),(2,2,4)]$.
+\end{theorem}
+
+\begin{proof}
+(1) Let $v_1=v_2=2$. Player~1 may play D in period~0; the others' period-0 actions do not depend on
+it, and every continuation is worth at least~2 to player~1. Hence
+$2\ge(1-\delta)(2+\mathbb E[\#\text{co-players cooperating}])+2\delta$, so players 2 and~3 defect in
+period~0 with probability one. The same argument for player~2 makes players 1 and~3 defect. The
+period-0 profile is DDD, so $\mathbb E[w_1]=\mathbb E[w_2]=2$ with $w_1,w_2\ge2$; every on-path
+continuation again has two coordinates equal to~2, and by induction the path is DDD for ever.
+
+(2) One coordinate equal to~2. Put $s=2\beta/(\alpha+\beta)\in(0,2)$. The point
+$u=(2,4-s,2+s)$ lies on the face of Theorem~\ref{ti:thm:R2} with $(x_2,x_3)=(s/2,1-s/2)$, so
+$u\in E(\delta)$ iff $\delta\ge\max(s/2,1-s/2)=\max(\alpha,\beta)/(\alpha+\beta)$. Moreover
+$v=\mu(2,2,2)+(1-\mu)u$ with $\mu=1-(\alpha+\beta)/2\in[0,1)$, and $E(\delta)$ is convex and
+contains $(2,2,2)$.
+
+No coordinate equal to~2. In cooperation coordinates the feasible individually rational set is
+$K=\operatorname{co}\{0,(1,1,0),(1,0,1),(0,1,1),(1,1,1)\}$. Let
+$K(\delta)=\operatorname{co}(\{0\}\cup P_1(\delta)\cup P_2(\delta)\cup P_3(\delta))$, where $P_i$ is the
+pentagon of Theorem~\ref{ti:thm:R2} on the face $x_i=1$. Then $K(\delta)\subset E(\delta)$, and
+$K(\delta)$ increases with $\delta$ to a set whose closure is $K$; the only points of $K$ it misses
+for every $\delta<1$ lie on the three edges from $0$ to $(1,1,0)$, $(1,0,1)$, $(0,1,1)$, where two of
+the $\varphi_i$ vanish. A point with all $\varphi_i>0$ is either interior to $K$, hence in $K(\delta)$
+for $\delta$ near~1, or on a face $x_i=1$ away from those edges, hence in $P_i(\delta)$ for $\delta$
+near~1.
+\end{proof}
+
+The bound in (2) is exact on the edge $\alpha+\beta=2$ but not inside the triangle: numerically
+$(2,2.15,2.05)\in E(0.74)$ while the bound is $0.75$.
+
+\subsubsection{The whole set for $\frac12\le\delta\le1/\sqrt2$}
+
+Write $e=1-\delta$ and let $P_{23}(\delta)$ be the convex hull, in cooperation coordinates, of the
+23 points
+\[
+0,\quad (1,1,1),\quad \sigma(e,1,1),\quad \sigma(\delta,1,e),\quad \sigma(1-e^2,\delta e,\delta),\quad
+\sigma(\delta^2+e,\ \delta^2+\tfrac e2,\ \tfrac e2),
+\]
+where $\sigma$ runs over the coordinate permutations (3, 6, 6 and 6 distinct points). In payoffs the
+four families are the permutations of $(3+\delta,3-\delta,3-\delta)$, $(2,4-2\delta,2+2\delta)$,
+$(2,2+2\delta,2+2\delta e)$ and $(2,3-\delta,3-\delta+2\delta^2)$.
+
+\begin{theorem}\label{ti:thm:R8}
+\begin{enumerate}
+\item For every $\delta\in[\frac12,1/\sqrt2]$, $P_{23}(\delta)$ is self-generating; hence
+  $P_{23}(\delta)\subset E(\delta)$.
+\item For $\delta\in\{\frac{51}{100},\frac{11}{20},\frac35,\frac58,\frac{13}{20},\frac23,\frac{69}{100},\frac7{10},\frac{707}{1000}\}$,
+  $E(\delta)=P_{23}(\delta)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) With $\varepsilon=e/\delta$, each vertex $x$ is $(1-\delta)a+\delta y$ with $y\in P_{23}(\delta)$ and
+$\varphi_i(y)\ge\varepsilon$ for every cooperator $i$ of $a$ (permutations act on $a$ and $y$ alike):
+\[
+\begin{array}{lll}
+x=0 & \text{DDD} & y=0,\\
+x=(1,1,1) & \text{CCC} & y=(1,1,1),\ \varphi_i=1\ge\varepsilon,\\
+x=(e,1,1) & \text{DCC} & y=(\varepsilon,1,1),\ \varphi_2=\varphi_3=\varepsilon,\\
+x=(\delta,1,e) & \text{DCD} & y=(1,1,\varepsilon),\ \varphi_2=\varepsilon,\\
+x=(1-e^2,\delta e,\delta) & \text{CDD} & y=(1-e\varepsilon,e,1),\ \varphi_1=e(1+\varepsilon)=\varepsilon,\\
+x=(\delta^2+e,\delta^2+\frac e2,\frac e2) & \text{CDD} & y=(\delta,\delta+\frac\varepsilon2,\frac\varepsilon2),\ \varphi_1=\varepsilon.
+\end{array}
+\]
+The first four continuations are vertices or lie on a segment from a vertex to $(1,1,1)$. The fifth
+lies in the pentagon of Theorem~\ref{ti:thm:R2} on the face $x_3=1$, whose five vertices are among
+the 23. The sixth equals $\lambda(\delta,1-e^2,\delta e)+(1-\lambda)(\delta,1,e)$ with
+$\lambda=(2\delta-1)/(2\delta e)$, and $\lambda\in[0,1]$ iff $\delta\le1/\sqrt2$.
+
+(2) Computer-assisted and exact. Let $M_k=\sup_{E(\delta)}\lambda_k\cdot x$ for the 24 facet normals
+$\lambda_k$ of $P_{23}(\delta)$, enumerated in rational arithmetic, and $h_k$ the facet values. Twelve
+facets hold for $E(\delta)$ already: $\varphi_i\ge0$, $x_i\le1$ and $x_j-x_i\le\delta$
+(Proposition~\ref{ti:prop:R9}). For each of the other twelve, $E=B(E)$ bounds $M_k$ by
+$\max_a[(1-\delta)\lambda_k\cdot a+\delta\,s_{k,a}(M)]$, where $s_{k,a}(M)$ is the value of a linear
+programme whose right-hand side contains the $M_j$. A dual-feasible vector of each programme bounds
+$s_{k,a}$ for every right-hand side. The dual vectors were computed in floating point, rationalised,
+and checked exactly: they are dual feasible, they reproduce $h_k$ at $M=h$, and their entries on the
+twelve unknown facets have row sums equal to~1. With $\eta_j=M_j-h_j\ge0$ this gives
+$\max_k \eta_k\le\delta\max_j \eta_j$, so $\eta=0$ and $E(\delta)\subset P_{23}(\delta)$.
+
+\end{proof}
+
+\begin{remark}\label{ti:rem:R8}
+For $\delta>1/\sqrt2$ the decomposition used for the sixth family fails ($\lambda<0$), and a
+numerical generation test, which tries every profile with a linear-programming membership test,
+generates every vertex at $\delta\le0.7071$ and finds no decomposition for the six vertices of that
+family at $\delta=0.7072$ and $0.71$ ($1/\sqrt2=0.70711$). We do not claim a proof that
+$P_{23}(\delta)$ fails to be self-generating for every $\delta>1/\sqrt2$.
+\end{remark}
+
+The threshold $1/\sqrt2$ is where $X=(2\delta-1)/(\delta(1-\delta))$, the constant of the golden
+window (Section~\ref{sec:setting}), reaches~2. For $\delta$ in $[\frac12,1/\sqrt2]$ outside the nine listed
+values, equality in (2) is supported by an independent computation of $E(\delta)$ (the APS iteration
+from $F$, which reproduces the 23 vertices and the volume to ten digits at
+$\delta=0.505,0.55,0.62,0.66,0.69$), but is not proved. Above $1/\sqrt2$ the computed sets have more
+vertices (29 at $\delta=0.71$--$0.75$, 47 at $0.8$, 83 at $0.9$), and no closed form is known.
+
+\begin{proposition}\label{ti:prop:R4}
+$(3,3,3)$ is an equilibrium payoff of the repeated $G_3$, under any strategies, iff $\delta\ge\frac12$.
+\end{proposition}
+
+\begin{proof}
+Payoff sum~9 forces CCC in every period; then \eqref{ti:eq:ic} with $w=(3,3,3)$ reads $c\le3$, that
+is $\delta\ge\frac12$. Grim trigger attains it.
+\end{proof}
+
+This is Series~I's threshold $\delta^*=\frac12$ in its strongest form: no strategy, mixed or
+correlated, sustains full cooperation below it. It is the textbook Nash-reversion computation
+\cite{Friedman71}.
+
+% Trinity-Infinity contributions, part 3: the operator.
+\subsection{The operator: sharp rates and switching}\label{ti:sec:operator}
+
+The results of this section are elementary. They are included because each is the strongest
+correct form of a sentence printed in the series or in its companion pages \cite{roadmap}, and because two of
+those sentences understate what is decidable.
+
+\begin{proposition}\label{ti:prop:R1}
+Let $n\ge2$, $a_i\in(0,1)$, indices mod $n$, and $\rho=(\prod_ia_i)^{1/n}$.
+\begin{enumerate}
+\item $(DQ)^k$ is monomial with $((DQ)^k)_{i,i-k}=a_ia_{i-1}\cdots a_{i-k+1}$. Hence, for every
+  $p\in[1,\infty]$ and every $k\ge1$, $\|(DQ)^k\|_p=\max_i\prod_{j=0}^{k-1}a_{i-j}$, and this is the
+  exact worst-case error factor after $k$ steps.
+\item $(DQ)^n=(\prod_ia_i)\,I$; so $\rho(DQ)=\rho$.
+\item With $w_0=1$, $w_i=\rho^{-i}\prod_{j=1}^ia_j$ and $W=\operatorname{diag}(w)$,
+  $W^{-1}DQW=\rho Q$. In the norm $\|x\|_W=\|W^{-1}x\|_2$, $\|f(x)-f(y)\|_W=\rho\|x-y\|_W$ exactly,
+  and $V_W(x)=\|x-T^*\|_W^2$ satisfies $V_W(f(x))=\rho^2V_W(x)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) $(DQx)_i=a_ix_{i-1}$; iterate. A monomial matrix has $p$-norm equal to its largest entry in
+absolute value. (2) Take $k=n$. (3) The $(i,i-1)$ entry of $W^{-1}DQW$ is $a_iw_{i-1}/w_i=\rho$ for
+$1\le i\le n-1$, and for $i=0$ because $w_n=\rho^{-n}\prod a=1=w_0$.
+\end{proof}
+
+For Series~II's $a=(0.5,0.7,0.3)$, $\|(DQ)^k\|_2=0.7,\,0.35,\,0.105,\,0.0735,\dots$ and
+$\rho=0.105^{1/3}=0.4718$. Part~(3) is the extremal norm of the single operator; the diagonal
+similarity of a weighted cycle is textbook \cite{HJ13}.
+
+\paragraph{Switching between the two directions.} The companion pages of the series also iterate
+the forward step $DQ$ and the backward step $DQ^{\mathsf T}$ in arbitrary order.
+
+\begin{proposition}\label{ti:prop:R6}
+For $n\ge3$ and $a_i>0$, the joint spectral radius of $\{DQ,DQ^{\mathsf T}\}$ is
+$\max_i\sqrt{a_ia_{i+1}}$.
+\end{proposition}
+
+\begin{proof}
+A product of $k$ factors is monomial, with entries $a_{i_1}\cdots a_{i_k}$ along walks with steps
+$\pm1$ on the $n$-cycle, and its norm is its largest entry. The joint spectral radius is therefore
+the largest mean of $\log a$ over closed walks, which is attained on a simple cycle. The simple
+cycles are the back-and-forth pairs $(i,i+1)$ and the two full cycles, and the mean over a full
+cycle is the average of the pair means.
+\end{proof}
+
+For $a=(0.5,0.7,0.3)$ this is $\sqrt{0.35}=0.591608$, which is where the companion page's numerical
+bounds meet. The reduction to a maximum cycle mean is standard max-plus algebra (recalled, not read).
+
+\paragraph{The golden example.} The companion page \cite{roadmap} takes the pair
+$S=\bigl[\begin{smallmatrix}1&1\\0&1\end{smallmatrix}\bigr]$, $S^{\mathsf T}$ at $\gamma=1/\phi$
+($\phi$ the golden ratio). It notes that the joint spectral radius is then pinned at exactly~1, so
+that neither of its two tests (a lower bound above~1, or a common quadratic Lyapunov function with
+constant below~1) settles whether trajectories converge, and it places the example next to the
+undecidability of ``joint spectral radius $\le1$'' \cite{BT00}. For this pair the behaviour is
+decided.
+
+\begin{theorem}\label{ti:thm:R5}
+\begin{enumerate}
+\item $\|S\|_2=\|S^{\mathsf T}\|_2=\phi$ and $\rho(SS^{\mathsf T})=\phi^2$. Hence the joint spectral
+  radius of $\{\gamma S,\gamma S^{\mathsf T}\}$ is $\gamma\phi$, and the Euclidean norm is extremal.
+\item At $\gamma=1/\phi$ every product has $\|\cdot\|_2\le1$: the switched system
+  $x_{k+1}=\gamma A_{\sigma_k}x_k$ is bounded, and it is not asymptotically stable.
+\item At $\gamma=1/\phi$, $x_k\to0$ for every $x_0$ iff the switching word has infinitely many
+  positions with $\sigma_k=\sigma_{k+1}$. More precisely $\|x_N\|_2\le q^m\|x_0\|_2$, where $m$ is the
+  number of disjoint repeated pairs among the first $N$ letters and $q=(1+\sqrt2)/\phi^2=0.92215\ldots$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(1) $S^{\mathsf T}S$ and $SS^{\mathsf T}$ have eigenvalues $\phi^{\pm2}$. So the joint spectral
+radius is at most $\max\|\cdot\|_2=\phi$ and at least $\rho(SS^{\mathsf T})^{1/2}=\phi$. (2)
+Submultiplicativity. (3) $\|S^2\|_2=\|(S^{\mathsf T})^2\|_2=1+\sqrt2$, so each repeated pair multiplies
+the norm by at most $q$ and every other step by at most~1. If the word alternates from some $N$ on,
+$(\gamma^2SS^{\mathsf T})^k$ and $(\gamma^2S^{\mathsf T}S)^k$ are symmetric with eigenvalues $1$ and
+$\phi^{-4}$ and converge to non-zero projections; the first $N$ factors are invertible, so some $x_0$
+does not tend to~0.
+\end{proof}
+
+That the joint spectral radius of this pair is $\phi$ is known (recalled, not read); part~(3) was not
+found in the texts consulted. Under fair i.i.d.\ switching, repeats occur almost surely, so
+$x_k\to0$ almost surely at $\gamma=1/\phi$.
+
+% Trinity-Infinity contributions, part 4: rotation thresholds for many players.
+\subsection{Rotation thresholds for many players}\label{ti:sec:rotation}
+
+In the linear dilemma with $n$ players, benefit $b$ to each co-player and cost $c$, put $r=c/b$ and
+$m=n-2$. The rotation, in which one player defects each period and the role passes round, is a
+subgame-perfect path exactly when $\delta\ge\delta_n(r)$, the root in $(0,1)$ of
+\[
+  g(\delta)=m\delta-r+(1+r)h(\delta),\qquad h(\delta)=\frac{\delta^{n-1}(1-\delta)}{1-\delta^n},
+\]
+and $r/m-(1+r)r^{n-1}/m^n<\delta_n(r)<r/m$ (\cite[Propositions~2 and~7]{v1}).
+
+\begin{proposition}\label{ti:prop:R7}
+For fixed $r>0$, as $n\to\infty$,
+\[
+  \delta_n(r)=\frac rm-\frac{(1+r)(m-r)\,r^{n-1}}{m^{n+1}}\Bigl(1+O\bigl(n(r/m)^{n-1}\bigr)\Bigr).
+\]
+For $r=1$ the correction is $2(m-1)/m^{n+1}$, so the lower bound $1/m-2/m^n$ is sharp up to the
+factor $(m-1)/m$.
+\end{proposition}
+
+\begin{proof}
+Let $\delta_0=r/m$ and $\eta=\delta_0-\delta_n(r)\in(0,(1+r)r^{n-1}/m^n)$. From $g(\delta_n)=0$,
+$m\eta=(1+r)h(\delta_n)$, and $h(\delta_0)=(r/m)^{n-1}(1-r/m)/(1-(r/m)^n)$. The logarithmic derivative
+of $h$ is $O(n/\delta)$ near $\delta_0$, so $h(\delta_n)=h(\delta_0)(1+O(n\eta/\delta_0))$, and
+$n\eta/\delta_0=O(n(r/m)^{n-1})$; the factor $1/(1-(r/m)^n)$ is absorbed in the same error.
+\end{proof}
+
+Numerically (200-digit bisection), the relative error of the correction term is $1.1\times10^{-7}$ at
+$n=10$ and $5\times10^{-23}$ at $n=20$ for $r=1$; a separate bisection on directly summed payoffs
+agrees to nine digits for $n\le10$.
+
+% Trinity-Infinity contributions, part 5: status, corrections, open problems.
+\subsection{What is known, what is new, and what is open}\label{ti:sec:status}
+
+\begin{table}[ht]\centering\small
+\begin{tabular}{@{}p{0.2\linewidth}p{0.5\linewidth}p{0.22\linewidth}@{}}
+\toprule
+result & content & status \\
+\midrule
+Prop.~\ref{ti:prop:R1} & exact $k$-step norms; extremal weighted norm of the operator & known (elementary) \\
+Prop.~\ref{ti:prop:R6} & switching forward and backward: $\max_i\sqrt{a_ia_{i+1}}$ & known in principle (max-plus) \\
+Thm.~\ref{ti:thm:R5} & the golden pair: radius exactly 1, bounded, convergence iff infinitely many repeats & radius known; (3) not found \\
+Prop.~\ref{ti:prop:R7} & first-order size of the rotation threshold's gap & elementary; not found \\
+Prop.~\ref{ti:prop:R9} & $|v_i-v_j|\le2\delta$ in every equilibrium, attained & not found \\
+Thm.~\ref{ti:thm:R2} & exact equilibrium set on the face containing $(2,4,2)$ & not found \\
+Thm.~\ref{ti:thm:R3} & the never-sustainable set: three half-open segments & not found \\
+Thm.~\ref{ti:thm:R8} & the whole set for $\frac12\le\delta\le1/\sqrt2$ & (1) proved; (2) proved at nine values of $\delta$ (computer-assisted, exact), numerical elsewhere; failure above $1/\sqrt2$ numerical only \\
+Prop.~\ref{ti:prop:R4} & $(3,3,3)$ iff $\delta\ge\frac12$, any strategies & known \\
+\bottomrule
+\end{tabular}
+\caption{Status of the results. ``Not found'' means not found in the texts consulted; the
+literature search for these results was limited to bibliographic records, and four records whose
+full texts were not read are the first to check.}
+\label{ti:tab:status}
+\end{table}
+
+Each result was checked three ways: by its proof, by an independent computation that does not use
+the formula (an outer approximation of $E(\delta)$ by the self-generation operator, brute-force
+enumeration of matrix products, or direct summation of payoffs), and by exact rational arithmetic or
+a special case already proved in \cite{v1} or \cite{note}.
+
+\paragraph{Corrections to the frozen papers.} None of the papers is changed. Two printed claims of
+Series~II, Section~4, are corrected in a stronger form than in the existing errata. The example
+$(2,4,2)$ is not sustainable for any $\delta<1$, and neither is any point of the half-open segment
+from $(2,2,2)$ to it. And the condition that all coordinates exceed~2 is sufficient but not
+necessary: $(2,3,3)$, for example, is sustainable for every $\delta\ge\frac12$. Series~II's
+convergence rate $\max_i a_i$ is the one-step constant; the rate is $(\prod_ia_i)^{1/n}$, and
+Proposition~\ref{ti:prop:R1} gives the exact error factor for every number of steps.
+
+\paragraph{Open.}
+\begin{enumerate}
+\item The equilibrium set $E(\delta)$ for $1/\sqrt2<\delta<1$, and a proof of
+  Theorem~\ref{ti:thm:R8}(2) for every $\delta\in[\frac12,1/\sqrt2]$. The certificate's multipliers
+  have row sums exactly~1 at every value tried, which suggests a uniform proof.
+\item The exact threshold for payoffs $(2,2+\alpha,2+\beta)$ with $\alpha+\beta<2$.
+\item Without public randomization, the pure-strategy payoffs on the face of
+  Theorem~\ref{ti:thm:R2}: a survivor set of four similarities of ratio $\delta$ in the plane, whose
+  projection to $x_2+x_3$ is governed by the same constant $X$ as the golden window. Its dimension,
+  and the $\delta$ at which it acquires positive area, are not known.
+\end{enumerate}
+
+\section{Status of each result}\label{sec:status}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{p{4.2cm}p{3.6cm}p{6.2cm}}
+\toprule
+Result & Status & Source or comment\\
+\midrule
+Reduction to $T_\beta$ with hole $(t(\beta),1)$ & new (not found in texts read) & elementary; the game form is the contribution\\
+Thm~\ref{thm:p8} (measure zero) & known & \cite[Prop.~2.5]{LSZ}; R\'enyi--Parry ergodicity\\
+Thm~\ref{thm:p9}(1) formula, (2) $\dim<1$ & known & \cite[Thm.~1.2, Lemma~2.7, Prop.~2.5]{LSZ}; entropy also \cite[Thm.~4.3]{KLX}\\
+Thm~\ref{thm:p9}(1) $\dimB=\dimH$ & not found in texts read & standard methods\\
+Thm~\ref{thm:p9}(3) monotone, continuous, limits & new (not found in texts read) & along the coupled curve\\
+Theorem A (lower-end rate) & new (not found in texts read) & \\
+Theorem B (upper-end constant $C$) & new (not found in texts read) & mechanism classical (recalled)\\
+Theorem C (staircase, plateaus) & new along the curve & fixed-$\beta$ analogues \cite{SLD,AKplat}\\
+Theorem D (thresholds coincide) & new (application) & identity inside the model\\
+Prop.~\ref{prop:red} (edge reduction) & instance of known framework & \cite{BK14} (abstract)\\
+Props.~\ref{prop:H}, \ref{prop:G}, \ref{prop:M} & new (not found in texts read) & application\\
+Theorem E (joint continuity, $\beta\le2$) & conditional & on \cite[Thm.~1.4]{LSZ}; open in \cite{AKcrit,AKgen}\\
+Thm~\ref{thm:sym} (symbolic identity) & known at map level & \cite{Oliveira}; symbolic proof offered here\\
+Cor.~\ref{cor:B}, Prop.~\ref{prop:rat} & not found in texts read & uses \cite[Lemma~6.2]{AKgen} (from Raith)\\
+Section~\ref{sec:trinity} & see Table~\ref{ti:tab:status} & Trinity-Infinity papers and the Series~II game\\
+\bottomrule
+\end{tabular}
+\caption{Known, new (not found in the texts read), and conditional.}
+\end{table}
+
+\section{Numerics}\label{sec:numerics}
+
+Every number in this paper, other than those quoted from the Trinity-Infinity papers (which the scripts print next to the recomputed values), is produced by the scripts in the repository \url{https://github.com/cpsbvbng26-dotcom/golden-window-resolution} (exact rationals with Python \texttt{fractions}; roots with \texttt{mpmath} at 30 to 250 digits). Each result was checked in three ways: its proof was re-derived; the formula was evaluated at high precision or in exact arithmetic; and the result was compared with a computation that does not use the formula (counting of cylinders or words, direct simulation of discounted sums, exact backward iteration, or brute-force search, depending on the result). The three checks for each result are listed in the repository's README.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+$\delta$ & renewal root & LSZ root & word counts & $A_\delta$\\
+\midrule
+0.6181 & 0.272410 & 0.272410 & 0.2722 & $\{1,16\}$\\
+0.62 & 0.404196 & 0.404196 & 0.4042 & $\{1,9\}$\\
+0.63 & 0.608610 & 0.608610 & 0.6086 & $\{1,5\}$\\
+0.64 & 0.722146 & 0.722146 & 0.7221 & $\{1,4\}$\\
+0.65 & 0.825510 & 0.825510 & 0.8255 & $\{1,4,8\}$\\
+0.66 & 0.919930 & 0.919930 & 0.9199 & $\{1,3\}$\\
+0.6666 & 0.999233 & 0.999233 & 0.9992 & $\{1,3,9,12,15,19,\dots\}$\\
+\bottomrule
+\end{tabular}
+\caption{$\dimH S$ by the renewal equation of Theorem~\ref{thm:p9}, by the root of \cite[Theorem~1.2]{LSZ}, and by growth of exact word counts (depth 110 to 120).}
+\end{table}
+
+\section{Literature, and how each item was read}\label{sec:lit}
+
+The search was run on 18 November 2026 on Crossref and on DataCite's arXiv records; OpenAlex search was unavailable (rate limit). Full texts were read only where arXiv versions were reachable.
+\begin{itemize}
+\item Read in full or in the sections used: Lu--Steiner--Zou \cite{LSZ} (arXiv v2: Sections 1--3; proofs of Section 3 not re-verified line by line); Allaart--Kong \cite{AKcrit} (arXiv v2: Proposition~1.9, Remark~1.10, Lemmas 2.10--2.11); Allaart--Kong \cite{AKplat} (arXiv v3: Section 1, Lemmas 2.1--2.2); Allaart--Kong \cite{AKgen} (arXiv v3: Remark~1.2, Theorem~1.3, Lemma~6.2); Komornik--Steiner--Zou \cite{KSZ} (arXiv v4: Theorems 2.5--2.6 and proof); Kuang--Li--Xiao \cite{KLX} (arXiv v1: Introduction, Section 3, Theorems 1.1, 1.2, 4.3, Question~4.10); Sun--Li--Ding \cite{SLD} (arXiv v1: Introduction, statements of Theorems 1.1, 1.3, 1.4, Corollary~1.5, Remark~1.2); Sun--Li \cite{SL} (arXiv: Theorem~1.1); Oliveira \cite{Oliveira} (arXiv v1: Sections 4 and 10); Barnsley--Steiner--Vince \cite{BSV} (arXiv v3: Lemma~3 and its attribution).
+\item Abstract only: Hofbauer--Raith \cite{HR92}, Komornik--Kong--Li \cite{KKL17}, Allaart--Kong \cite{AK19}, Kalle--Kong--Langeveld--Li \cite{KKLL}, Berg--Kitti \cite{BK14}, Mailath--Obara--Sekiguchi \cite{MOS02}.
+\item Recalled, not read: R\'enyi \cite{Renyi}, Parry \cite{Parry}, Raith \cite{Raith89}, Abreu--Pearce--Stacchetti \cite{APS90}, Mailath--Samuelson \cite{MS06}; Flatto--Lagarias, Milnor--Thurston, Glendinning--Hall and Labarca--Moreira are mentioned only as attributed by others and are not listed.
+\end{itemize}
+For Section~\ref{sec:trinity}, the arXiv API was rate-limited and no full text was read. Four bibliographic records found on Crossref, on the joint spectral radius of pairs of $2\times2$ matrices and on the lowest equilibrium payoff and the limit equilibrium set of repeated games, are the first places to check before any novelty claim for Theorems~\ref{ti:thm:R2}, \ref{ti:thm:R3} and~\ref{ti:thm:R5}(3); their contents are unknown here. Abreu \cite{Abreu88}, Friedman \cite{Friedman71}, Blondel--Tsitsiklis \cite{BT00}, Horn--Johnson \cite{HJ13} and Friedkin--Johnsen \cite{FJ99} are recalled, not read.
+The full texts of Berg--Kitti and of Mailath--Obara--Sekiguchi were not reachable. Whether they contain an exact dimension or measure-zero statement for this edge is unverified.
+
+\section*{Disclosure of the use of a language model}
+Claude Code (Anthropic) was used for this work: to search and read the literature, to draft and check the proofs, to write and run the verification scripts, and to draft the text. Every claim was re-derived and re-checked by computation as described in Section~\ref{sec:numerics}. The author is responsible for the content. Claude is not an author.
+
+\section*{Licence}
+This paper is distributed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0). The scripts are under the MIT licence.
+
+\begin{thebibliography}{99}
+\bibitem{v1} T.~Nemoto, \emph{Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture}, preprint, Figshare, 2026. \doi{10.6084/m9.figshare.34419198}.
+\bibitem{note} T.~Nemoto, \emph{Repeated games through the cyclic operator}, maintained note, \texttt{games/README.md} in the repository \url{https://github.com/cpsbvbng26-dotcom/trinity-operator}, version of 18 November 2026 (Propositions 8 and 9).
+\bibitem{LSZ} J.~Lu, W.~Steiner, Y.~Zou, Hausdorff dimension of double-base expansions and binary shifts with a hole, \emph{Bull.\ London Math.\ Soc.} (2026). \doi{10.1112/blms.70344}. arXiv:2509.04227 (v2 read).
+\bibitem{AKcrit} P.~Allaart, D.~Kong, Critical values for the $\beta$-transformation with a hole at $0$, \emph{Ergodic Theory Dynam.\ Systems} (2023). \doi{10.1017/etds.2022.24}. arXiv:2109.10012 (v2 read).
+\bibitem{AKplat} P.~Allaart, D.~Kong, Entropy plateaus, transitivity and bifurcation sets for the $\beta$-transformation with a hole at $0$, arXiv preprint, \doi{10.48550/arxiv.2304.06892} (v3 read).
+\bibitem{AKgen} P.~Allaart, D.~Kong, The $\beta$-transformation with a hole at $0$: the general case, \emph{Ergodic Theory Dynam.\ Systems} (2025). \doi{10.1017/etds.2025.10257}. arXiv:2411.03516 (v3 read).
+\bibitem{KSZ} V.~Komornik, W.~Steiner, Y.~Zou, Unique double base expansions, arXiv:2209.02373 (v4 read).
+\bibitem{KLX} R.~Kuang, B.~Li, Y.~Xiao, The Hausdorff dimension of the survivor set, arXiv preprint, \doi{10.48550/arxiv.2604.23737} (v1 read).
+\bibitem{SLD} Y.~Sun, B.~Li, Y.~Ding, Topological expansive Lorenz maps with a hole at critical point, \emph{J.\ Stat.\ Phys.} (2024). \doi{10.1007/s10955-024-03265-0}. arXiv:2311.02465 (v1 read).
+\bibitem{SL} Y.~Sun, B.~Li, Two bifurcation sets of expansive Lorenz maps with a hole at the discontinuity, \emph{Qual.\ Theory Dyn.\ Syst.} (2024). \doi{10.1007/s12346-024-01180-z}.
+\bibitem{Oliveira} H.~M.~Oliveira, Homological reduction and entropy of discontinuous interval maps, arXiv:2611.03287 (v1 read).
+\bibitem{BSV} M.~Barnsley, W.~Steiner, A.~Vince, Critical itineraries of maps with constant slope and one discontinuity, arXiv:1205.5902 (v3 read).
+\bibitem{KKLL} C.~Kalle, D.~Kong, N.~Langeveld, W.~Li, The $\beta$-transformation with a hole at $0$, \emph{Ergodic Theory Dynam.\ Systems} (2020). \doi{10.1017/etds.2019.12}.
+\bibitem{KKL17} V.~Komornik, D.~Kong, W.~Li, Hausdorff dimension of univoque sets and Devil's staircase, \emph{Adv.\ Math.} (2017). \doi{10.1016/j.aim.2016.03.047}.
+\bibitem{AK19} P.~Allaart, D.~Kong, On the continuity of the Hausdorff dimension of the univoque set, \emph{Adv.\ Math.} (2019). \doi{10.1016/j.aim.2019.106729}.
+\bibitem{HR92} F.~Hofbauer, P.~Raith, The Hausdorff dimension of an ergodic invariant measure for a piecewise monotonic map of the interval, \emph{Canad.\ Math.\ Bull.} (1992). \doi{10.4153/cmb-1992-013-x}.
+\bibitem{Raith89} P.~Raith, Hausdorff dimension for piecewise monotonic maps, \emph{Studia Math.} (1989). \doi{10.4064/sm-94-1-17-33}.
+\bibitem{Renyi} A.~R\'enyi, Representations for real numbers and their ergodic properties, \emph{Acta Math.\ Acad.\ Sci.\ Hungar.} (1957). \doi{10.1007/bf02020331}.
+\bibitem{Parry} W.~Parry, On the $\beta$-expansions of real numbers, \emph{Acta Math.\ Acad.\ Sci.\ Hungar.} (1960). \doi{10.1007/bf02020954}.
+\bibitem{BK14} K.~Berg, M.~Kitti, Fractal geometry of equilibrium payoffs in discounted supergames, \emph{Fractals} 22(04) (2014), 1450016. \doi{10.1142/s0218348x14500169}.
+\bibitem{MOS02} G.~J.~Mailath, I.~Obara, T.~Sekiguchi, The maximum efficient equilibrium payoff in the repeated Prisoners' Dilemma, \emph{Games Econom.\ Behav.} (2002). \doi{10.1006/game.2001.0901}.
+\bibitem{APS90} D.~Abreu, D.~Pearce, E.~Stacchetti, \emph{Econometrica} (1990). \doi{10.2307/2938299}.
+\bibitem{MS06} G.~J.~Mailath, L.~Samuelson, \emph{Repeated Games and Reputations}, Oxford University Press, 2006. \doi{10.1093/acprof:oso/9780195300796.001.0001}.
+\bibitem{SeriesI} T.~Nemoto, \emph{The Trinity-Infinity Framework: A Conceptual Model with Illustrative Applications in Game Theory, Mathematical Logic, and Mechanical Engineering}, revised edition, preprint, Zenodo, 2026. \doi{10.5281/zenodo.22058624}.
+\bibitem{SeriesII} T.~Nemoto, \emph{The Trinity-Infinity Framework, Series II: Extended Formalization and Further Illustrative Applications}, revised edition, preprint, Zenodo, 2026. \doi{10.5281/zenodo.22058777}.
+\bibitem{SeriesIII} T.~Nemoto, \emph{The Trinity-Infinity Framework, Series III: Beyond Three --- A Generalization and Retrospective}, preprint, Zenodo, 2026. \doi{10.5281/zenodo.22058964}.
+\bibitem{errata} T.~Nemoto, Errata for the Trinity-Infinity papers, \texttt{ERRATA.md} in the repository \url{https://github.com/cpsbvbng26-dotcom/trinity-infinity}, version of 18 November 2026 (entries E1--E8, N1--N11).
+\bibitem{roadmap} T.~Nemoto, Roadmap of the cyclic operator, \texttt{roadmap/README.md} in the repository \url{https://github.com/cpsbvbng26-dotcom/trinity-operator}, version of 18 November 2026.
+\bibitem{FJ90} N.~E.~Friedkin, E.~C.~Johnsen, Social influence and opinions, \emph{J.\ Math.\ Sociology} (1990). \doi{10.1080/0022250x.1990.9990069}.
+\bibitem{FJ99} N.~E.~Friedkin, E.~C.~Johnsen, Social influence networks and opinion change, \emph{Advances in Group Processes} 16 (1999). Recalled, not read.
+\bibitem{Abreu88} D.~Abreu, On the theory of infinitely repeated games with discounting, \emph{Econometrica} 56 (1988). Recalled, not read.
+\bibitem{Friedman71} J.~W.~Friedman, A non-cooperative equilibrium for supergames, \emph{Rev.\ Econom.\ Stud.} 38 (1971). Recalled, not read.
+\bibitem{BT00} V.~D.~Blondel, J.~N.~Tsitsiklis, The boundedness of all products of a pair of matrices is undecidable, \emph{Systems Control Lett.} 41 (2000). Recalled, not read.
+\bibitem{HJ13} R.~A.~Horn, C.~R.~Johnson, \emph{Matrix Analysis}, 2nd ed., Cambridge University Press, 2013. Recalled, not read.
+\end{thebibliography}
+
+\end{document}

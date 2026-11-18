@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+title: "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game"
+message: >-
+  このリポジトリは、上の題の稿の LaTeX の原稿、組んだ PDF、紙面の数を出す台本を置いています。
+  稿の DOI はまだありません。番号を受け取ったら、ここに書き足します。
+  稿は CC BY 4.0、台本は MIT です。
+  言語モデル Claude Code（Anthropic）を使いました。責任は著者が負います。Claude は著者ではありません。
+type: software
+authors:
+  - family-names: Nemoto
+    given-names: Takuya
+    orcid: https://orcid.org/0009-0000-1406-0547
+repository-code: https://github.com/cpsbvbng26-dotcom/golden-window-resolution
+license:
+  - CC-BY-4.0
+  - MIT
+date-released: 2026-11-18
+keywords:
+  - beta-transformation
+  - open dynamical system
+  - survivor set
+  - Hausdorff dimension
+  - repeated game
+  - golden ratio
+references:
+  - type: article
+    title: "Repeated Games through a Cyclic Operator: A Golden-Ratio Threshold, Fractal Payoff Sets, and the Golden-Window Conjecture"
+    authors:
+      - family-names: Nemoto
+        given-names: Takuya
+        orcid: https://orcid.org/0009-0000-1406-0547
+    doi: 10.6084/m9.figshare.34419198
+    year: 2026

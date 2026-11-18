@@ -1,0 +1,6 @@
+delta 0.520  max |x_i - x_j| over APS vertices = 0.5200000000   (bound delta)  vertices 23
+delta 0.600  max |x_i - x_j| over APS vertices = 0.6000000000   (bound delta)  vertices 23
+delta 0.750  max |x_i - x_j| over APS vertices = 0.7500000000   (bound delta)  vertices 29
+delta 0.800  max |x_i - x_j| over APS vertices = 0.8000000000   (bound delta)  vertices 47
+delta 0.900  max |x_i - x_j| over APS vertices = 0.9000000000   (bound delta)  vertices 83
+delta 0.950  max |x_i - x_j| over APS vertices = 0.9500000000   (bound delta)  vertices 62

@@ -1,0 +1,14 @@
+Check 1 (sympy): eig(S^T S) = [3/2 - sqrt(5)/2, sqrt(5)/2 + 3/2]  rho(S S^T) = sqrt(5)/2 + 3/2  ||S^2||_2^2 = 2*sqrt(2) + 3
+   q = ||S^2||/phi^2 = 0.9221475247255579  exact (1+sqrt2)/phi^2 = 0.9221475247255579
+   n= 1 max ||M_w||/phi^n = 1.000000000000  attained by S
+   n= 2 max ||M_w||/phi^n = 1.000000000000  attained by ST
+   n= 3 max ||M_w||/phi^n = 1.000000000000  attained by STS
+   n= 4 max ||M_w||/phi^n = 1.000000000000  attained by STST
+   n= 8 max ||M_w||/phi^n = 1.000000000000  attained by STSTSTST
+   n=12 max ||M_w||/phi^n = 1.000000000000  attained by STSTSTSTSTST
+   n=18 max ||M_w||/phi^n = 1.000000000000  attained by STSTSTSTSTSTSTSTST
+   rho(S T)^(1/2) = 1.618033988749895  phi = 1.618033988749895
+Check 3: alternating word, |x_4000| = 0.7779965555515013  (bounded away from 0)
+   repeats every ~51 letters (80 repeats): |x| = 1.053e-04, bound q^80*|x0| = 1.742e-03
+   i.i.d. fair random words of length 4000: ['3.07e-150', '7.54e-149', '3.87e-152', '1.99e-152', '1.51e-145']
+   max one-step ratio over 40000 random steps: 1.0

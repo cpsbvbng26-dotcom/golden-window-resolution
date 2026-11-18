@@ -1,0 +1,14 @@
+Check 2: APS slice x1 = 1 versus the pentagon
+  delta=0.5050  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.5200  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.5500  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.6000  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.6667  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.7000  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.7500  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.8000  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.9000  slice vertices=5  pentagon vertices=5  equal=True
+  delta=0.49: any vertex with x1=1? False
+Check 3: exact decomposition of the five vertices, rational delta
+  failures: 0
+  300 random starts, 200 periods each: decomposition failures=0, min slack of player 1's IC=-4.441e-16

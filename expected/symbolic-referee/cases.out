@@ -1,0 +1,70 @@
+== specific / near-degenerate pairs
+full ternary                                  M=2 normalized=True stable=True match=True h=1.098612
+   brute  [1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683]
+full quaternary                               M=3 normalized=True stable=True match=True h=1.386294
+   brute  [1, 4, 16, 64, 256, 1024, 4096, 16384]
+h=0 (12)/(21)                                 M=2 normalized=True stable=True match=True h=0.000000
+   brute  [1, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+h=0 (02)/(20)                                 M=2 normalized=True stable=True match=True h=0.000000
+   brute  [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+(112)/(21)                                    M=2 normalized=True stable=True match=True h=0.281200
+   brute  [1, 2, 3, 4, 5, 7, 9, 12, 16, 21]
+0 1^inf / 2 1^inf                             M=2 normalized=True stable=True match=True h=0.693147
+   brute  [1, 3, 7, 15, 31, 63, 127, 255, 511, 1023]
+(0 2^5)/(2^5 0)                               M=2 normalized=True stable=True match=True h=0.675975
+   brute  [1, 3, 7, 15, 31, 63, 125, 247, 487, 959]
+(0^5 1)/(1 0^5) quaternary                    M=3 normalized=True stable=True match=True h=0.000000
+   brute  [1, 2, 3, 4, 5, 6, 6, 6]
+(0 3^4)/(3^4 0)                               M=3 normalized=True stable=True match=True h=1.090059
+   brute  [1, 4, 13, 40, 121, 361, 1075, 3199]
+(1 2 2)/(2 2 1) near-equal                    M=2 normalized=True stable=True match=True h=0.000000
+   brute  [1, 2, 3, 3, 3, 3, 3, 3, 3, 3]
+(1 2)/(2 1 1 ... ) h small                    M=2 normalized=False stable=True match=False h=0.000000
+   brute  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+   series [1, 2, 2, 1, 0, 0, 0, 0, 0, 0]
+(1 1 1 2)/(2 1)                               M=2 normalized=True stable=True match=True h=0.382245
+   brute  [1, 2, 3, 5, 7, 10, 15, 22, 32, 47]
+(1 3)/(3 1) quaternary                        M=3 normalized=True stable=True match=True h=0.000000
+   brute  [1, 3, 5, 7, 9, 11, 13, 15]
+(1 2 3)/(3 2 1)                               M=3 normalized=True stable=True match=True h=0.481212
+   brute  [1, 3, 7, 13, 23, 39, 65, 107]
+(0 2)/(2^inf)                                 M=2 normalized=True stable=True match=True h=0.881374
+   brute  [1, 3, 7, 17, 41, 99, 239, 577, 1393, 3363]
+0^inf/(2 1 0)                                 M=2 normalized=True stable=True match=True h=0.934845
+   brute  [1, 3, 8, 20, 51, 130, 331, 843, 2147, 5468]
+a=b=(1)                                       M=2 normalized=True stable=True match=True h=0.000000
+   brute  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+(1 2 2 2 2 2 2)/(2 1)                         M=2 normalized=False stable=True match=False h=0.000000
+   brute  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+   series [1, 2, 2, 1, -1, -3, -4, -3, 1, 7]
+01^5 0 ... ternary (0 1 1 1 1 1)/(2 0 0 0 0 0) M=2 normalized=False stable=True match=False h=0.000000
+   brute  [1, 2, 3, 4, 5, 6, 7, 9, 12, 16]
+   series [1, 3, 6, 9, 9, 0, -27, -78, -147, -198]
+== negative control: KLX Example 4.9 raw pair (not normalized)
+ normalized False
+ series [1, 2, 3, 5, 7, 9, 12, 14, 15, 15, 11, 3, -9]
+ brute  [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+ normalized pair True [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3] [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+== Corollary B, beta-rational t in U (KLX hole (0,t))
+ beta = 2.8311772072083365
+  t = 1/beta  (greedy 1 0^inf, Lyndon "1")
+   greedy a in K~?  a in K~: False
+   claimed b = max K~ = (21)^inf  (a_min, b) normalized: True
+   brute N_n of K~(t) with greedy a       [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+   series with a = b(t,beta) (scout)      [1, 2, 4, 9, 19, 41, 88, 189, 406, 872]  h = 0.76449
+   series with a = min K~                [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]  h = 0.481212
+   series with a = quasi-greedy t        [1, 3, 6, 10, 16, 26, 42, 68, 110, 178]  h = 0.481212
+   real map: interval counts [17711, 28657, 46368, 75025, 121393, 196418]  growth logs [0.4812, 0.4812, 0.4812, 0.4812]
+  t = 1/beta^2 (greedy 01 0^inf, Lyndon "01")
+   greedy a in K~?  a in K~: False
+   claimed b = max K~ = (220)^inf  (a_min, b) normalized: True
+   brute N_n of K~(t) with greedy a       [1, 3, 8, 20, 50, 126, 316, 794, 1994, 5008]
+   series with a = b(t,beta) (scout)      [1, 3, 8, 20, 51, 131, 336, 862, 2211, 5671]  h = 0.941946
+   series with a = min K~                [1, 3, 8, 20, 50, 126, 316, 794, 1994, 5008]  h = 0.920899
+   series with a = quasi-greedy t        [1, 3, 9, 23, 59, 149, 375, 943, 2369, 5951]  h = 0.920899
+   real map: interval counts [1995, 5009, 12579, 31591, 79341, 199267]  growth logs [0.9208, 0.9208, 0.9209, 0.9209]
+== beta = 3 (integer), t = 1/3: greedy a = 1 0^inf, alpha = 2^inf
+   a in K~: False
+   brute  [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+   scout series [1, 2, 5, 12, 29, 70, 169, 408, 985, 2378]  h = 0.881374  vs log 2 = 0.693147
+   min-K~ series [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]  h = 0.693147

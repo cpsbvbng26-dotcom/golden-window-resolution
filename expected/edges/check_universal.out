@@ -1,0 +1,5 @@
+{('interval', True): 108, ('two points', True): 124, ('fractal', True): 63, ('countable', True): 5} max |renewal - LSZ| over fractal cases: 7.72715225139109e-14
+delta 11/20: dim over kappa in W: 0.3015 .. 0.9979, decreases 0, equal neighbours 95
+delta 31/50: dim over kappa in W: 0.3161 .. 0.9982, decreases 0, equal neighbours 89
+delta 7/10: dim over kappa in W: 0.3386 .. 0.9980, decreases 0, equal neighbours 85
+delta 4/5: dim over kappa in W: 0.3763 .. 0.9983, decreases 0, equal neighbours 74

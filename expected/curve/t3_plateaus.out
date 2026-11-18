@@ -1,0 +1,23 @@
+K=   5: fraction of grid with no stop by step K = 0.60140;  K*fraction = 3.007;  restricted to delta<0.66: 0.56177
+K=  10: fraction of grid with no stop by step K = 0.37045;  K*fraction = 3.704;  restricted to delta<0.66: 0.29899
+K=  20: fraction of grid with no stop by step K = 0.20020;  K*fraction = 4.004;  restricted to delta<0.66: 0.11879
+K=  40: fraction of grid with no stop by step K = 0.10155;  K*fraction = 4.062;  restricted to delta<0.66: 0.02955
+K=  80: fraction of grid with no stop by step K = 0.05255;  K*fraction = 4.204;  restricted to delta<0.66: 0.00435
+K= 160: fraction of grid with no stop by step K = 0.02635;  K*fraction = 4.216;  restricted to delta<0.66: 0.00012
+K= 320: fraction of grid with no stop by step K = 0.01270;  K*fraction = 4.064;  restricted to delta<0.66: 0.00000
+K= 600: fraction of grid with no stop by step K = 0.00735;  K*fraction = 4.410;  restricted to delta<0.66: 0.00000
+
+plateau A={1,4}: [ 0.638413352921706 , 0.645200388386225 ]
+h on it = -log z, z+z^4=1: 0.32228461597103
+  delta 0.638413353922 A [1, 4] h 0.322284615971 dim 0.718152077261
+  delta 0.64 A [1, 4] h 0.322284615971 dim 0.722146380823
+  delta 0.6425 A [1, 4] h 0.322284615971 dim 0.728510446134
+  delta 0.645 A [1, 4] h 0.322284615971 dim 0.734962300915
+  delta 0.645200387386 A [1, 4] h 0.322284615971 dim 0.735483305468
+  outside 0.638412352922 A[:8] [1, 5, 9, 13, 17, 21, 25] h 0.3222367616
+  outside 0.645201388386 A[:8] [1, 4, 28, 31] h 0.322375439704
+
+admissibility violations: 0 ; distinct finite A seen: 1133
+components in delta order with non-increasing h: 0 of 1132
+min over sample of (ds_k/d delta)/(beta^k(1+beta^2)-k beta X): 2.4999479
+integral of h/(delta log^2 beta) over the window = 0.12456242 (total increase of dim is 1)

@@ -1,0 +1,9 @@
+delta 51/100   exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 51/100
+delta 11/20    exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 11/20
+delta 3/5      exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 3/5
+delta 5/8      exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 5/8
+delta 13/20    exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 13/20
+delta 2/3      exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 2/3
+delta 69/100   exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 69/100
+delta 7/10     exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 7/10
+delta 707/1000 exact dual feasibility and bounds: True ; max row sum of multipliers on unknown facets = 1 ; delta*rowsum = 707/1000
