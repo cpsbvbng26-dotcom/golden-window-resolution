@@ -1,6 +1,6 @@
 # golden-window-resolution
 
-Figshare に出す稿 "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole" の原稿・PDF・台本。
+Figshare に出す稿 "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game" の原稿・PDF・台本。
 黄金比の窓の予想（Figshare `10.6084/m9.figshare.34419198`）の続き。10 リポジトリの外に置く（sophaxis・deposit-check と同じ扱い）。
 
 ## 決めごと

@@ -1,6 +1,6 @@
 # golden-window-resolution
 
-Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole（黄金比の窓の予想の解決と、穴の開いた β 変換についての関連する結果）の原稿・PDF・検査の台本を置いています。
+Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game（黄金比の窓の予想の解決と、穴の開いた β 変換についての関連する結果）の原稿・PDF・検査の台本を置いています。
 
 [English](README.en.md)
 

@@ -1,6 +1,6 @@
 # golden-window-resolution
 
-Source, PDF and verification scripts of the paper "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole".
+Source, PDF and verification scripts of the paper "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game".
 
 [日本語](README.md)
 
