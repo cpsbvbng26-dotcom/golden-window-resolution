@@ -15,9 +15,13 @@
    and in both READMEs; the page count that both READMEs state is the page count of its PDF.
 5. Both PDFs are the recorded ones (SHA-256). The published PDF is frozen (rule 2), and the second PDF is the
    one recorded in continuity/REFEREE.md. A rebuilt PDF changes the hash, and the record changes with it.
+6. .zenodo.json (2026-11-19), which Zenodo's GitHub integration reads at a release: its title begins with the title of the
+   paper, its one creator is Takuya Nemoto with the ORCID iD and no affiliation, its licence is that of LICENSE, its notes
+   carry the disclosure ("Claude is not an author.") and say what the licence field covers, and it points to the Figshare
+   DOI of the paper as the work this record supplements.
 
   python3 verification/check_copies.py           # the check
-  python3 verification/check_copies.py --break   # changes a title, a page count and a hash in memory; each must fail
+  python3 verification/check_copies.py --break   # changes titles, a page count, a hash and .zenodo.json in memory; each must fail
 """
 import hashlib
 import os
@@ -44,6 +48,27 @@ PDF_SHA256 = {
     CONT_PDF: "b10fbd7b0233bd1bf2322407a4a6d87708dea68d92d1dffa432eafdd22a7ec13",
 }
 PAGES = {"README.md": r"紙面は (\d+) 頁です", "README.en.md": r"The paper has (\d+) pages"}
+
+
+def zenodo_problems(ztext, licence):
+    import json
+    try:
+        z = json.loads(ztext)
+    except ValueError:
+        return [".zenodo.json: cannot be read"]
+    errs = []
+    if not z.get("title", "").startswith(TITLE) or TITLE_END not in z.get("title", ""):
+        errs.append(".zenodo.json: the title does not begin with the title of the paper")
+    if z.get("creators") != [{"name": "Nemoto, Takuya", "orcid": "0009-0000-1406-0547"}]:
+        errs.append(".zenodo.json: the creator (one, with the ORCID iD, no affiliation)")
+    if z.get("license") != ("cc-by-4.0" if licence.startswith("Creative Commons Attribution 4.0") else "?"):
+        errs.append(".zenodo.json: the licence is not that of LICENSE")
+    notes = z.get("notes", "")
+    if "Claude is not an author." not in notes or not re.search(r"The licence field of this record covers .+? only\.", notes):
+        errs.append(".zenodo.json: the notes lack the disclosure or the sentence on the licence field")
+    if {"identifier": "10.6084/m9.figshare.35050300", "relation": "isSupplementTo", "scheme": "doi"} not in z.get("related_identifiers", []):
+        errs.append(".zenodo.json: the Figshare DOI of the paper is not the work this record supplements")
+    return errs
 
 
 def read(rel):
@@ -138,6 +163,19 @@ def break_test():
         caught = bool(copy_problems(broken))
         print(f"  {'caught' if caught else 'MISSED'}: {what}")
         bad += not caught
+    z, lic = read(".zenodo.json"), read("LICENSE")
+    if zenodo_problems(z, lic):
+        print("break test: .zenodo.json already fails")
+        return 1
+    for what, broken in (("the disclosure in .zenodo.json", z.replace("Claude is not an author.", "Claude helped.")),
+                         ("an affiliation in .zenodo.json", z.replace('"orcid": "0009-0000-1406-0547"', '"orcid": "0009-0000-1406-0547", "affiliation": "x"')),
+                         ("the licence in .zenodo.json", z.replace('"license": "cc-by-4.0"', '"license": "mit"')),
+                         ("the title in .zenodo.json", z.replace('"title": "Resolution of the Golden-Window Conjecture', '"title": "On the Golden-Window Conjecture')),
+                         ("the end of the title in .zenodo.json", z.replace("Trinity-Infinity Series II Game:", "Trinity-Infinity Game:")),
+                         ("the Figshare DOI in .zenodo.json", z.replace("10.6084/m9.figshare.35050300\",\n      \"relation\": \"isSupplementTo", "10.6084/m9.figshare.35050301\",\n      \"relation\": \"isSupplementTo"))):
+        caught = bool(zenodo_problems(broken, lic))
+        print(f"  {'caught' if caught else 'MISSED'}: {what}")
+        bad += not caught
     print("break test: " + ("every change made the check fail, as it should" if not bad else f"{bad} problems"))
     return 1 if bad else 0
 
@@ -160,6 +198,7 @@ def main():
     except FileNotFoundError:
         errs.append(f"{PDF}: missing")
     errs += check(*second_paper())
+    errs += zenodo_problems(read(".zenodo.json"), read("LICENSE"))
     print(f"copies and metadata: {len(errs)} problems")
     for e in errs:
         print("  " + e)

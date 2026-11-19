@@ -82,9 +82,9 @@ Figshare の稿（`10.6084/m9.figshare.34419198`、2026-10-13）は、その集�
 | `continuity/scripts/`、`continuity/expected/` | 二つ目の稿の数を出す台本と、その出力 |
 | `continuity/REFEREE.md` | 二つ目の稿の査読の記録 |
 
-紙面に印字した数は、すべてどれかの台本の出力にあります。
-`verification/check_numbers.py` が、紙面の数と出力を突き合わせます。
-小数点以下三桁以上の数で、突き合わせの行が無いものがあれば落ちます。
+`verification/check_numbers.py` は、表に載せた紙面の数を、それぞれの台本の出力と突き合わせます。
+紙面にある小数点以下三桁以上の数で、突き合わせの行が無いものがあれば落ちます。
+小数点以下が二桁までの数と整数は、表に載せたものだけを突き合わせます。
 二つ目の稿は `verification/check_numbers_continuity.py` が同じことをします。
 こちらは m·10^{e} の形の数も、行が無ければ落ちます。
 

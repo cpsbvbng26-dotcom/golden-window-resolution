@@ -1,0 +1,35 @@
+{
+  "title": "Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game: source, PDF and verification scripts (golden-window-resolution)",
+  "description": "<p>The LaTeX source, the typeset PDF and the scripts behind the numbers of the paper \"Resolution of the Golden-Window Conjecture and Related Results on β-Transformations with a Hole and on the Trinity-Infinity Series II Game\". The paper itself is on Figshare, DOI 10.6084/m9.figshare.35050300; cite the paper by that DOI, not by this record. The repository also holds, in continuity/, a second paper, \"Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1\", with its scripts, outputs and referee record; it has not been deposited elsewhere and has no DOI of its own. Neither paper is peer-reviewed.</p><p>黄金比の窓の予想を解いた稿の原稿・PDF・台本と、続きの稿（continuity/）を置いたリポジトリの保存版です。稿は Figshare の DOI 10.6084/m9.figshare.35050300 で引きます。</p>",
+  "upload_type": "software",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Nemoto, Takuya",
+      "orcid": "0009-0000-1406-0547"
+    }
+  ],
+  "keywords": [
+    "beta-transformation",
+    "open dynamical system",
+    "survivor set",
+    "Hausdorff dimension",
+    "repeated game",
+    "golden ratio"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.6084/m9.figshare.35050300",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "10.6084/m9.figshare.34419198",
+      "relation": "references",
+      "scheme": "doi"
+    }
+  ],
+  "notes": "Claude Code (Anthropic) was used to search and read the literature, to draft and check the proofs, to write and run the verification scripts, and to draft the text. The numbers listed in verification/check_numbers.py and verification/check_numbers_continuity.py are compared with the outputs of the scripts in this repository; those checks fail on any printed decimal with three or more places, and in the second paper on any number of the form m·10^e, that has no entry. The author is responsible for the content. Claude is not an author. The papers, their LaTeX sources and the prose are CC BY 4.0 (LICENSE); the scripts and the checks are MIT (LICENSE-CODE). The licence field of this record covers the papers, their LaTeX sources and the prose only. Texts by others that this repository quotes, or keeps to verify its quotations, are not licensed under CC BY 4.0 or the MIT License and remain their owners'."
+}
