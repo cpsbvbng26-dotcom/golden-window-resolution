@@ -17,7 +17,7 @@
    DOI of the paper as the work this record supplements.
 
   python3 verification/check_copies.py           # the check
-  python3 verification/check_copies.py --break   # changes a title, a page count and a hash in memory; each must fail
+  python3 verification/check_copies.py --break   # changes titles, a page count, a hash and .zenodo.json in memory; each must fail
 """
 import hashlib
 import os
@@ -130,6 +130,9 @@ def break_test():
         return 1
     for what, broken in (("the disclosure in .zenodo.json", z.replace("Claude is not an author.", "Claude helped.")),
                          ("an affiliation in .zenodo.json", z.replace('"orcid": "0009-0000-1406-0547"', '"orcid": "0009-0000-1406-0547", "affiliation": "x"')),
+                         ("the licence in .zenodo.json", z.replace('"license": "cc-by-4.0"', '"license": "mit"')),
+                         ("the title in .zenodo.json", z.replace('"title": "Resolution of the Golden-Window Conjecture', '"title": "On the Golden-Window Conjecture')),
+                         ("the end of the title in .zenodo.json", z.replace("Trinity-Infinity Series II Game:", "Trinity-Infinity Game:")),
                          ("the Figshare DOI in .zenodo.json", z.replace("10.6084/m9.figshare.35050300\",\n      \"relation\": \"isSupplementTo", "10.6084/m9.figshare.35050301\",\n      \"relation\": \"isSupplementTo"))):
         caught = bool(zenodo_problems(broken, lic))
         print(f"  {'caught' if caught else 'MISSED'}: {what}")
