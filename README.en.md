@@ -5,6 +5,8 @@ Source, PDF and verification scripts of the paper "Resolution of the Golden-Wind
 [日本語](README.md)
 
 The paper is on Figshare. Its DOI is [`10.6084/m9.figshare.35050300`](https://doi.org/10.6084/m9.figshare.35050300).
+The archive of this repository (v1.0.0) is on Zenodo. Its DOI is [`10.5281/zenodo.24382288`](https://doi.org/10.5281/zenodo.24382288), and the DOI common to all versions is [`10.5281/zenodo.24382287`](https://doi.org/10.5281/zenodo.24382287).
+To cite the paper, use the Figshare DOI, not the Zenodo one.
 The number was received from the owner on 2026-11-18.
 The content of the Figshare record it points to has not been checked.
 It is a separate item, not a new version of the Figshare preprint of 2026-10-13 (`10.6084/m9.figshare.34419198`).
