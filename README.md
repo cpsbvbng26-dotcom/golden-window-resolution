@@ -12,7 +12,7 @@ Resolution of the Golden-Window Conjecture and Related Results on β-Transformat
 ## 二つ目の稿：穴が 0 にあるときの同時連続性（β > 1）
 
 `continuity/` に、二つ目の稿 "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1" の原稿・PDF・台本・出力を置いています。
-Figshare に別の項目として置く予定の稿です。
+Figshare には出しません。一つ目の稿とほぼ同じ内容だと、2026-11-19 に所有者が判断しました。記録として、ここにだけ置きます。
 DOI はまだ受け取っていません。
 上の稿（`10.6084/m9.figshare.35050300`）の新しい版ではありません。
 上の稿の原稿と PDF には手を入れていません。
