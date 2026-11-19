@@ -137,6 +137,22 @@ Claude Code (Anthropic) was used to search and read the literature, to draft and
 The author is responsible for the content.
 Claude is not an author.
 
+## Error reports and personal data
+
+Errors are received through the issue form "Report an error".
+From 2026-12-01, such an issue is checked by the checked intake.
+The script and the workflow of the intake (`.github/checked-intake/verify.js`, `.github/workflows/checked-intake.yml`) are word-for-word copies of those in the operator's other repositories.
+How personal data received in an issue is handled, and how to ask for its disclosure, correction, a stop of its use or its erasure, are in the section "Information" of the operator's [Disclaimer](https://github.com/cpsbvbng26-dotcom/cpsbvbng26-dotcom/blob/main/DISCLAIMER.en.md).
+That section also applies to this repository.
+How the title and text are handled when they are given to a language model is in the section "Issues and the language model" of the same Disclaimer.
+
+`SECURITY.md` is also a word-for-word copy of the one in the operator's other repositories.
+The "disclaimer" it names is the Disclaimer above.
+Its "checked on 2026-11-12" is the day of the check in the repository it was copied from.
+This repository was created on 2026-11-18.
+On 2026-11-19, GitHub's API showed that private vulnerability reporting is not enabled for this repository either.
+
 ## Licence
 
 The paper and the prose are CC BY 4.0 (`LICENSE`); the scripts and checks are MIT (`LICENSE-CODE`).
+Passages by other authors that the papers quote (statements of theorems, lemmas, remarks and the like) are not licensed under CC BY 4.0 or the MIT License and remain their owners'.

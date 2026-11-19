@@ -14,7 +14,7 @@ Figshare に置いた稿（`10.6084/m9.figshare.35050300`）"Resolution of the G
 7. **引用は、読んだものと読み方を紙面に書く**。DOI は文献の確認（lit-check）と査読の記録にある綴りのまま。番号を当てにいかない。
 8. **言語モデル利用の開示は消さない。Claude を著者にしない**（紙面・CITATION.cff・README）。
 9. 稿と散文は CC BY 4.0、台本は MIT。勝手に変えない。
-10. `SECURITY.md` と `.github/ISSUE_TEMPLATE/error-report.yml` と `.github/workflows/empty-issue.yml`（本文の空の issue に答える仕事、2026-11-19）は cpsbvbng26-dotcom の正本と一字一句同じに置く。`check_copies.py` がハッシュで見る。
+10. `SECURITY.md` と `.github/ISSUE_TEMPLATE/error-report.yml` と `.github/workflows/empty-issue.yml`（本文の空の issue に答える仕事、2026-11-19）と、突き合わせの受付の `.github/checked-intake/verify.js` と `.github/workflows/checked-intake.yml`（2026-11-19）の五つは、cpsbvbng26-dotcom の正本と一字一句同じに置く。`check_copies.py` がハッシュで見る。受付の設定 `.github/checked-intake/config.json` はこのリポジトリのもので、写しではない。
 11. 枝を切って PR にする。コミットは種別ごとに分ける（原稿・PDF・台本・検査・文書）。マージの本文に開示の二行を入れる。
 12. **Claude は利用者に命令しない**（cpsbvbng26-dotcom の決めごと 16）。返答・PR・文書に利用者の作業の一覧を書かない。Figshare・Sophaxis への登録のように Claude に触れられないものは、触れられないという事実だけを書く。利用者が自分から手順を求めたときだけ手順を書く。
 13. **issue の中身を言語モデルに渡すのは、本人の同意がある題と本文だけ**（同じく決めごと 17）。同意の文を引用符で囲んで `search_issues` に渡し、`- [X]` の行がある issue の題と本文だけを読む。コメントは読まない。

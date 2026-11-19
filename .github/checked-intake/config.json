@@ -1,0 +1,26 @@
+{
+  "from": "2026-12-01",
+  "forms": [
+    {
+      "label": "erratum",
+      "kind": "quote",
+      "where": [
+        "どこか / Where"
+      ],
+      "quote": [
+        "書いてあること / What it says"
+      ]
+    }
+  ],
+  "pages": [],
+  "blob": "https://github.com/cpsbvbng26-dotcom/golden-window-resolution",
+  "dois": {
+    "10.6084/m9.figshare.35050300": [
+      "paper/golden-window-resolution.pdf"
+    ]
+  },
+  "ids": [],
+  "neverClose": [
+    "needs a person"
+  ]
+}
