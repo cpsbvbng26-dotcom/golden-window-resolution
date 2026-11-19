@@ -23,7 +23,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COPIES = {
     "SECURITY.md": "973a9630e16e0e5f91efa9ebb870ed3bfb51cd4a2e53693c94e68e321187785d",
-    ".github/ISSUE_TEMPLATE/error-report.yml": "1549c3901f58d162eefe6b414e9b09bb5975cab2377c7962fd4e93967f3ec19a",
+    ".github/ISSUE_TEMPLATE/error-report.yml": "804c65aaf92d2032cd63d9bd36cc5bd4cbaf7edf97de74faf8bdb76f03a04c96",
     ".github/workflows/empty-issue.yml": "8a5ce275946c4e9258d2775be2cccd0ee39d8c54bf16baf97885a1aef4d3b072",
 }
 TITLE = "Resolution of the Golden-Window Conjecture and Related Results on"
