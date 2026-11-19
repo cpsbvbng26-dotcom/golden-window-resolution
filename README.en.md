@@ -81,8 +81,8 @@ This is the status table of the paper (Status of each result).
 | `continuity/scripts/`, `continuity/expected/` | the scripts behind the numbers of the second paper, and their outputs |
 | `continuity/REFEREE.md` | the referee record of the second paper |
 
-Every number printed in the paper is in the output of one of the scripts.
-`verification/check_numbers.py` compares them, and it fails on any decimal with three or more places that has no entry.
+`verification/check_numbers.py` compares each number in its table with the output of the script named for it, and it fails on any decimal printed with three or more places that has no entry.
+Decimals with fewer places and integers are compared only where the table lists them.
 `verification/check_numbers_continuity.py` does the same for the second paper, and also fails on any number of the form m·10^{e} that has no entry.
 
 ```
