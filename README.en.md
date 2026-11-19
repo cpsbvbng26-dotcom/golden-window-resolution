@@ -12,7 +12,7 @@ It is a separate item, not a new version of the Figshare preprint of 2026-10-13 
 ## The second paper: joint continuity for the hole at 0 (β > 1)
 
 `continuity/` holds the source, PDF, scripts and outputs of a second paper, "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1".
-It is to be deposited on Figshare as a separate item.
+It will not be deposited on Figshare. On 2026-11-19 the owner judged it nearly the same as the paper above. It is kept here as a record only.
 Its DOI has not been received.
 It is not a new version of the paper above (`10.6084/m9.figshare.35050300`).
 The source and PDF of the paper above are unchanged.
