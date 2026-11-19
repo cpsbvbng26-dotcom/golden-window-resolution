@@ -5,6 +5,8 @@ Resolution of the Golden-Window Conjecture and Related Results on β-Transformat
 [English](README.en.md)
 
 稿は Figshare にあります。DOI は [`10.6084/m9.figshare.35050300`](https://doi.org/10.6084/m9.figshare.35050300) です。
+このリポジトリの保存版（v1.0.0）は Zenodo にあります。DOI は [`10.5281/zenodo.24382288`](https://doi.org/10.5281/zenodo.24382288) で、すべての版に共通する DOI は [`10.5281/zenodo.24382287`](https://doi.org/10.5281/zenodo.24382287) です。
+稿を引くときは、Zenodo ではなく Figshare の DOI を使います。
 番号は 2026-11-18 に利用者から受け取りました。
 番号が指す Figshare の記録の中身は、確かめていません。
 2026-10-13 の Figshare の稿（`10.6084/m9.figshare.34419198`）の新しい版ではなく、別の項目です。
