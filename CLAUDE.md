@@ -18,7 +18,7 @@ Figshare に置いた稿（`10.6084/m9.figshare.35050300`）"Resolution of the G
 11. 枝を切って PR にする。コミットは種別ごとに分ける（原稿・PDF・台本・検査・文書）。マージの本文に開示の二行を入れる。
 12. **Claude は利用者に命令しない**（cpsbvbng26-dotcom の決めごと 16）。返答・PR・文書に利用者の作業の一覧を書かない。Figshare・Sophaxis への登録のように Claude に触れられないものは、触れられないという事実だけを書く。利用者が自分から手順を求めたときだけ手順を書く。
 13. **issue の中身を言語モデルに渡すのは、本人の同意がある題と本文だけ**（同じく決めごと 17）。同意の文を引用符で囲んで `search_issues` に渡し、`- [X]` の行がある issue の題と本文だけを読む。コメントは読まない。
-14. **公開の前に、紙面全体に対して敵対的な査読を一度通す**（決めごと 18）。主な主張を導き直し、数を台本と突き合わせ、引用を文献の確認と突き合わせる。各部分がどの三つの検査を通ったかを記録に書く。
+14. **公開の前に、紙面全体に対して敵対的な査読を一度通す**（決めごと 18）。主な主張を導き直し、数を台本と突き合わせ、引用を文献の確認と突き合わせる。各部分が少なくとも十の検査のうちどれを通ったかを記録に書く（決めごと 18 は 2026-11-19 に 3 回から 10 回に引き上げた）。
 
 二つ目の稿 "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1" は `continuity/` に置く（原稿 `continuity/paper/`、台本 `continuity/scripts/`、出力 `continuity/expected/`、査読の記録 `continuity/REFEREE.md`）。
 Figshare に別の項目として置く稿で、DOI はまだ受け取っていない。受け取るまで番号を書かない。PDF を組み直したら、`check_copies.py` のハッシュと README の頁数を一緒に直す。
