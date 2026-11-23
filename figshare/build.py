@@ -5,7 +5,7 @@
   python3 figshare/build.py --out DIR    # builds into DIR (used by verification/check_figshare.py)
 
 Needs: matplotlib, pillow and fonttools at the versions in requirements.txt, pdflatex (TeX Live with tikzposter
-and beamer), and git with the commit SOFTWARE_COMMIT available. Every output is deterministic, so a rebuild
+and beamer), pdftoppm (poppler), and git with the commit SOFTWARE_COMMIT available. Every output is deterministic, so a rebuild
 gives the same bytes. The outputs are not edited by hand; this script or its modules are changed and the outputs rebuilt.
 
 Items (each in its own directory):
@@ -118,7 +118,7 @@ def metadata(info):
          f"{f['table5']} values of Table 5 of the paper, which the script checks against the curve to 10^-6. "
          "The plateaus of the entropy (Theorem C) are visible as flat stretches. "
          "The figure does not show the set T_delta itself, the dimension at the two ends of the window, or any delta outside the window. "
-         "Made with matplotlib by figshare/build.py in the repository."),
+         "Made with matplotlib by figshare/build.py in the repository; the PNG is the vector figure rasterized at 400 dpi."),
         ("Dataset", "Numerical tables for the resolution of the golden-window conjecture (CSV)",
          "CC BY 4.0", ["dataset/*.csv", "dataset/README.md"],
          f"The tables of the paper as {len(d)} CSV files: dimension along the curve by three methods (Table 5 of the paper), "

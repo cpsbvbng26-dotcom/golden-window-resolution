@@ -15,9 +15,11 @@ forced path and the bisection of scripts/curve/gw.py. The seven values of Table 
 expected/edges/examples.out and drawn as points; the script asserts that the curve agrees with them.
 
 matplotlib output is made reproducible: no dates, fixed SVG hash salt, Type 42 fonts in the PDF.
+The PNG (400 dpi) is the PDF rasterized by pdftoppm.
 """
 import os
 import re
+import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -151,9 +153,11 @@ def build(outdir):
     fig.savefig(os.path.join(outdir, "golden-window-figure.pdf"),
                 metadata={"CreationDate": None, "ModDate": None, "Creator": None, "Producer": None},
                 bbox_inches="tight", pad_inches=0.05)
-    fig.savefig(os.path.join(outdir, "golden-window-figure.png"), dpi=400, metadata={"Software": None},
-                bbox_inches="tight", pad_inches=0.05)
     plt.close(fig)
+    # The PNG is the PDF rasterized by pdftoppm (poppler). Agg measures text slightly differently from machine to
+    # machine, so a PNG saved by matplotlib with a tight bounding box changed size between machines; the PDF does not.
+    subprocess.run(["pdftoppm", "-r", "400", "-png", "-singlefile", os.path.join(outdir, "golden-window-figure.pdf"),
+                    os.path.join(outdir, "golden-window-figure")], check=True)
     return {"columns": COLUMNS, "segments": segments, "eps": EPS, "table5": len(pts),
             "dim_min": min(dims), "dim_max": max(dims)}
 
