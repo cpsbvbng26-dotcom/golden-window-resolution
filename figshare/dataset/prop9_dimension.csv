@@ -1,0 +1,8 @@
+delta,dim_renewal,dim_lsz,dim_word_count,A_delta_listed,entropy_h,source
+0.6181,0.272410,0.272410,0.2722,1 16,0.131058,expected/edges/examples.out:2
+0.62,0.404196,0.404196,0.4042,1 9,0.193220,expected/edges/examples.out:3
+0.63,0.608610,0.608610,0.6086,1 5,0.281200,expected/edges/examples.out:4
+0.64,0.722146,0.722146,0.7221,1 4,0.322285,expected/edges/examples.out:5
+0.65,0.825510,0.825510,0.8255,1 4 8,0.355616,expected/edges/examples.out:6
+0.66,0.919930,0.919930,0.9199,1 3,0.382245,expected/edges/examples.out:7
+0.6666,0.999233,0.999233,0.9992,1 3 9 12 15 19,,expected/edges/examples.out:8

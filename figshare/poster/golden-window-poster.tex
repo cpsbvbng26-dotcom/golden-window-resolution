@@ -1,0 +1,140 @@
+\documentclass[25pt,a0paper,portrait,margin=0mm,innermargin=18mm,blockverticalspace=9mm,colspace=18mm]{tikzposter}
+\pdftrailerid{}
+\pdfsuppressptexinfo=-1
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdfauthor={Takuya Nemoto},pdftitle={Resolution of the Golden-Window Conjecture (poster)},pdfsubject={CC BY 4.0},pdfcreator={},pdfproducer={}}
+\newcommand{\dimH}{\dim_{\mathrm H}}
+
+\usetheme{Simple}
+\definecolor{ink}{HTML}{1F3A5F}
+\definecolor{accent}{HTML}{B5532A}
+\definecolor{paper}{HTML}{FFFFFF}
+\colorlet{titlebgcolor}{ink}
+\colorlet{blocktitlebgcolor}{ink}
+\colorlet{blocktitlefgcolor}{ink}
+\colorlet{backgroundcolor}{paper}
+\colorlet{blockbodybgcolor}{paper}
+\colorlet{framecolor}{ink}
+\settitle{\centering\vbox{\color{white}{\fontsize{78}{90}\selectfont\bfseries Resolution of the Golden-Window Conjecture\par}
+\vspace{6mm}{\Large survivor sets of a $\beta$-transformation whose hole moves with the base\par}
+\vspace{10mm}{\large Takuya Nemoto \quad ORCID 0009-0000-1406-0547\par}
+\vspace{4mm}{\normalsize Poster of the preprint DOI 10.6084/m9.figshare.35050300 (Figshare, 2026). Not peer reviewed.\par}}}
+\tikzposterlatexaffectionproofoff
+\begin{document}
+\maketitle[width=0.94\linewidth]
+\begin{columns}
+\column{0.5}
+\block{The game and the conjecture}{
+Three players repeat a game in which each chooses C or D; a player with $k$ cooperating co-players gets $k+1$ for C and $k+2$ for D.
+Payoffs are discounted by $\delta$, and strategies are pure with no public randomization.
+$T_\delta$ is the set of $t\in(0,1]$ such that $(2+t,4-t,2+t)$ is a pure-strategy equilibrium payoff.
+
+\medskip
+The preprint DOI 10.6084/m9.figshare.34419198 (Figshare, 13 October 2026) found the window $1/\varphi<\delta<2/3$, $\varphi$ the golden ratio, and stated the
+\textbf{golden-window conjecture}: in the window, (a) $T_\delta$ has Lebesgue measure zero; (b) its Hausdorff dimension is below $1$,
+continuous and non-decreasing in $\delta$, and runs from $0$ to $1$. That preprint is frozen and keeps the conjecture as a conjecture.
+}
+\block{The reduction}{
+With $\beta=1/\delta$ and $t(\beta)=(2-\beta)/(\beta-1)$, the set is, up to scaling, the survivor set
+\[
+K_\delta=\{y\in[0,1):\ T_\beta^n(y)\le t(\beta)\ \text{for all } n\ge0\},\qquad T_\beta(y)=\beta y-\lfloor\beta y\rfloor ,
+\]
+of the greedy $\beta$-transformation with the hole $(t(\beta),1)$. This observation is not new mathematics.
+On the curve $t=t(\beta)$ the base and the hole move together.
+}
+\block{Resolution: known results, elementary proofs}{
+Measure zero (Theorem 3.1), the dimension formula
+\[
+\dimH T_\delta=s,\qquad \Sigma_{n\in A_\delta}\,\delta^{ns}=1,
+\]
+with $A_\delta$ the first-return times of a forced path, and the bound $\dim<1$ (Theorem 3.2(1)--(2)) are special cases of a theorem of
+\textbf{Lu, Steiner and Zou} (Theorem 1.2, Lemma 2.7, Proposition 2.5). The credit for these statements is theirs.
+The paper gives elementary, self-contained proofs.
+}
+\block{Survivor sets across the window}{
+\begin{center}\includegraphics[width=0.8\linewidth]{golden-window-figure.pdf}\end{center}
+\small (a) $K_\delta$ at 480 values of $\delta$, drawn to within $10^{-3}$ (a finite computation, not the limit set itself).
+(b) $\dimH K_\delta$ from the renewal equation; the points are Table 5 of the paper.
+}
+\block{Table 5: $\dimH T_\delta$ three ways}{
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+$\delta$ & renewal equation & root of LSZ Thm.~1.2 & word counts\\
+\midrule
+0.6181 & 0.272410 & 0.272410 & 0.2722\\
+0.62 & 0.404196 & 0.404196 & 0.4042\\
+0.63 & 0.608610 & 0.608610 & 0.6086\\
+0.64 & 0.722146 & 0.722146 & 0.7221\\
+0.65 & 0.825510 & 0.825510 & 0.8255\\
+0.66 & 0.919930 & 0.919930 & 0.9199\\
+0.6666 & 0.999233 & 0.999233 & 0.9992\\
+\bottomrule
+\end{tabular}
+\end{center}
+}
+\column{0.5}
+\block{Along the curve: not found in the texts read}{
+``Not found in the texts read'' is the strongest claim made here; the literature search was limited.
+
+\medskip
+\textbf{Theorem 3.2(3).} $\delta\mapsto\dimH T_\delta$ is strictly increasing and continuous on the window, with limit $0$ at $1/\varphi$ and $1$ at $2/3$.
+
+\medskip
+\textbf{Theorem A (lower end).} With $L=\log(1/(\delta-1/\varphi))$, $\dim(\delta)=W(L/\log\varphi)/L+O((\log L)^2/L^2)$, $W$ the Lambert function.
+At $\delta=1/\varphi+10^{-10}$ ($N=44$) the dimension is 0.1317585615; at $\delta=1/\varphi+10^{-80}$ ($N=379$) it is 0.0244019292.
+
+\medskip
+\textbf{Theorem B (upper end).} $(1-\dim(\delta))/(2/3-\delta)\to C=9/(M\log(3/2))$, where $C=11.4760443557125\ldots$ and $M=1.9341796243876\ldots$;
+at $\delta=2/3-10^{-10}$ the ratio to $C$ is 1.00000001512.
+
+\medskip
+\textbf{Theorem C (devil's staircase).} The entropy $h$ is continuous, non-decreasing and has $h'=0$ almost everywhere.
+Its plateaus are the parameter intervals with a fixed finite return set; the plateau with $A_\delta=\{1,4\}$ is
+$[0.638413352921706,\,0.645200388386225]$ with $h=0.32228461597103$. A scan of 20{,}000 parameters found 1133 distinct finite sets $A_\delta$.
+
+\medskip
+\textbf{Theorem D (why $1/\varphi$ appears twice).} In the linear dilemma with cost $c$ and benefit $b$, the threshold of the three-player
+rotation and the lower end of the window both equal $(\sqrt{1+4r}-1)/2$, $r=c/b$: the continuation values of the two binding constraints differ by one discounted cycle.
+}
+\block{Applications: not found in the texts read}{
+The reduction extends to exposed edges of repeated games (an instance of the framework of Berg and Kitti, abstract read),
+gives a universal window, and gives closed-form windows $\theta_k(r)<\delta<U_k(r)$ for linear dilemmas (Propositions 5.2--5.4).
+}
+\block{Conditional}{
+\textbf{Theorem E.} Assuming Theorem 1.4 of Lu, Steiner and Zou, $(\beta,t)\mapsto\dimH K_\beta(t)$ for the hole at $0$ is jointly continuous on $(1,2]\times[0,1)$.
+The proof of that theorem was read but not re-verified line by line.
+}
+\block{Status of each result}{
+\begin{tabular}{>{\raggedright}p{14cm}>{\raggedright\arraybackslash}p{23cm}}
+\toprule
+Result & Status\\
+\midrule
+Reduction to $T_\beta$ with the hole $(t(\beta),1)$ & elementary; the observation is not new mathematics; the game form was not found in the texts read\tabularnewline
+Theorem 3.1: measure zero & known: Lu--Steiner--Zou, Prop.~2.5; R\'enyi--Parry ergodicity\tabularnewline
+Theorem 3.2(1) formula, (2) $\dim<1$ & known: Lu--Steiner--Zou, Thm.~1.2 with Lemma~2.7 and Prop.~2.5; entropy also Kuang--Li--Xiao, Thm.~4.3\tabularnewline
+Theorem 3.2(1) $\dim_{\mathrm B}=\dimH$ & not found in the texts read (standard methods)\tabularnewline
+Theorem 3.2(3) monotone, continuous, end limits & not found in the texts read (along the coupled curve)\tabularnewline
+Theorems A and B (rates at both ends) & not found in the texts read; the mechanism of B is classical (recalled)\tabularnewline
+Theorem C (devil's staircase, plateaus) & not found in the texts read along the curve; fixed-$\beta$ analogues are known\tabularnewline
+Theorem D (the two thresholds coincide) & not found in the texts read (application inside the model)\tabularnewline
+Prop.~5.1 (edge reduction) & instance of the framework of Berg and Kitti (abstract read)\tabularnewline
+Props.~5.2--5.4 (windows, monotonicity) & not found in the texts read (application)\tabularnewline
+Theorem E (joint continuity, $\beta\le2$) & conditional on Lu--Steiner--Zou, Thm.~1.4\tabularnewline
+Theorem 7.1 (entropy identity) & known at map level (Oliveira); a symbolic proof is given\tabularnewline
+\bottomrule
+\end{tabular}
+}
+\block{Disclosure}{
+This work has not been peer reviewed. How much of it is new will be settled by peer review and by formalization. The work was done without an advisor. Claude Code (Anthropic) was used to search and read the literature, to draft and check the proofs, to write and run the verification scripts, and to draft the text. The author is responsible for the content. Claude is not an author.
+The paper also has a separate part on the Trinity-Infinity papers, not summarised here.
+Scripts: https://github.com/cpsbvbng26-dotcom/golden-window-resolution (MIT). Poster: CC BY 4.0.
+}
+\end{columns}
+\end{document}

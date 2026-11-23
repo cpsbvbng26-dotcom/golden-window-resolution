@@ -1,0 +1,7 @@
+delta,dim_counting,dim_formula,one_minus_dim_counting,source
+0.62,0.404195782,0.404195782,0.595804,expected/curve/check_count.out:1
+0.6425,0.7285104461,0.7285104461,0.27149,expected/curve/check_count.out:2
+0.65,0.8255101242,0.8255101242,0.17449,expected/curve/check_count.out:3
+0.66,0.9199299121,0.9199299121,0.0800701,expected/curve/check_count.out:4
+0.6566666667,0.9031097211,0.9031097211,0.0968903,expected/curve/check_count.out:5
+0.6656666667,0.9882045419,0.9882045419,0.0117955,expected/curve/check_count.out:6

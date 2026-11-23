@@ -1,0 +1,8 @@
+r,rotation_threshold,segment_threshold,closed_form,source
+0.25,0.207106781,0.207106781,0.207106781,expected/curve/t4_why_phi.out:11
+0.50,0.366025404,0.366025404,0.366025404,expected/curve/t4_why_phi.out:12
+0.75,0.500000000,0.500000000,0.500000000,expected/curve/t4_why_phi.out:13
+1.00,0.618033989,0.618033989,0.618033989,expected/curve/t4_why_phi.out:14
+1.25,0.724744871,0.724744871,0.724744871,expected/curve/t4_why_phi.out:15
+1.50,0.822875656,0.822875656,0.822875656,expected/curve/t4_why_phi.out:16
+1.90,0.966287830,0.966287830,0.966287830,expected/curve/t4_why_phi.out:17
