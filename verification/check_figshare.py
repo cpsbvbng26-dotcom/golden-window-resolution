@@ -210,7 +210,7 @@ def wording_problems(texts):
             if n not in flat:
                 errs.append(f"{rel}: missing '{n}'")
         if rel.endswith(".tex"):
-            if re.search(r"\\author\{(?![^}]*Takuya Nemoto)", t) or re.search(r"\\author\{[^}]*Claude", t):
+            if re.search(r"\\author(\[[^\]]*\])?\{(?![^}]*Takuya Nemoto)", t) or re.search(r"\\author[^\n]*Claude", t):
                 errs.append(f"{rel}: the author is not Takuya Nemoto alone")
             for m in re.finditer(r"Claude", flat):
                 if not (flat.startswith("Claude Code (Anthropic) was used", m.start()) or flat.startswith("Claude is not an author.", m.start())):
@@ -372,7 +372,7 @@ def break_test():
     for what, rel, old, new in (
             ("the disclosure sentence removed", "METADATA.md", "Claude is not an author.", "Claude helped."),
             ("Claude added as an author of the poster", "poster/golden-window-poster.tex", "Takuya Nemoto \\quad ORCID", "Takuya Nemoto and Claude \\quad ORCID"),
-            ("Claude added as an author of the slides", "slides/golden-window-slides.tex", "\\author{Takuya Nemoto", "\\author{Claude and Takuya Nemoto"),
+            ("Claude added as an author of the slides", "slides/golden-window-slides.tex", "\\author[Takuya Nemoto]{Takuya Nemoto", "\\author[Takuya Nemoto]{Claude and Takuya Nemoto"),
             ("the licence of the software changed", "METADATA.md", "- License: MIT", "- License: CC BY 4.0"),
             ("a DOI that was not received", "METADATA.md", "DOI 10.6084/m9.figshare.35050300:", "DOI 10.6084/m9.figshare.35050301:"),
             ("a claim word", "slides/golden-window-slides.tex", "not found in the texts read (application)", "a novel application"),
