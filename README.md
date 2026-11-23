@@ -118,7 +118,17 @@ Lu・Steiner・Zou の特別な場合にあたる結果は、彼らのものと�
 定理 E は条件付きと書いています。
 Figshare の欄に貼る文面は `figshare/METADATA.md` にあります。
 Figshare への登録は所有者のアカウントで行うもので、Claude には触れられません。
-五つの品の DOI はまだありません。
+五つの品は、2026-11-24 に所有者が Figshare に出しました。
+DOI は、同じ日に DataCite で読み、所有者が書くことを認めました。
+
+| 品 | Figshare の種別 | DOI |
+| --- | --- | --- |
+| 図 | Figure（Image） | [`10.6084/m9.figshare.35094328`](https://doi.org/10.6084/m9.figshare.35094328) |
+| 数表 | Dataset | [`10.6084/m9.figshare.35094355`](https://doi.org/10.6084/m9.figshare.35094355) |
+| 台本の束 | Software | [`10.6084/m9.figshare.35094370`](https://doi.org/10.6084/m9.figshare.35094370) |
+| ポスター | Poster | [`10.6084/m9.figshare.35094385`](https://doi.org/10.6084/m9.figshare.35094385) |
+| スライド | Presentation | [`10.6084/m9.figshare.35094490`](https://doi.org/10.6084/m9.figshare.35094490) |
+
 `verification/check_figshare.py` は、作り直して一字一句同じになること、CSV が `expected/` と合うこと、文面の語と数を確かめます。
 
 ## 各結果が通った三つの検査
