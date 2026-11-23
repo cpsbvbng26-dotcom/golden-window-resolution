@@ -34,7 +34,7 @@ python3 verification/check_numbers.py      # 紙面の数と台本の出力（--
 python3 verification/check_numbers_continuity.py   # 二つ目の稿の数（--break）
 python3 verification/check_text.py         # 所属・使わない語・CITATION.cff（--break）
 python3 verification/check_copies.py       # 正本の写し・題・PDF の題・二つの PDF のハッシュ（--break）
-python3 figshare/build.py                  # Figshare に置く五つの品を作り直す（要: matplotlib・pdflatex・全履歴）
+python3 figshare/build.py                  # Figshare に置く五つの品を作り直す（要: matplotlib・pdflatex・pdftoppm・全履歴）
 python3 verification/check_figshare.py [--rebuild]   # 五つの品の検査（--rebuild で作り直して一字一句比べる。--break）
 cd continuity/paper && pdflatex joint-continuity.tex && pdflatex joint-continuity.tex   # 二つ目の稿だけ。凍結した一つ目は組み直さない
 ```
