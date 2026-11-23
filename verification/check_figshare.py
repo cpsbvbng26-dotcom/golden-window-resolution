@@ -301,6 +301,20 @@ def wording_texts():
             "slides/golden-window-slides.tex": read("slides/golden-window-slides.tex")}
 
 
+def png_note(a, b):
+    """For a PNG that differs, say whether the pixels differ or only the encoding."""
+    if not a.endswith(".png"):
+        return ""
+    from PIL import Image
+    import zlib
+    ia, ib = Image.open(a), Image.open(b)
+    pa, pb = ia.tobytes(), ib.tobytes()
+    same = ia.size == ib.size and ia.mode == ib.mode and pa == pb
+    diff = sum(x != y for x, y in zip(pa, pb)) if len(pa) == len(pb) else -1
+    return (f" (size {ia.size} {ia.mode} / {ib.size} {ib.mode}; pixels {'identical' if same else f'differ in {diff} bytes'};"
+            f" info {sorted(ia.info.items())[:4]} / {sorted(ib.info.items())[:4]}; zlib {zlib.ZLIB_RUNTIME_VERSION})")
+
+
 def rebuild_problems():
     with tempfile.TemporaryDirectory() as tmp:
         r = subprocess.run([sys.executable, os.path.join(FS, "build.py"), "--out", tmp], capture_output=True, text=True)
@@ -312,7 +326,7 @@ def rebuild_problems():
             errs.append(f"the rebuild gives other files: {sorted(set(a) ^ set(b))}")
         for rel in sorted(set(a) & set(b)):
             if read(rel, FS, "rb") != read(rel, tmp, "rb"):
-                errs.append(f"figshare/{rel}: the rebuild differs")
+                errs.append(f"figshare/{rel}: the rebuild differs" + png_note(os.path.join(FS, rel), os.path.join(tmp, rel)))
         if read("SHA256SUMS") != read("SHA256SUMS", tmp):
             errs.append("figshare/SHA256SUMS: the rebuild differs")
         return errs
