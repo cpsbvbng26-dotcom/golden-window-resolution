@@ -114,7 +114,17 @@ Results along the curve and the applications are described as not found in the t
 Theorem E is marked conditional.
 The text for the Figshare fields is in `figshare/METADATA.md`.
 Deposit on Figshare is done from the owner's account, which Claude cannot reach.
-The five items have no DOI yet.
+The owner deposited the five items on Figshare on 2026-11-24.
+The DOIs were read from DataCite the same day, and the owner agreed to their being written here.
+
+| Item | Figshare type | DOI |
+| --- | --- | --- |
+| Figure | Image | [`10.6084/m9.figshare.35094328`](https://doi.org/10.6084/m9.figshare.35094328) |
+| Dataset | Dataset | [`10.6084/m9.figshare.35094355`](https://doi.org/10.6084/m9.figshare.35094355) |
+| Scripts | Software | [`10.6084/m9.figshare.35094370`](https://doi.org/10.6084/m9.figshare.35094370) |
+| Poster | Poster | [`10.6084/m9.figshare.35094385`](https://doi.org/10.6084/m9.figshare.35094385) |
+| Slides | Presentation | [`10.6084/m9.figshare.35094490`](https://doi.org/10.6084/m9.figshare.35094490) |
+
 `verification/check_figshare.py` checks that a rebuild gives the same bytes, that the CSV files agree with `expected/`, and the wording and counts.
 
 ## The three checks each result passed
