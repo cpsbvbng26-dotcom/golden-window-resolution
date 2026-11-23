@@ -3,7 +3,7 @@
 
 1. SHA256SUMS lists every generated file of figshare/ and matches its bytes.
 2. --rebuild: figshare/build.py, run into a temporary directory, gives the same files, byte for byte.
-   (Needs matplotlib, pillow and fonttools as pinned in requirements.txt, pdflatex with tikzposter and beamer,
+   (Needs matplotlib, pillow and fonttools as pinned in requirements.txt, pdflatex with tikzposter and beamer, pdftoppm,
    and the full git history. CI runs it in the job figshare.)
 3. Every transcribed cell of the CSV files is the exact string at its place in the line of expected/ named in the
    column `source`; every line of expected/ that a table covers is in the table; derived cells are recomputed.
