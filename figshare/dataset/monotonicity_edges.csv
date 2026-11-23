@@ -1,0 +1,11 @@
+edge,decreases,comparisons,first_delta,first_dim,last_delta,last_dim,source
+r=1/4,0,598,0.207595,0.2050,0.499512,0.9986,expected/edges/monotone.out:1
+r=1/2,0,598,0.366249,0.2265,0.499777,0.9990,expected/edges/monotone.out:2
+r=3/4,0,598,0.500139,0.2601,0.583194,0.9989,expected/edges/monotone.out:3
+r=1,0,598,0.618115,0.2848,0.666586,0.9991,expected/edges/monotone.out:4
+r=5/4,0,598,0.724787,0.3063,0.749958,0.9992,expected/edges/monotone.out:5
+r=3/2,0,598,0.822893,0.3367,0.833316,0.9993,expected/edges/monotone.out:6
+r=7/4,0,598,0.914218,0.3819,0.916663,0.9995,expected/edges/monotone.out:7
+r=19/10,0,598,0.966288,0.0000,0.966666,0.9995,expected/edges/monotone.out:8
+G_4 main edge,0,598,0.414357,0.2369,0.499857,0.9992,expected/edges/monotone.out:9
+G_5 main edge,0,598,0.303104,0.2356,0.499671,0.9991,expected/edges/monotone.out:10

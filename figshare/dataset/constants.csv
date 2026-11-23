@@ -1,0 +1,7 @@
+name,value,meaning,source
+M,1.93417962438762388467530137587,Theorem B: M = sum over A* of n (2/3)^n,expected/curve/t2_parry.out:1
+C,11.4760443557125882948520871249,Theorem B: C = 9 / (M log(3/2)),expected/curve/t2_parry.out:2
+plateau_1_4_left,0.638413352921706,"left end of the plateau with A_delta = {1, 4}",expected/curve/t3_plateaus.out:10
+plateau_1_4_right,0.645200388386225,"right end of the plateau with A_delta = {1, 4}",expected/curve/t3_plateaus.out:10
+plateau_1_4_entropy,0.32228461597103,entropy h on that plateau (root of z + z^4 = 1),expected/curve/t3_plateaus.out:11
+distinct_finite_A,1133,"distinct finite sets A_delta in a scan of 20,000 parameters",expected/curve/t3_plateaus.out:20

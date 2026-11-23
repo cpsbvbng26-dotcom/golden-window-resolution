@@ -1,0 +1,7 @@
+delta,points,depth,survivors,mismatches,source
+0.62,50000,25,25,0,expected/curve/membership.out:1
+0.63,50000,25,446,0,expected/curve/membership.out:2
+0.64,50000,25,2093,0,expected/curve/membership.out:3
+0.65,50000,25,7509,0,expected/curve/membership.out:4
+0.66,50000,25,21929,0,expected/curve/membership.out:5
+0.6666,50000,25,49601,0,expected/curve/membership.out:6

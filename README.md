@@ -80,6 +80,7 @@ Figshare の稿（`10.6084/m9.figshare.34419198`、2026-10-13）は、その集�
 | `scripts/trinity/` | Trinity-Infinity の三篇の点検と Series II のゲームの節 |
 | `expected/` | 各台本の出力。検査はこれと一字一句で比べます |
 | `verification/` | 検査 |
+| `figshare/` | Figshare に置く五つの品と、それを作る台本 |
 | `continuity/paper/` | 二つ目の稿の LaTeX の原稿と、組んだ PDF |
 | `continuity/scripts/`、`continuity/expected/` | 二つ目の稿の数を出す台本と、その出力 |
 | `continuity/REFEREE.md` | 二つ目の稿の査読の記録 |
@@ -97,7 +98,28 @@ python3 verification/check_numbers.py
 python3 verification/check_numbers_continuity.py
 python3 verification/check_text.py
 python3 verification/check_copies.py
+python3 verification/check_figshare.py
 ```
+
+## Figshare に置く品（figshare/）
+
+黄金比の窓の予想について、Figshare に置く五つの品を `figshare/` に置いています。
+図、数表、台本の束、ポスター、スライドです。
+どれも `figshare/build.py` が作ります。
+手では直しません。
+数表は 11 の CSV です。
+どの値も、`expected/` にある台本の出力の文字列をそのまま写しています。
+台本の束は、commit `c2a47fd` を `git archive` で固めた zip で、95 のファイルを含みます。
+ポスターは A0 の縦で 1 頁です。
+スライドは 11 枚です。
+ポスターとスライドの書き方は、紙面の状態の表に合わせています。
+Lu・Steiner・Zou の特別な場合にあたる結果は、彼らのものとして書いています。
+曲線に沿った結果と応用は「読んだ文献には見つからなかった」と書き、それ以上は主張しません。
+定理 E は条件付きと書いています。
+Figshare の欄に貼る文面は `figshare/METADATA.md` にあります。
+Figshare への登録は所有者のアカウントで行うもので、Claude には触れられません。
+五つの品の DOI はまだありません。
+`verification/check_figshare.py` は、作り直して一字一句同じになること、CSV が `expected/` と合うこと、文面の語と数を確かめます。
 
 ## 各結果が通った三つの検査
 

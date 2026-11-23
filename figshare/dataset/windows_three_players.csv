@@ -1,0 +1,11 @@
+r,edge,k,grid_low,grid_high,theta_k,U_k,delta_3,source
+1/4,CCC-CCD,2,0.2080,0.4991,0.2071,0.5000,0.2071,expected/edges/examples.out:12
+1/4,CCD-CDD,1,0.5000,0.6248,0.5000,0.6250,,expected/edges/examples.out:13
+1/2,CCC-CCD,2,0.3664,0.4991,0.3660,0.5000,0.3660,expected/edges/examples.out:15
+1/2,CCD-CDD,1,0.7079,0.7495,0.7071,0.7500,,expected/edges/examples.out:16
+3/4,CCC-CCD,2,0.5000,0.5832,0.5000,0.5833,0.5000,expected/edges/examples.out:18
+3/4,CCD-CDD,1,0.8663,0.8743,0.8660,0.8750,,expected/edges/examples.out:19
+1,CCC-CCD,2,0.6189,0.6664,0.6180,0.6667,0.6180,expected/edges/examples.out:21
+5/4,CCC-CCD,2,0.7248,0.7495,0.7247,0.7500,0.7247,expected/edges/examples.out:24
+3/2,CCC-CCD,2,0.8238,0.8327,0.8229,0.8333,0.8229,expected/edges/examples.out:27
+7/4,CCC-CCD,2,0.9149,0.9159,0.9142,0.9167,0.9142,expected/edges/examples.out:30
