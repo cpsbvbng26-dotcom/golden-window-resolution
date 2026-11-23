@@ -12,7 +12,7 @@ import shutil
 import subprocess
 import tempfile
 
-EPOCH = "1795392000"  # 2026-11-24 00:00:00 UTC
+EPOCH = "1795478400"  # 2026-11-24 00:00:00 UTC
 FIGSHARE_PAPER = "10.6084/m9.figshare.35050300"
 FIGSHARE_CONJECTURE = "10.6084/m9.figshare.34419198"
 REPO = "https://github.com/cpsbvbng26-dotcom/golden-window-resolution"
@@ -200,7 +200,7 @@ Scripts: <<REPO>> (MIT). Poster: CC BY 4.0.
 \end{document}
 """
 
-SLIDES = r"""\documentclass[aspectratio=169,11pt]{beamer}
+SLIDES = r"""\documentclass[aspectratio=169,11pt,usepdftitle=false]{beamer}
 <<PREAMBLE>>
 \usetheme{default}
 \usecolortheme{default}
@@ -211,9 +211,9 @@ SLIDES = r"""\documentclass[aspectratio=169,11pt]{beamer}
 \setbeamercolor{structure}{fg=ink}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{\hfill\scriptsize\color{gray} Takuya Nemoto \quad CC BY 4.0 \quad \insertframenumber/\inserttotalframenumber\hspace*{4mm}\vspace*{2mm}}
-\title{Resolution of the Golden-Window Conjecture}
+\title[Resolution of the Golden-Window Conjecture (slides)]{Resolution of the Golden-Window Conjecture}
 \subtitle{survivor sets of a $\beta$-transformation whose hole moves with the base}
-\author{Takuya Nemoto\\[1mm]\small ORCID <<ORCID>>}
+\author[Takuya Nemoto]{Takuya Nemoto\\[1mm]\small ORCID <<ORCID>>}
 \date{\small Slides of the preprint DOI <<PAPER>> (Figshare, 2026)\\Not peer reviewed}
 \begin{document}
 \begin{frame}
