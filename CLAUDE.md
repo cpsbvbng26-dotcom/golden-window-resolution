@@ -23,11 +23,18 @@ Figshare に置いた稿（`10.6084/m9.figshare.35050300`）"Resolution of the G
 二つ目の稿 "Joint Continuity in (β, t) of the Hausdorff Dimension of Survivor Sets of β-Transformations with a Hole at 0, for All β > 1" は `continuity/` に置く（原稿 `continuity/paper/`、台本 `continuity/scripts/`、出力 `continuity/expected/`、査読の記録 `continuity/REFEREE.md`）。
 Figshare に別の項目として置く稿で、DOI はまだ受け取っていない。受け取るまで番号を書かない。PDF を組み直したら、`check_copies.py` のハッシュと README の頁数を一緒に直す。
 
+黄金比の窓の予想について Figshare に置く五つの品（図・数表・台本の束・ポスター・スライド）と、貼り付ける欄の文面 `figshare/METADATA.md` は `figshare/` に置く（2026-11-24）。
+どれも `figshare/build.py` の生成物で、手で直さない。台本を直して作り直し、`SHA256SUMS` も一緒に変わる。数は `expected/` から取り、手で並べない。
+台本の束は commit `c2a47fd` に固定してある。固定を動かすなら、`build.py` と `check_figshare.py` の commit と README の数を一緒に直す。
+登録は所有者が自分のアカウントで行う。Claude は欄の文面を書くだけで、DOI は受け取るまで書かない。
+
 ```
 python3 verification/run_scripts.py [curve|edges|symbolic|symbolic-referee|trinity|continuity]   # 台本を回して expected/ と比べる（合わせて二十分ほど。continuity は三十秒ほど）
 python3 verification/check_numbers.py      # 紙面の数と台本の出力（--break で壊して確かめる）
 python3 verification/check_numbers_continuity.py   # 二つ目の稿の数（--break）
 python3 verification/check_text.py         # 所属・使わない語・CITATION.cff（--break）
 python3 verification/check_copies.py       # 正本の写し・題・PDF の題・二つの PDF のハッシュ（--break）
+python3 figshare/build.py                  # Figshare に置く五つの品を作り直す（要: matplotlib・pdflatex・全履歴）
+python3 verification/check_figshare.py [--rebuild]   # 五つの品の検査（--rebuild で作り直して一字一句比べる。--break）
 cd continuity/paper && pdflatex joint-continuity.tex && pdflatex joint-continuity.tex   # 二つ目の稿だけ。凍結した一つ目は組み直さない
 ```

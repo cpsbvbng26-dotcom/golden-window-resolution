@@ -79,6 +79,7 @@ This is the status table of the paper (Status of each result).
 | `scripts/trinity/` | the part on the Trinity-Infinity papers and the Series II game |
 | `expected/` | the output of each script; the checks compare byte for byte |
 | `verification/` | the checks |
+| `figshare/` | the five items for Figshare and the script that makes them |
 | `continuity/paper/` | LaTeX source and built PDF of the second paper |
 | `continuity/scripts/`, `continuity/expected/` | the scripts behind the numbers of the second paper, and their outputs |
 | `continuity/REFEREE.md` | the referee record of the second paper |
@@ -94,7 +95,27 @@ python3 verification/check_numbers.py
 python3 verification/check_numbers_continuity.py
 python3 verification/check_text.py
 python3 verification/check_copies.py
+python3 verification/check_figshare.py
 ```
+
+## Items for Figshare (figshare/)
+
+`figshare/` holds five items for Figshare on the golden-window conjecture.
+They are a figure, a dataset, the scripts, a poster and slides.
+All are made by `figshare/build.py` and are not edited by hand.
+The dataset has 11 CSV files.
+Every value is the string printed by a script in `expected/`.
+The scripts are a zip made by `git archive` from commit `c2a47fd`; it holds 95 files.
+The poster is A0 portrait, 1 page.
+There are 11 slides.
+The poster and the slides follow the status table of the paper.
+Results that are special cases of Lu, Steiner and Zou are credited to them.
+Results along the curve and the applications are described as not found in the texts read, and nothing more is claimed.
+Theorem E is marked conditional.
+The text for the Figshare fields is in `figshare/METADATA.md`.
+Deposit on Figshare is done from the owner's account, which Claude cannot reach.
+The five items have no DOI yet.
+`verification/check_figshare.py` checks that a rebuild gives the same bytes, that the CSV files agree with `expected/`, and the wording and counts.
 
 ## The three checks each result passed
 
