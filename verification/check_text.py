@@ -7,6 +7,9 @@
    itself contain them.
 2. No self-assigned titles and none of the items excluded by the owner's rules.
 3. CITATION.cff has no affiliation field and does not list Claude as an author.
+   Its version is the latest tag v* of this repository without the "v" (git must see the tags: the CI checks out
+   with fetch-tags), the description of the Zenodo DOI of that version names it, and its date-released is the date
+   that CHANGELOG.md gives for the publication of that version on GitHub (Japan time).
 4. Each paper (the published one and continuity/paper/joint-continuity.tex) names Takuya Nemoto as its only
    author, keeps the disclosure of the use of a language model with the sentence "Claude is not an author.",
    and keeps the licence section (CC BY 4.0 for the paper, MIT for the scripts). Both PDFs are scanned.
@@ -16,6 +19,7 @@
 """
 import os
 import re
+import subprocess
 import sys
 import unicodedata
 
@@ -86,7 +90,45 @@ def citation_problems():
     authors = t.split("authors:", 1)[1].split("\n\S", 1)[0] if "authors:" in t else ""
     if "claude" in authors.lower() or "anthropic" in authors.lower():
         out.append("CITATION.cff: Claude or Anthropic listed among the authors")
+    out += version_problems(t, tags(), read_root("CHANGELOG.md"))
     return out
+
+
+def tags():
+    """The tags v* of this repository, newest version first, or None if git cannot list them."""
+    try:
+        out = subprocess.run(["git", "-C", ROOT, "tag", "--list", "v*"], capture_output=True, text=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    vs = [t.strip() for t in out.splitlines() if re.fullmatch(r"v\d+(\.\d+)*", t.strip())]
+    return sorted(vs, key=lambda t: tuple(int(x) for x in t[1:].split(".")), reverse=True)
+
+
+def version_problems(t, tag_list, changelog):
+    """CITATION.cff text t against the tags and CHANGELOG.md."""
+    m = re.search(r'^version:\s*"?([^"\n]*?)"?\s*$', t, re.M)
+    if not m:
+        return ["CITATION.cff: no version field"]
+    v = m.group(1)
+    if not tag_list:
+        return ["CITATION.cff: no tag v* is visible to git, so the version cannot be compared (fetch the tags)"]
+    out = []
+    if "v" + v != tag_list[0]:
+        out.append(f"CITATION.cff: version {v} is not the latest tag {tag_list[0]}")
+    if f'Zenodo archive of this repository, v{v}"' not in t:
+        out.append(f"CITATION.cff: no identifier described as the Zenodo archive of v{v}")
+    d = re.search(r'^date-released:\s*"?(\d{4}-\d{2}-\d{2})"?\s*$', t, re.M)
+    c = re.search("版 v" + re.escape(v) + r" は、(\d{4}-\d{2}-\d{2})（日本時間）に GitHub で公開しました。", changelog or "")
+    if not c:
+        out.append(f"CHANGELOG.md: no date of the publication of v{v}")
+    elif not d or d.group(1) != c.group(1):
+        out.append(f"CITATION.cff: date-released {d.group(1) if d else 'missing'} is not the date of v{v} in CHANGELOG.md ({c.group(1)})")
+    return out
+
+
+def read_root(rel):
+    p = os.path.join(ROOT, rel)
+    return open(p, encoding="utf-8").read() if os.path.exists(p) else None
 
 
 PAPERS = ["paper/golden-window-resolution.tex", "continuity/paper/joint-continuity.tex"]
@@ -158,6 +200,24 @@ def break_test():
     if scan_text("clean", "Takuya Nemoto. No affiliation. citizen, frozen, Zenodo.\n"):
         print("  false positive on clean text")
         bad += 1
+    cff, log, tl = read_root("CITATION.cff"), read_root("CHANGELOG.md"), tags()
+    if version_problems(cff, tl, log):
+        print("  CITATION.cff already fails the version check")
+        return bad + 1
+    v = re.search(r'^version:\s*"?([^"\n]*?)"?\s*$', cff, re.M).group(1)
+    nxt = "v" + ".".join(v.split(".")[:-1] + [str(int(v.split(".")[-1]) + 1)])
+    for what, (t2, tl2, log2) in (
+            ("version differs from the latest tag", (cff.replace(f'version: "{v}"', 'version: "9.9.9"'), tl, log)),
+            ("version field removed", (re.sub(r"^version:.*\n", "", cff, flags=re.M), tl, log)),
+            ("a newer tag " + nxt + " than the version", (cff, [nxt] + tl, log)),
+            ("no tag visible", (cff, [], log)),
+            ("the Zenodo DOI described for another version", (cff.replace(f"repository, v{v}\"", "repository, v0.9.0\""), tl, log)),
+            ("date-released differs from CHANGELOG.md", (re.sub(r"^date-released:.*$", "date-released: 2026-11-18", cff, flags=re.M), tl, log)),
+            ("CHANGELOG.md does not date the version", (cff, tl, log.replace(f"版 v{v} は、", f"版 v{v} を、"))),
+    ):
+        caught = bool(version_problems(t2, tl2, log2))
+        print(f"  {'caught' if caught else 'MISSED'}: CITATION.cff: {what}")
+        bad += not caught
     for rel in PAPERS:
         t = open(os.path.join(ROOT, rel), encoding="utf-8").read()
         for old, new, what in (("Claude is not an author.", "", "disclosure sentence removed"),
